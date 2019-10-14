@@ -34,7 +34,7 @@ public class AllanpichardoExample : MonoBehaviour
 	//to adjust the sensitivity
 	void onOnbeatDetected ()
 	{
-		Debug.Log ("Beat!!!");
+		Debug.Log ("Beat Dectected");
 	}
 
 	//This event will be called every frame while music is playing
@@ -45,7 +45,7 @@ public class AllanpichardoExample : MonoBehaviour
 
 		for (int i = 0; i < spectrum.Length; ++i) {
 			Vector3 start = new Vector3 (i, 0, 0);
-			Vector3 end = new Vector3 (i, spectrum [i], 0);
+			Vector3 end = new Vector3 (i, spectrum [i] * 4, 0);
 			Debug.DrawLine (start, end);
 		}
 	}
