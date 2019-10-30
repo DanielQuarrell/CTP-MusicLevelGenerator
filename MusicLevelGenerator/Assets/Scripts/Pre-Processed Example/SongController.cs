@@ -24,7 +24,7 @@ public class SongController : MonoBehaviour
 	int sampleRate;
 	float clipLength;
 	float[] multiChannelSamples;
-	SpectralFluxAnalyzer preProcessedSpectralFluxAnalyzer;
+	SpectralFluxAnalyzer spectralFluxAnalyzer;
 	PlotController preProcessedPlotController;
     
 
@@ -40,8 +40,8 @@ public class SongController : MonoBehaviour
 		}
         */
 
-		// Preprocess entire audio file upfront
-		preProcessedSpectralFluxAnalyzer = new SpectralFluxAnalyzer ();
+        // Preprocess entire audio file upfront
+        spectralFluxAnalyzer = new SpectralFluxAnalyzer ();
 		//preProcessedPlotController = GameObject.Find ("PreprocessedPlot").GetComponent<PlotController> ();
 
 		// Need all audio samples.  If in stereo, samples will return with left and right channels interweaved
@@ -67,7 +67,7 @@ public class SongController : MonoBehaviour
         Debug.Log("Starting Background Thread");
         GetFullSpectrum();
 
-        levelGenerator.GenerateLevelFromSamples(preProcessedSpectralFluxAnalyzer.spectralFluxSamples, audioSource.clip.length);
+        levelGenerator.GenerateLevelFromSamples(spectralFluxAnalyzer.spectralFluxSamples, audioSource.clip.length);
         audioSource.Play();
     }
 
@@ -113,7 +113,7 @@ public class SongController : MonoBehaviour
         //------------------------------------------
 
         // Once we have our audio sample data prepared, we can execute an FFT to return the spectrum data over the time domain
-        int spectrumSampleSize = 1024;
+        int spectrumSampleSize = 2048;
         int iterations = preProcessedSamples.Length / spectrumSampleSize;
 
         FFT fft = new FFT();
@@ -140,7 +140,7 @@ public class SongController : MonoBehaviour
             float curSongTime = GetTimeFromIndex(i) * spectrumSampleSize;
 
             // Send our magnitude data off to our Spectral Flux Analyzer to be analyzed for peaks
-            preProcessedSpectralFluxAnalyzer.AnalyzeSpectrum(Array.ConvertAll(scaledFFTSpectrum, x => (float)x), curSongTime);
+            spectralFluxAnalyzer.AnalyzeSpectrum(Array.ConvertAll(scaledFFTSpectrum, x => (float)x), curSongTime);
         }
 
         Debug.Log("Spectrum Analysis done");
@@ -204,8 +204,8 @@ public class SongController : MonoBehaviour
 				// These 1024 magnitude values correspond (roughly) to a single point in the audio timeline
 				float curSongTime = GetTimeFromIndex(i) * spectrumSampleSize;
 
-				// Send our magnitude data off to our Spectral Flux Analyzer to be analyzed for peaks
-				preProcessedSpectralFluxAnalyzer.AnalyzeSpectrum (Array.ConvertAll (scaledFFTSpectrum, x => (float)x), curSongTime);
+                // Send our magnitude data off to our Spectral Flux Analyzer to be analyzed for peaks
+                spectralFluxAnalyzer.AnalyzeSpectrum (Array.ConvertAll (scaledFFTSpectrum, x => (float)x), curSongTime);
 			}
 
 			Debug.Log ("Spectrum Analysis done");

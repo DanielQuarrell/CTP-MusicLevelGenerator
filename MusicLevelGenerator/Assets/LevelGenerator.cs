@@ -38,10 +38,10 @@ public class LevelGenerator : MonoBehaviour
 
     public void UpdateLevelPosition(float currentTime)
     {
-        float percentageThroughLevel = Mathf.InverseLerp(levelOffset, songTime, currentTime);
+        float percentageThroughLevel = Mathf.InverseLerp(0, songTime, currentTime);
 
         //Can be changed to move the player through the level
-        float levelXPosition = Mathf.Lerp(0.0f, -levelLength, percentageThroughLevel);
+        float levelXPosition = Mathf.Lerp(0.0f, -levelLength, percentageThroughLevel) + levelOffset;
 
         levelRigidbody.MovePosition(new Vector2(levelXPosition, level.position.y));
     }
