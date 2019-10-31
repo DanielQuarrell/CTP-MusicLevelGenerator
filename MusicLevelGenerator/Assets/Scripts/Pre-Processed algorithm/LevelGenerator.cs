@@ -10,7 +10,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] float spacingBetweenSamples;
     [SerializeField] float levelOffset;
 
-    public Rigidbody2D playerRigidbody;
+    public Transform playerTransform;
     Rigidbody2D levelRigidbody;
 
     float levelLength = 0;
@@ -44,6 +44,6 @@ public class LevelGenerator : MonoBehaviour
         //Can be changed to move the player through the level
         float playerXPosition = Mathf.Lerp(0.0f, levelLength, percentageThroughLevel) + levelOffset;
 
-        playerRigidbody.MovePosition(new Vector2(playerXPosition, playerRigidbody.position.y));
+        playerTransform.position = new Vector2(playerXPosition, 0);
     }
 }

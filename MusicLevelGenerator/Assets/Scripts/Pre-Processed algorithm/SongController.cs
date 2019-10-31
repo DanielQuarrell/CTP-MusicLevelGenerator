@@ -56,7 +56,7 @@ public class SongController : MonoBehaviour
         audioSource.Play();
     }
 
-	void FixedUpdate() 
+	void Update() 
     {
         if (debug)
         {

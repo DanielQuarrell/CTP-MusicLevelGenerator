@@ -55,14 +55,14 @@ public class SpectralFluxAnalyzer
 		// Get current spectral flux from spectrum
 		SpectralFluxInfo curInfo = new SpectralFluxInfo();
 		curInfo.time = time;
-		curInfo.spectralFlux = CalculateRectifiedSpectralFlux ();
-		spectralFluxSamples.Add (curInfo);
+		curInfo.spectralFlux = CalculateRectifiedSpectralFlux();
+		spectralFluxSamples.Add(curInfo);
 
 		// We have enough samples to detect a peak
 		if (spectralFluxSamples.Count >= thresholdWindowSize) 
         {
 			// Get Flux threshold of time window surrounding index to process
-			spectralFluxSamples[indexToProcess].threshold = GetFluxThreshold (indexToProcess);
+			spectralFluxSamples[indexToProcess].threshold = GetFluxThreshold(indexToProcess);
 
 			// Only keep amp amount above threshold to allow peak filtering
 			spectralFluxSamples[indexToProcess].prunedSpectralFlux = GetPrunedSpectralFlux(indexToProcess);

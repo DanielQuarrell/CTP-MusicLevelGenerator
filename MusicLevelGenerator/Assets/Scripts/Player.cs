@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 
     Rigidbody2D body;
 
-    bool grounded = false;
+    bool grounded = true;
 
     void Start()
     {
@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (Input.GetKey("space"))
         {
