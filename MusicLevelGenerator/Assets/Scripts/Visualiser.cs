@@ -26,7 +26,7 @@ public class Visualiser : MonoBehaviour
         {
             SpectralFluxInfo sample = _spectralFluxSamples[i];
 
-            SpriteRenderer spectralPoint = Instantiate(plotPoint, new Vector2(i * spacingBetweenSamples, sample.spectralFlux * heightMultiplier), Quaternion.identity, spectralParent);
+            SpriteRenderer spectralPoint = Instantiate(plotPoint, new Vector2(i * spacingBetweenSamples, sample.spectralFlux), Quaternion.identity, spectralParent);
             SpriteRenderer prunedSpectralPoint = Instantiate(plotPoint, new Vector2(i * spacingBetweenSamples, sample.prunedSpectralFlux * heightMultiplier), Quaternion.identity, prunedSpectralParent);
 
             if (sample.isPeak)
@@ -41,8 +41,8 @@ public class Visualiser : MonoBehaviour
             }
         }
 
-        spectralParent.position = new Vector3(0, -3, 0);
-        prunedSpectralParent.position = new Vector3(0, 3, 0);
+        spectralParent.position = new Vector3(0, -5, 0);
+        prunedSpectralParent.position = new Vector3(0, 2, 0);
 
         levelLength = (_spectralFluxSamples.Count * spacingBetweenSamples);
         songTime = _songTime;

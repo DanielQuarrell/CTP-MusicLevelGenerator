@@ -9,12 +9,13 @@ public class SpectralFluxInfo
 	public float spectralFlux;
 	public float threshold;
 	public float prunedSpectralFlux;
+    public float peakPercentage;
 	public bool isPeak;
 }
 
 public class SpectralFluxAnalyzer 
 {
-	int numSamples = 1025;
+    int numSamples = 1024;
 
 	// Sensitivity multiplier to scale the average threshold.
 	// In this case, if a rectified spectral flux sample is > 1.5 times the average, it is a peak
@@ -30,21 +31,26 @@ public class SpectralFluxAnalyzer
 
 	int indexToProcess;
 
-	public SpectralFluxAnalyzer () 
+	public SpectralFluxAnalyzer(int _sampleSize, float _thresholdMultiplier, int _thresholdWindowSize) 
     {
-		spectralFluxSamples = new List<SpectralFluxInfo> ();
+        numSamples = _sampleSize;
+
+        thresholdMultiplier = _thresholdMultiplier;
+        thresholdWindowSize = _thresholdWindowSize;
+
+        spectralFluxSamples = new List<SpectralFluxInfo> ();
 
 		// Start processing from middle of first window and increment by 1 from there
 		indexToProcess = thresholdWindowSize / 2;
 
-		curSpectrum = new float[numSamples];
-		prevSpectrum = new float[numSamples];
+        curSpectrum = new float[numSamples];
+        prevSpectrum = new float[numSamples];
 	}
 
 	public void SetCurrentSpectrum(float[] spectrum) 
     {
-		curSpectrum.CopyTo (prevSpectrum, 0);
-		spectrum.CopyTo (curSpectrum, 0);
+        curSpectrum.CopyTo(prevSpectrum, 0);
+		spectrum.CopyTo(curSpectrum, 0);
 	}
 		
 	public void AnalyzeSpectrum(float[] spectrum, float time) 
@@ -67,8 +73,8 @@ public class SpectralFluxAnalyzer
 			// Only keep amp amount above threshold to allow peak filtering
 			spectralFluxSamples[indexToProcess].prunedSpectralFlux = GetPrunedSpectralFlux(indexToProcess);
 
-			// Now that we are processed at n, n-1 has neighbors (n-2, n) to determine peak
-			int indexToDetectPeak = indexToProcess - 1;
+            // Now that we are processed at n, n-1 has neighbors (n-2, n) to determine peak
+            int indexToDetectPeak = indexToProcess - 1;
 
             //If current sample is peak
 			if (IsPeak(indexToDetectPeak)) 
@@ -83,11 +89,11 @@ public class SpectralFluxAnalyzer
 		}
 	}
 
-	float CalculateRectifiedSpectralFlux() 
+    //Calculate total positive changes in spectrum data
+    float CalculateRectifiedSpectralFlux() 
     {
 		float sum = 0f;
 
-		// Aggregate positive changes in spectrum data
 		for (int i = 0; i < numSamples; i++) 
         {
 			sum += Mathf.Max (0f, curSpectrum [i] - prevSpectrum [i]);

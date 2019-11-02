@@ -201,7 +201,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 53d5563fef51918469b1d6190f8d75f7, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 6a8ab8236d61ae8498508aca873dd131, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -317,6 +317,9 @@ MonoBehaviour:
   audioSource: {fileID: 329649826}
   levelGenerator: {fileID: 632596063}
   visualiser: {fileID: 0}
+  spectrumSampleSize: 2048
+  thresholdMultiplier: 3
+  thresholdWindowSize: 50
 --- !u!1 &614664786
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,7 +460,7 @@ MonoBehaviour:
     type: 3}
   level: {fileID: 244131965}
   spacingBetweenSamples: 0.25
-  levelOffset: 0
+  playerOffset: -1
   playerTransform: {fileID: 1071087077}
 --- !u!4 &632596064
 Transform:
@@ -507,6 +510,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1060476120}
+  - {fileID: 1796378420}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -619,11 +623,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 7746148627626434066, guid: 47389e6c70df93b43bcb7d13add663e2,
-        type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7746148627626434077, guid: 47389e6c70df93b43bcb7d13add663e2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -679,6 +678,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7746148627626434066, guid: 47389e6c70df93b43bcb7d13add663e2,
+        type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7746148627626434066, guid: 47389e6c70df93b43bcb7d13add663e2,
+        type: 3}
+      propertyPath: m_GravityScale
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7746148627626434067, guid: 47389e6c70df93b43bcb7d13add663e2,
+        type: 3}
+      propertyPath: jumpForce
+      value: 14
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47389e6c70df93b43bcb7d13add663e2, type: 3}
 --- !u!1 &1796378418
@@ -692,7 +706,7 @@ GameObject:
   - component: {fileID: 1796378420}
   - component: {fileID: 1796378419}
   m_Layer: 0
-  m_Name: Current time
+  m_Name: CurrentTime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -755,10 +769,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1796378418}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: -1.6170001, z: 0}
   m_LocalScale: {x: 0.04, y: 3.6599998, z: 1}
   m_Children: []
-  m_Father: {fileID: 1060476120}
+  m_Father: {fileID: 1071087077}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5075775056268179842

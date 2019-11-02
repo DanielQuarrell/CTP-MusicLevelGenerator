@@ -16,6 +16,16 @@ public class SongController : MonoBehaviour
     [SerializeField] LevelGenerator levelGenerator;
     [SerializeField] Visualiser visualiser;
 
+    [Header("Onset Algorithm Modifiers")]
+    [SerializeField] int spectrumSampleSize = 1024;
+
+    // Sensitivity multiplier to scale the average threshold.
+    // In this case, if a rectified spectral flux sample is > 1.5 times the average, it is a peak
+    [SerializeField] float thresholdMultiplier = 1.5f;
+
+    // Number of samples to average in our window
+    [SerializeField] int thresholdWindowSize = 50;
+
     int numChannels;
 	int numTotalSamples;
 	int sampleRate;
@@ -26,7 +36,7 @@ public class SongController : MonoBehaviour
 	void Start() 
     {
         // Preprocess entire audio file upfront
-        spectralFluxAnalyzer = new SpectralFluxAnalyzer ();
+        spectralFluxAnalyzer = new SpectralFluxAnalyzer(spectrumSampleSize, thresholdMultiplier, thresholdWindowSize);
 		//preProcessedPlotController = GameObject.Find ("PreprocessedPlot").GetComponent<PlotController> ();
 
 		// Need all audio samples.  If in stereo, samples will return with left and right channels interweaved
@@ -106,7 +116,6 @@ public class SongController : MonoBehaviour
         //------------------------------------------
 
         // Once we have our audio sample data prepared, we can execute an FFT to return the spectrum data over the time domain
-        int spectrumSampleSize = 2048;
         int iterations = preProcessedSamples.Length / spectrumSampleSize;
 
         FFT fft = new FFT();
@@ -137,7 +146,6 @@ public class SongController : MonoBehaviour
         }
 
         Debug.Log("Spectrum Analysis done");
-        Debug.Log("Background Thread Completed");
     }
 
 
