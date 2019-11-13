@@ -130,7 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 121982013}
   m_Layer: 0
-  m_Name: SpectralFlux
+  m_Name: HighSpectralFlux
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,9 +180,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spacingBetweenSamples: 0.25
-  heightMultiplier: 1.1
-  spectralParent: {fileID: 121982013}
-  prunedSpectralParent: {fileID: 1912931991}
+  heightMultiplier: 1
+  lowSpectralParent: {fileID: 1912931991}
+  highSpectralParent: {fileID: 121982013}
   currentTimeMarker: {fileID: 1468704065}
   plotPoint: {fileID: 4030246398120936422, guid: 655fa406d7c692740b553ceaad6ae075,
     type: 3}
@@ -389,7 +389,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1912931991}
   m_Layer: 0
-  m_Name: PrunedSpectralFlux
+  m_Name: LowSpectralFlux
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -541,7 +541,7 @@ MonoBehaviour:
   visualiser: {fileID: 378622333}
   spectrumSampleSize: 2048
   thresholdMultiplier: 3
-  thresholdWindowSize: 50
+  thresholdWindowSize: 75
 --- !u!4 &2074743383
 Transform:
   m_ObjectHideFlags: 0

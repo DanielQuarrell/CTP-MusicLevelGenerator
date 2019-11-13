@@ -7,8 +7,8 @@ public class Visualiser : MonoBehaviour
     [SerializeField] float spacingBetweenSamples;
     [SerializeField] float heightMultiplier;
 
-    [SerializeField] Transform spectralParent;
-    [SerializeField] Transform prunedSpectralParent;
+    [SerializeField] Transform lowSpectralParent;
+    [SerializeField] Transform highSpectralParent;
 
     [SerializeField] Transform currentTimeMarker;
 
@@ -20,31 +20,44 @@ public class Visualiser : MonoBehaviour
     float levelLength;
     float songTime;
 
-    public void GenerateVisualiserFromSamples(List<SpectralFluxInfo> _spectralFluxSamples, float _songTime)
+    public void GenerateVisualiserFromSamples(List<SpectralFluxInfo> _spectralFluxLowSamples, List<SpectralFluxInfo> _spectralFluxHighSamples, float _songTime)
     {
-        for (int i = 0; i < _spectralFluxSamples.Count; i++)
+        for (int i = 0; i < _spectralFluxLowSamples.Count; i++)
         {
-            SpectralFluxInfo sample = _spectralFluxSamples[i];
+            SpectralFluxInfo lowSample = _spectralFluxLowSamples[i];
 
-            SpriteRenderer spectralPoint = Instantiate(plotPoint, new Vector2(i * spacingBetweenSamples, sample.spectralFlux), Quaternion.identity, spectralParent);
-            SpriteRenderer prunedSpectralPoint = Instantiate(plotPoint, new Vector2(i * spacingBetweenSamples, sample.prunedSpectralFlux * heightMultiplier), Quaternion.identity, prunedSpectralParent);
+            SpriteRenderer lowSpectralPoint = Instantiate(plotPoint, new Vector2(i * spacingBetweenSamples, lowSample.spectralFlux * heightMultiplier), Quaternion.identity, lowSpectralParent);
 
-            if (sample.isPeak)
+            if (lowSample.isPeak)
             {
-                spectralPoint.color = peakColor;
-                prunedSpectralPoint.color = peakColor;
+                lowSpectralPoint.color = peakColor;
             }
             else
             {
-                spectralPoint.color = plotColor;
-                prunedSpectralPoint.color = plotColor;
+                lowSpectralPoint.color = plotColor;
             }
         }
 
-        spectralParent.position = new Vector3(0, -5, 0);
-        prunedSpectralParent.position = new Vector3(0, 2, 0);
+        for (int i = 0; i < _spectralFluxHighSamples.Count; i++)
+        {
+            SpectralFluxInfo highSample = _spectralFluxHighSamples[i];
 
-        levelLength = (_spectralFluxSamples.Count * spacingBetweenSamples);
+            SpriteRenderer highSpectralPoint = Instantiate(plotPoint, new Vector2(i * spacingBetweenSamples, highSample.spectralFlux * heightMultiplier), Quaternion.identity, highSpectralParent);
+
+            if (highSample.isPeak)
+            {
+                highSpectralPoint.color = peakColor;
+            }
+            else
+            {
+                highSpectralPoint.color = plotColor;
+            }
+        }
+
+        lowSpectralParent.position = new Vector3(0, -5, 0);
+        highSpectralParent.position = new Vector3(0, 2, 0);
+
+        levelLength = (_spectralFluxLowSamples.Count * spacingBetweenSamples);
         songTime = _songTime;
     }
 

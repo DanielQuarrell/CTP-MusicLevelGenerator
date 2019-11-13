@@ -35,10 +35,6 @@ public class SongController : MonoBehaviour
     
 	void Start() 
     {
-        // Preprocess entire audio file upfront
-        spectralFluxAnalyzer = new SpectralFluxAnalyzer(spectrumSampleSize, thresholdMultiplier, thresholdWindowSize);
-		//preProcessedPlotController = GameObject.Find ("PreprocessedPlot").GetComponent<PlotController> ();
-
 		// Need all audio samples.  If in stereo, samples will return with left and right channels interweaved
 		// [L,R,L,R,L,R]
 		multiChannelSamples = new float[audioSource.clip.samples * audioSource.clip.channels];
@@ -47,19 +43,22 @@ public class SongController : MonoBehaviour
 		clipLength = audioSource.clip.length;
 
 		// We are not evaluating the audio as it is being played by Unity, so we need the clip's sampling rate
-		this.sampleRate = audioSource.clip.frequency;
+		sampleRate = audioSource.clip.frequency;
 
-		audioSource.clip.GetData(multiChannelSamples, 0);
+        // Preprocess entire audio file upfront
+        spectralFluxAnalyzer = new SpectralFluxAnalyzer(spectrumSampleSize, thresholdMultiplier, thresholdWindowSize, sampleRate);
+
+        audioSource.clip.GetData(multiChannelSamples, 0);
 
         ProcessFullSpectrum();
 
         if(debug)
         {
-            visualiser.GenerateVisualiserFromSamples(spectralFluxAnalyzer.spectralFluxSamples, audioSource.clip.length);
+            visualiser.GenerateVisualiserFromSamples(spectralFluxAnalyzer.spectralFluxLowSamples, spectralFluxAnalyzer.spectralFluxHighSamples, audioSource.clip.length);
         }
         else
         {
-            levelGenerator.GenerateLevelFromSamples(spectralFluxAnalyzer.spectralFluxSamples, audioSource.clip.length);
+            levelGenerator.GenerateLevelFromSamples(spectralFluxAnalyzer.spectralFluxLowSamples, audioSource.clip.length);
         }
 
         
