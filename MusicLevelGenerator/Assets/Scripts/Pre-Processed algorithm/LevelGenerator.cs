@@ -15,13 +15,13 @@ public class LevelGenerator : MonoBehaviour
     float levelLength = 0;
     float songTime = 0;
 
-    public void GenerateLevelFromSamples(List<SpectralFluxInfo> _spectralFluxSamples, float _songTime)
+    public void GenerateLevelFromSamples(List<SpectralFluxData> _spectralFluxSamples, float _songTime)
     {
         int iterationsSinceLast = 0;
 
         for (int i = 0; i < _spectralFluxSamples.Count; i++)
         {
-            SpectralFluxInfo sample = _spectralFluxSamples[i];
+            SpectralFluxData sample = _spectralFluxSamples[i];
             
             if(sample.isPeak && iterationsSinceLast >= 12)
             {

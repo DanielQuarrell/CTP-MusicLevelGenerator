@@ -1,12 +1,10 @@
 ﻿using System;
+using System.Numerics;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
-
-using System.Numerics;
 using DSPLib;
-
 
 public class SongController : MonoBehaviour 
 {
@@ -15,50 +13,50 @@ public class SongController : MonoBehaviour
 	[SerializeField] AudioSource audioSource;
     [SerializeField] LevelGenerator levelGenerator;
     [SerializeField] Visualiser visualiser;
-
+    
     [Header("Onset Algorithm Modifiers")]
     [SerializeField] int spectrumSampleSize = 1024;
-
-    // Sensitivity multiplier to scale the average threshold.
-    // In this case, if a rectified spectral flux sample is > 1.5 times the average, it is a peak
-    [SerializeField] float thresholdMultiplier = 1.5f;
 
     // Number of samples to average in our window
     [SerializeField] int thresholdWindowSize = 50;
 
-    int numChannels;
-	int numTotalSamples;
+    [SerializeField] FrequencyBand[] frequencyBandBoundaries;
+
+    SpectralFluxAnalyzer spectralFluxAnalyzer;
+
+    int numOfChannels;
+	int totalSamples;
 	int sampleRate;
 	float clipLength;
 	float[] multiChannelSamples;
-	SpectralFluxAnalyzer spectralFluxAnalyzer;
-    
-	void Start() 
+
+    void Start() 
     {
 		// Need all audio samples.  If in stereo, samples will return with left and right channels interweaved
 		// [L,R,L,R,L,R]
 		multiChannelSamples = new float[audioSource.clip.samples * audioSource.clip.channels];
-		numChannels = audioSource.clip.channels;
-		numTotalSamples = audioSource.clip.samples;
+		numOfChannels = audioSource.clip.channels;
+		totalSamples = audioSource.clip.samples;
 		clipLength = audioSource.clip.length;
 
-		// We are not evaluating the audio as it is being played by Unity, so we need the clip's sampling rate
+		//Store the clip's sampling rate
 		sampleRate = audioSource.clip.frequency;
 
-        // Preprocess entire audio file upfront
-        spectralFluxAnalyzer = new SpectralFluxAnalyzer(spectrumSampleSize, thresholdMultiplier, thresholdWindowSize, sampleRate);
+        //Preprocess entire audio clip
+        spectralFluxAnalyzer = new SpectralFluxAnalyzer(spectrumSampleSize, sampleRate, thresholdWindowSize, frequencyBandBoundaries);
 
         audioSource.clip.GetData(multiChannelSamples, 0);
 
         ProcessFullSpectrum();
 
+        //Visuallise processed audio
         if(debug)
         {
-            visualiser.GenerateVisualiserFromSamples(spectralFluxAnalyzer.spectralFluxLowSamples, spectralFluxAnalyzer.spectralFluxHighSamples, audioSource.clip.length);
+            visualiser.GenerateVisualiserFromSamples(spectralFluxAnalyzer.frequencyBands, audioSource.clip.length);
         }
         else
         {
-            levelGenerator.GenerateLevelFromSamples(spectralFluxAnalyzer.spectralFluxLowSamples, audioSource.clip.length);
+            //levelGenerator.GenerateLevelFromSamples(spectralFluxAnalyzer.spectralFluxSamples, audioSource.clip.length);
         }
 
         
@@ -80,7 +78,7 @@ public class SongController : MonoBehaviour
 
 	public int GetIndexFromTime(float curTime) 
     {
-		float lengthPerSample = this.clipLength / (float)this.numTotalSamples;
+		float lengthPerSample = this.clipLength / (float)this.totalSamples;
 
 		return Mathf.FloorToInt (curTime / lengthPerSample);
 	}
@@ -92,7 +90,7 @@ public class SongController : MonoBehaviour
 
     private void ProcessFullSpectrum()
     {
-        float[] preProcessedSamples = new float[this.numTotalSamples];
+        float[] preProcessedSamples = new float[this.totalSamples];
 
         int numProcessed = 0;
         float combinedChannelAverage = 0f;
@@ -102,9 +100,9 @@ public class SongController : MonoBehaviour
             combinedChannelAverage += multiChannelSamples[i];
 
             // Each time we have processed all channels samples for a point in time, we will store the average of the channels combined
-            if ((i + 1) % this.numChannels == 0)
+            if ((i + 1) % this.numOfChannels == 0)
             {
-                preProcessedSamples[numProcessed] = combinedChannelAverage / this.numChannels;
+                preProcessedSamples[numProcessed] = combinedChannelAverage / this.numOfChannels;
                 numProcessed++;
                 combinedChannelAverage = 0f;
             }
@@ -120,14 +118,14 @@ public class SongController : MonoBehaviour
         FFT fft = new FFT();
         fft.Initialize((UInt32)spectrumSampleSize);
 
-        Debug.Log(string.Format("Processing {0} time domain samples for FFT", iterations));
+        Debug.Log("Processing " + iterations + " time domain samples for FFT");
         double[] sampleChunk = new double[spectrumSampleSize];
         for (int i = 0; i < iterations; i++)
         {
-            // Grab the current 1024 chunk of audio sample data
+            //Grab the current 1024 chunk of audio sample data
             Array.Copy(preProcessedSamples, i * spectrumSampleSize, sampleChunk, 0, spectrumSampleSize);
 
-            // Apply our chosen FFT Window
+            //Apply an FFT Window type
             double[] windowCoefs = DSP.Window.Coefficients(DSP.Window.Type.Hanning, (uint)spectrumSampleSize);
             double[] scaledSpectrumChunk = DSP.Math.Multiply(sampleChunk, windowCoefs);
             double scaleFactor = DSP.Window.ScaleFactor.Signal(windowCoefs);
@@ -145,17 +143,17 @@ public class SongController : MonoBehaviour
         }
 
         Debug.Log("Spectrum Analysis done");
-    }
+     }
 
-
-    public void GetFullSpectrumThreaded() 
+    //Unused
+    private void GetFullSpectrumThreaded() 
     {
 		try 
         {
             //Combine channels
             //----------------------------------------
 			// We only need to retain the samples for combined channels over the time domain
-			float[] preProcessedSamples = new float[this.numTotalSamples];
+			float[] preProcessedSamples = new float[this.totalSamples];
 
 			int numProcessed = 0;
 			float combinedChannelAverage = 0f;
@@ -165,9 +163,9 @@ public class SongController : MonoBehaviour
 				combinedChannelAverage += multiChannelSamples [i];
 
 				// Each time we have processed all channels samples for a point in time, we will store the average of the channels combined
-				if ((i + 1) % this.numChannels == 0) 
+				if ((i + 1) % this.numOfChannels == 0) 
                 {
-					preProcessedSamples[numProcessed] = combinedChannelAverage / this.numChannels;
+					preProcessedSamples[numProcessed] = combinedChannelAverage / this.numOfChannels;
 					numProcessed++;
 					combinedChannelAverage = 0f;
 				}

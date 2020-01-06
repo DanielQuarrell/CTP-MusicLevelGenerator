@@ -184,9 +184,9 @@ MonoBehaviour:
   lowSpectralParent: {fileID: 1912931991}
   highSpectralParent: {fileID: 121982013}
   currentTimeMarker: {fileID: 1468704065}
-  plotPoint: {fileID: 4030246398120936422, guid: 655fa406d7c692740b553ceaad6ae075,
+  plotPoint: {fileID: -4172696381556631360, guid: 655fa406d7c692740b553ceaad6ae075,
     type: 3}
-  plotColor: {r: 0, g: 1, b: 0.060156345, a: 1}
+  plotColor: {r: 0, g: 1, b: 0.060156345, a: 0}
   peakColor: {r: 0, g: 0.7249274, b: 1, a: 1}
 --- !u!4 &378622334
 Transform:
@@ -540,8 +540,16 @@ MonoBehaviour:
   levelGenerator: {fileID: 0}
   visualiser: {fileID: 378622333}
   spectrumSampleSize: 2048
-  thresholdMultiplier: 3
   thresholdWindowSize: 75
+  frequencyBandBoundaries:
+  - lowerBoundary: 0
+    upperBoundary: 5000
+    thresholdMultiplier: 3
+    spectralFluxIndex: 0
+  - lowerBoundary: 5000
+    upperBoundary: 20000
+    thresholdMultiplier: 1.5
+    spectralFluxIndex: 0
 --- !u!4 &2074743383
 Transform:
   m_ObjectHideFlags: 0

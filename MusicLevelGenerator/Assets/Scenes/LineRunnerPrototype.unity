@@ -688,6 +688,11 @@ PrefabInstance:
       propertyPath: m_GravityScale
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 7746148627626434066, guid: 47389e6c70df93b43bcb7d13add663e2,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7746148627626434067, guid: 47389e6c70df93b43bcb7d13add663e2,
         type: 3}
       propertyPath: jumpForce

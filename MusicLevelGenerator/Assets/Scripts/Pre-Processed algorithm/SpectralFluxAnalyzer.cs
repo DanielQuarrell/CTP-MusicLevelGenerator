@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpectralFluxInfo 
+public class SpectralFluxData 
 {
 	public float time;
 	public float spectralFlux;
@@ -13,69 +13,103 @@ public class SpectralFluxInfo
 	public bool isPeak;
 }
 
+[System.Serializable]
+public class FrequencyBand
+{
+    //Defined Frequencies in the band
+    public int lowerBoundary = 0;
+    public int upperBoundary = 0;
+
+    //Sensitivity multiplier to scale the average threshold.
+    //In this case, if a rectified spectral flux sample is > 1.5 times the average, it is a peak
+    public float thresholdMultiplier = 1;
+
+    //List of the spectral flux in the frequency band
+    public List<SpectralFluxData> spectralFluxSamples = new List<SpectralFluxData>();
+    
+    //The current index to process
+    [HideInInspector]
+    public int spectralFluxIndex = 0;
+
+    public float GetFluxThreshold(int thresholdWindowSize)
+    {
+        //Number of samples that create the window from the current time position
+        int windowStartIndex = Mathf.Max(0, spectralFluxIndex - thresholdWindowSize / 2);
+        int windowEndIndex = Mathf.Min(spectralFluxSamples.Count - 1, spectralFluxIndex + thresholdWindowSize / 2);
+
+        //Add up our spectral flux over the window
+        float sum = 0f;
+        for (int i = windowStartIndex; i < windowEndIndex; i++)
+        {
+            sum += spectralFluxSamples[i].spectralFlux;
+        }
+
+        // Return the average multiplied by our sensitivity multiplier
+        float avg = sum / (windowEndIndex - windowStartIndex);
+        return avg * thresholdMultiplier;
+    }
+
+    public float GetPrunedSpectralFlux()
+    {
+        return Mathf.Max(0f, spectralFluxSamples[spectralFluxIndex].spectralFlux - spectralFluxSamples[spectralFluxIndex].threshold);
+    }
+}
+
 public class SpectralFluxAnalyzer 
 {
-    int numSamples = 1024;
+    public FrequencyBand[] frequencyBands;
 
-	// Sensitivity multiplier to scale the average threshold.
-	// In this case, if a rectified spectral flux sample is > 1.5 times the average, it is a peak
-	float thresholdMultiplier = 1.5f;
+    int numberOfSamples = 1024;
 
-	// Number of samples to average in our window
-	int thresholdWindowSize = 50;
-
-    int lowIndexToProcess = 0;
-    int highIndexToProcess = 0;
+    // Number of samples to average in our window
+    int thresholdWindowSize = 50;
 
     float frequencyPerIndex = 0;
     float FFTmaxFrequency = 0;
 
-	public List<SpectralFluxInfo> spectralFluxHighSamples;
-    public List<SpectralFluxInfo> spectralFluxLowSamples;
+    float[] currentSpectrum;
+	float[] previousSpectrum;
 
-    float[] curSpectrum;
-	float[] prevSpectrum;
-
-
-    public SpectralFluxAnalyzer(int _sampleSize, float _thresholdMultiplier, int _thresholdWindowSize, float _maxFrequency)
+    public SpectralFluxAnalyzer(int _sampleSize, float _maxFrequency, int _thresholdWindowSize, FrequencyBand[] _frequencyBandBoundaries)
     {
-        numSamples = (_sampleSize / 2) + 1;
+        numberOfSamples = (_sampleSize / 2) + 1;
         FFTmaxFrequency = _maxFrequency / 2;
 
         frequencyPerIndex = (_maxFrequency / 2) / _sampleSize;
 
-        thresholdMultiplier = _thresholdMultiplier;
         thresholdWindowSize = _thresholdWindowSize;
 
-        spectralFluxHighSamples = new List<SpectralFluxInfo>();
-        spectralFluxLowSamples = new List<SpectralFluxInfo>();
+        frequencyBands = new FrequencyBand[_frequencyBandBoundaries.Length];
+        System.Array.Copy(_frequencyBandBoundaries, frequencyBands, _frequencyBandBoundaries.Length);
 
-        // Start processing from middle of first window and increment by 1 from there
-        lowIndexToProcess = thresholdWindowSize / 2;
-        highIndexToProcess = thresholdWindowSize / 2;
+        //Begin processing from halfway through first window and continue to increment by 1
+        foreach (FrequencyBand band in frequencyBands)
+        {
+            band.spectralFluxIndex = thresholdWindowSize / 2;
+        }
 
-        curSpectrum = new float[numSamples];
-        prevSpectrum = new float[numSamples];
-
+        currentSpectrum = new float[numberOfSamples];
+        previousSpectrum = new float[numberOfSamples];
     }
 
 	public void SetCurrentSpectrum(float[] spectrum) 
     {
-        curSpectrum.CopyTo(prevSpectrum, 0);
-		spectrum.CopyTo(curSpectrum, 0);
+        currentSpectrum.CopyTo(previousSpectrum, 0);
+		spectrum.CopyTo(currentSpectrum, 0);
 	}
 		
 	public void AnalyzeSpectrum(float[] spectrum, float time) 
     {
 		// Set spectrum
 		SetCurrentSpectrum(spectrum);
-        AnalyseLowBand(time);
-        AnalyseHighBand(time);
+        AnalyseFrequencyBands(time);
 	}
+
+    /*
     private void AnalyseLowBand(float time)
     {
         // Get current spectral flux from spectrum
-        SpectralFluxInfo curInfo = new SpectralFluxInfo();
+        SpectralFluxData curInfo = new SpectralFluxData();
         curInfo.time = time;
 
         curInfo.spectralFlux = CalculateLowRectifiedSpectralFlux();
@@ -110,7 +144,7 @@ public class SpectralFluxAnalyzer
     private void AnalyseHighBand(float time)
     {
         // Get current spectral flux from spectrum
-        SpectralFluxInfo curInfo = new SpectralFluxInfo();
+        SpectralFluxData curInfo = new SpectralFluxData();
         curInfo.time = time;
 
         curInfo.spectralFlux = CalculateHighRectifiedSpectralFlux();
@@ -137,20 +171,53 @@ public class SpectralFluxAnalyzer
             highIndexToProcess++;
         }
     }
+    */
+
+    private void AnalyseFrequencyBands(float time)
+    {
+        foreach(FrequencyBand band in frequencyBands)
+        {
+            SpectralFluxData currentFluxData = new SpectralFluxData();
+            currentFluxData.time = time;
+            currentFluxData.spectralFlux = CalculateRectifiedSpectralFlux(band);
+
+            band.spectralFluxSamples.Add(currentFluxData);
+
+            if (band.spectralFluxSamples.Count >= thresholdWindowSize)
+            {
+                // Get Flux threshold of time window surrounding index to process
+                band.spectralFluxSamples[band.spectralFluxIndex].threshold = band.GetFluxThreshold(thresholdWindowSize);
+
+                // Only keep amp amount above threshold to allow peak filtering
+                band.spectralFluxSamples[band.spectralFluxIndex].prunedSpectralFlux = band.GetPrunedSpectralFlux();
+
+                // Now that we are processed at n, n-1 has neighbors (n-2, n) to determine peak
+                int indexToDetectPeak = band.spectralFluxIndex - 1;
+
+                //If current sample is peak
+                if (IsPeak(ref band.spectralFluxSamples, indexToDetectPeak))
+                {
+                    band.spectralFluxSamples[indexToDetectPeak].isPeak = true;
+                }
+
+                band.spectralFluxIndex++;
+            }
+        }
+    }
 
     //Calculate total positive changes in a low frequency band in the spectrum data
     float CalculateHighRectifiedSpectralFlux()
     {
         float sum = 0f;
 
-        for (int i = 0; i < numSamples; i++)
+        for (int i = 0; i < numberOfSamples; i++)
         {
-            //Seperate the spectral flux into High and Low bands
-            //Current frequency of index < Half the max frequency provided by the FFT
+            //Seperate the spectral flux into High band
+            //Current frequency of index > Half the max frequency provided by the FFT
 
             if ((i * frequencyPerIndex) >= FFTmaxFrequency / 4)
             {
-                sum += Mathf.Max(0f, curSpectrum[i] - prevSpectrum[i]);
+                sum += Mathf.Max(0f, currentSpectrum[i] - previousSpectrum[i]);
             }
         }
         return sum;
@@ -161,43 +228,41 @@ public class SpectralFluxAnalyzer
     {
 		float sum = 0f;
 
-		for (int i = 0; i < numSamples; i++) 
+		for (int i = 0; i < numberOfSamples; i++) 
         {
-            //Seperate the spectral flux into High and Low bands
+            //Seperate the spectral flux into Low band
             //Current frequency of index < Half the max frequency provided by the FFT
 
             if((i * frequencyPerIndex) < FFTmaxFrequency / 4)
             {
-                sum += Mathf.Max(0f, curSpectrum[i] - prevSpectrum[i]);
+                sum += Mathf.Max(0f, currentSpectrum[i] - previousSpectrum[i]);
             }
 		}
 		return sum;
 	}
 
-	float GetFluxThreshold(ref List<SpectralFluxInfo> spectralFluxSamples, int spectralFluxIndex) 
+    //Calculate total positive changes in a freqeuncy band in the spectrum data
+    float CalculateRectifiedSpectralFlux(FrequencyBand band)
     {
-		// How many samples in the past and future we include in our average
-		int windowStartIndex = Mathf.Max (0, spectralFluxIndex - thresholdWindowSize / 2);
-		int windowEndIndex = Mathf.Min (spectralFluxSamples.Count - 1, spectralFluxIndex + thresholdWindowSize / 2);
-		
-	    //Add up our spectral flux over the window
-		float sum = 0f;
-		for (int i = windowStartIndex; i < windowEndIndex; i++) 
+        float sum = 0f;
+
+        for (int i = 0; i < numberOfSamples; i++)
         {
-			sum += spectralFluxSamples [i].spectralFlux;
-		}
+            //Seperate the spectral flux into frequency band
+            //Current frequency of index < percentage the max frequency provided by the FFT
 
-		// Return the average multiplied by our sensitivity multiplier
-		float avg = sum / (windowEndIndex - windowStartIndex);
-		return avg * thresholdMultiplier;
-	}
+            float indexFrequency = i * frequencyPerIndex;
 
-	float GetPrunedSpectralFlux(ref List<SpectralFluxInfo> spectralFluxSamples, int spectralFluxIndex) 
-    {
-		return Mathf.Max (0f, spectralFluxSamples[spectralFluxIndex].spectralFlux - spectralFluxSamples [spectralFluxIndex].threshold);
-	}
+            if (band.lowerBoundary < indexFrequency && indexFrequency < band.upperBoundary)
+            {
+                sum += Mathf.Max(0f, currentSpectrum[i] - previousSpectrum[i]);
+            }
+        }
 
-	bool IsPeak(ref List<SpectralFluxInfo> spectralFluxSamples, int spectralFluxIndex) 
+        return sum;
+    }
+
+	bool IsPeak(ref List<SpectralFluxData> spectralFluxSamples, int spectralFluxIndex) 
     {
 		if (spectralFluxSamples[spectralFluxIndex].prunedSpectralFlux > spectralFluxSamples[spectralFluxIndex + 1].prunedSpectralFlux &&
 			spectralFluxSamples[spectralFluxIndex].prunedSpectralFlux > spectralFluxSamples[spectralFluxIndex - 1].prunedSpectralFlux) {
@@ -209,7 +274,7 @@ public class SpectralFluxAnalyzer
 		}
 	}
 
-	void LogSample(ref List<SpectralFluxInfo> spectralFluxSamples, int indexToLog) 
+	void LogSample(ref List<SpectralFluxData> spectralFluxSamples, int indexToLog) 
     {
 		int windowStart = Mathf.Max (0, indexToLog - thresholdWindowSize / 2);
 		int windowEnd = Mathf.Min (spectralFluxSamples.Count - 1, indexToLog + thresholdWindowSize / 2);
