@@ -2,8 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class LevelFeature
+{
+    public enum features
+    {
+        Spikes,
+        DestructableWalls,
+        LevelHeight
+    }
+
+    public int bandIndex;
+    public features type;
+}
+
 public class LevelGenerator : MonoBehaviour
 {
+    [SerializeField] LevelFeature[] levelFeatures;
+
     [SerializeField] GameObject spikePrefab;
     [SerializeField] Transform level;
 
@@ -15,17 +31,40 @@ public class LevelGenerator : MonoBehaviour
     float levelLength = 0;
     float songTime = 0;
 
-    public void GenerateLevelFromSamples(List<SpectralFluxData> _spectralFluxSamples, float _songTime)
+    public void GenerateLevelFromSamples(FrequencyBand[] frequencyBands, float _songTime)
+    {
+        foreach(LevelFeature levelFeature in levelFeatures)
+        {
+            switch(levelFeature.type)
+            {
+                case LevelFeature.features.Spikes:
+                    CreateLevelSpikes(frequencyBands[levelFeature.bandIndex]);
+                    break;
+                case LevelFeature.features.DestructableWalls:
+                    break;
+                case LevelFeature.features.LevelHeight:
+                    break;
+            }
+        }
+        
+        songTime = _songTime;
+
+        GameObject currentTime = playerTransform.Find("CurrentTime").gameObject;
+        Vector2 currentTimePosition = new Vector2(-playerOffset, currentTime.transform.localPosition.y);
+        currentTime.transform.localPosition = currentTimePosition;
+    }
+
+    public void CreateLevelSpikes(FrequencyBand band)
     {
         int iterationsSinceLast = 0;
 
-        for (int i = 0; i < _spectralFluxSamples.Count; i++)
+        for (int i = 0; i < band.spectralFluxSamples.Count; i++)
         {
-            SpectralFluxData sample = _spectralFluxSamples[i];
-            
-            if(sample.isPeak && iterationsSinceLast >= 12)
+            SpectralFluxData sample = band.spectralFluxSamples[i];
+
+            if (sample.isPeak && iterationsSinceLast >= 8)
             {
-                Instantiate(spikePrefab, new Vector2(i * spacingBetweenSamples, level.position.y), Quaternion.identity ,level);
+                Instantiate(spikePrefab, new Vector2(i * spacingBetweenSamples, level.position.y), Quaternion.identity, level);
                 iterationsSinceLast = 0;
             }
             else
@@ -35,13 +74,7 @@ public class LevelGenerator : MonoBehaviour
         }
 
         //TestLevelGeneration(_spectralFluxSamples.Count);
-
-        levelLength = (_spectralFluxSamples.Count * spacingBetweenSamples);
-        songTime = _songTime;
-
-        GameObject currentTime = playerTransform.Find("CurrentTime").gameObject;
-        Vector2 currentTimePosition = new Vector2(-playerOffset, currentTime.transform.localPosition.y);
-        currentTime.transform.localPosition = currentTimePosition;
+        levelLength = (band.spectralFluxSamples.Count * spacingBetweenSamples);
     }
 
     public void UpdatePlayerPosition(float currentTime)

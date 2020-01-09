@@ -56,7 +56,7 @@ public class SongController : MonoBehaviour
         }
         else
         {
-            //levelGenerator.GenerateLevelFromSamples(spectralFluxAnalyzer.spectralFluxSamples, audioSource.clip.length);
+            levelGenerator.GenerateLevelFromSamples(spectralFluxAnalyzer.frequencyBands, audioSource.clip.length);
         }
 
         
@@ -90,7 +90,7 @@ public class SongController : MonoBehaviour
 
     private void ProcessFullSpectrum()
     {
-        float[] preProcessedSamples = new float[this.totalSamples];
+        float[] preProcessedSamples = new float[totalSamples];
 
         int numProcessed = 0;
         float combinedChannelAverage = 0f;
@@ -102,7 +102,7 @@ public class SongController : MonoBehaviour
             // Each time we have processed all channels samples for a point in time, we will store the average of the channels combined
             if ((i + 1) % this.numOfChannels == 0)
             {
-                preProcessedSamples[numProcessed] = combinedChannelAverage / this.numOfChannels;
+                preProcessedSamples[numProcessed] = combinedChannelAverage / numOfChannels;
                 numProcessed++;
                 combinedChannelAverage = 0f;
             }
@@ -130,15 +130,15 @@ public class SongController : MonoBehaviour
             double[] scaledSpectrumChunk = DSP.Math.Multiply(sampleChunk, windowCoefs);
             double scaleFactor = DSP.Window.ScaleFactor.Signal(windowCoefs);
 
-            // Perform the FFT and convert output (complex numbers) to Magnitude
+            //Perform the FFT and convert output (complex numbers) to Magnitude
             Complex[] fftSpectrum = fft.Execute(scaledSpectrumChunk);
             double[] scaledFFTSpectrum = DSPLib.DSP.ConvertComplex.ToMagnitude(fftSpectrum);
             scaledFFTSpectrum = DSP.Math.Multiply(scaledFFTSpectrum, scaleFactor);
 
-            // These 1024 magnitude values correspond (roughly) to a single point in the audio timeline
+            //These 1024 magnitude values correspond to a single point in the audio timeline
             float curSongTime = GetTimeFromIndex(i) * spectrumSampleSize;
 
-            // Send our magnitude data off to our Spectral Flux Analyzer to be analyzed for peaks
+            //Send our magnitude data off to our Spectral Flux Analyzer to be analyzed for peaks
             spectralFluxAnalyzer.AnalyzeSpectrum(Array.ConvertAll(scaledFFTSpectrum, x => (float)x), curSongTime);
         }
 

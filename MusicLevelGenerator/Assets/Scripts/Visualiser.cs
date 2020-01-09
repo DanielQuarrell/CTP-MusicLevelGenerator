@@ -2,13 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class BandVisualiser
+{
+    public Transform parent;
+    public RectTransform seperator;
+    public float heightMultiplier;
+}
+
 public class Visualiser : MonoBehaviour
 {
     [SerializeField] float spacingBetweenSamples;
-    [SerializeField] float heightMultiplier;
+    [SerializeField] float bandOffsetMultiplier = 0.15f;
 
-    [SerializeField] Transform lowSpectralParent;
-    [SerializeField] Transform highSpectralParent;
+    [SerializeField] BandVisualiser[] FrequencyBandVisualisers;
 
     [SerializeField] Transform currentTimeMarker;
 
@@ -31,7 +38,7 @@ public class Visualiser : MonoBehaviour
             for (int i = 0; i < band.spectralFluxSamples.Count; i++)
             {
                 SpectralFluxData sample = band.spectralFluxSamples[i];
-                PlotPoint spectralPoint = Instantiate(plotPoint, new Vector2(i * spacingBetweenSamples, sample.spectralFlux * heightMultiplier), Quaternion.identity, b == 0 ? lowSpectralParent : highSpectralParent);
+                PlotPoint spectralPoint = Instantiate(plotPoint, new Vector2(i * spacingBetweenSamples, sample.spectralFlux * FrequencyBandVisualisers[b].heightMultiplier), Quaternion.identity, FrequencyBandVisualisers[b].parent);
 
                 spectralPoint.spriteRenderer.color = sample.isPeak ? peakColor : plotColor;
 
@@ -42,10 +49,24 @@ public class Visualiser : MonoBehaviour
                 
                 previousPlotTransform = spectralPoint.transform;
             }
-        }
 
-        lowSpectralParent.position = new Vector3(0, -5, 0);
-        highSpectralParent.position = new Vector3(0, 2, 0);
+            float screenHeight = 12.6f;
+            float distanceBetweenBands = screenHeight / frequencyBands.Length;
+            float offsetSpace = distanceBetweenBands * bandOffsetMultiplier;
+            float initialOffset = (screenHeight / 2) - distanceBetweenBands + offsetSpace;
+
+            FrequencyBandVisualisers[b].parent.position = new Vector3(0f, initialOffset - (distanceBetweenBands * b), 0f);
+
+            Vector2 anchorMin = FrequencyBandVisualisers[b].seperator.anchorMin;
+            Vector2 anchorMax = FrequencyBandVisualisers[b].seperator.anchorMax;
+
+            anchorMin.Set(anchorMin.x, (b) * (1f / frequencyBands.Length));
+            anchorMax.Set(anchorMax.x, (b + 1f) * (1f / frequencyBands.Length));
+
+            FrequencyBandVisualisers[b].seperator.gameObject.SetActive(true);
+            FrequencyBandVisualisers[b].seperator.anchorMin = anchorMin;
+            FrequencyBandVisualisers[b].seperator.anchorMax = anchorMax;
+        }
 
         levelLength = (frequencyBands[0].spectralFluxSamples.Count * spacingBetweenSamples);
         songTime = _songTime;
