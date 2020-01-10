@@ -72,8 +72,7 @@ public class SongController : MonoBehaviour
         else
         {
             levelGenerator.UpdatePlayerPosition(audioSource.time);
-        }
-        
+        } 
     }
 
 	public int GetIndexFromTime(float curTime) 

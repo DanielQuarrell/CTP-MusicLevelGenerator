@@ -26,10 +26,17 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] float spacingBetweenSamples = 0.25f;
     [SerializeField] float playerOffset = 0f;
 
-    public Transform playerTransform;
+    [SerializeField] Transform playerTransform;
+    [SerializeField] GameObject currentTime;
+
+    [SerializeField] Rigidbody2D player;
+    [SerializeField] FollowPlayer currentTimeMarker;
 
     float levelLength = 0;
     float songTime = 0;
+    float playerVelocityX = 0;
+
+    bool onFirstUpdate = true;
 
     public void GenerateLevelFromSamples(FrequencyBand[] frequencyBands, float _songTime)
     {
@@ -39,6 +46,7 @@ public class LevelGenerator : MonoBehaviour
             {
                 case LevelFeature.features.Spikes:
                     CreateLevelSpikes(frequencyBands[levelFeature.bandIndex]);
+                    levelLength = (frequencyBands[levelFeature.bandIndex].spectralFluxSamples.Count * spacingBetweenSamples);
                     break;
                 case LevelFeature.features.DestructableWalls:
                     break;
@@ -49,9 +57,15 @@ public class LevelGenerator : MonoBehaviour
         
         songTime = _songTime;
 
-        GameObject currentTime = playerTransform.Find("CurrentTime").gameObject;
+        //Old marker
         Vector2 currentTimePosition = new Vector2(-playerOffset, currentTime.transform.localPosition.y);
         currentTime.transform.localPosition = currentTimePosition;
+
+        //New marker
+        currentTimeMarker.offset = new Vector2(-playerOffset, currentTimeMarker.transform.localPosition.y);
+
+        playerVelocityX = levelLength / songTime;
+        player.velocity = new Vector2(playerVelocityX, player.velocity.y);
     }
 
     public void CreateLevelSpikes(FrequencyBand band)
@@ -74,7 +88,11 @@ public class LevelGenerator : MonoBehaviour
         }
 
         //TestLevelGeneration(_spectralFluxSamples.Count);
-        levelLength = (band.spectralFluxSamples.Count * spacingBetweenSamples);
+    }
+
+    private void FixedUpdate()
+    {
+        player.velocity = new Vector2(playerVelocityX, player.velocity.y);
     }
 
     public void UpdatePlayerPosition(float currentTime)
@@ -85,6 +103,18 @@ public class LevelGenerator : MonoBehaviour
         float playerXPosition = Mathf.Lerp(0.0f, levelLength, percentageThroughLevel) + playerOffset;
 
         playerTransform.position = new Vector2(playerXPosition, 0);
+
+        if(onFirstUpdate && currentTime != 0)
+        {
+            player.MovePosition(new Vector2(playerXPosition + 0.175f, 0));
+            onFirstUpdate = false;
+        }
+    }
+
+    public void ResetLevel()
+    {
+        onFirstUpdate = true;
+        player.position = new Vector2(0, 0);
     }
 
     private void TestLevelGeneration(float _spectralfluxSampleCount)
