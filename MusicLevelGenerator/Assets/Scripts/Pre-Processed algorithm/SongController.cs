@@ -8,6 +8,8 @@ using DSPLib;
 
 public class SongController : MonoBehaviour 
 {
+    static public SongController instance;
+
     [SerializeField] bool debug;
 
 	[SerializeField] AudioSource audioSource;
@@ -30,7 +32,19 @@ public class SongController : MonoBehaviour
 	float clipLength;
 	float[] multiChannelSamples;
 
-    void Start() 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Start() 
     {
 		// Need all audio samples.  If in stereo, samples will return with left and right channels interweaved
 		// [L,R,L,R,L,R]
@@ -73,6 +87,13 @@ public class SongController : MonoBehaviour
         {
             levelGenerator.UpdatePlayerPosition(audioSource.time);
         } 
+    }
+
+    public void RestartSong()
+    {
+        audioSource.Stop();
+        levelGenerator.ResetLevel();
+        audioSource.Play();
     }
 
 	public int GetIndexFromTime(float curTime) 

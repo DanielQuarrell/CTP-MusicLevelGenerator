@@ -560,6 +560,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 1468704065}
+  offset: {x: 0, y: 0, z: 0}
+  setOffsetOnStart: 1
 --- !u!81 &876287200
 AudioListener:
   m_ObjectHideFlags: 0
