@@ -31,9 +31,23 @@ public class Visualiser : MonoBehaviour
 
     public void GenerateVisualiserFromSamples(FrequencyBand[] frequencyBands, float _songTime)
     {
+        for (int i = 0; i < 4; i++)
+        {
+            FrequencyBandVisualisers[i].seperator.gameObject.SetActive(i < frequencyBands.Length);
+        }
+
         for (int b = 0; b < frequencyBands.Length; b++)
         {
             FrequencyBand band = frequencyBands[b];
+
+            FrequencyBandVisualisers[b].parent.position = new Vector3(0f, 0f, 0f);
+
+            previousPlotTransform = null;
+
+            foreach (Transform child in FrequencyBandVisualisers[b].parent)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
 
             for (int i = 0; i < band.spectralFluxSamples.Count; i++)
             {
@@ -63,7 +77,6 @@ public class Visualiser : MonoBehaviour
             anchorMin.Set(anchorMin.x, (b) * (1f / frequencyBands.Length));
             anchorMax.Set(anchorMax.x, (b + 1f) * (1f / frequencyBands.Length));
 
-            FrequencyBandVisualisers[b].seperator.gameObject.SetActive(true);
             FrequencyBandVisualisers[b].seperator.anchorMin = anchorMin;
             FrequencyBandVisualisers[b].seperator.anchorMax = anchorMax;
         }

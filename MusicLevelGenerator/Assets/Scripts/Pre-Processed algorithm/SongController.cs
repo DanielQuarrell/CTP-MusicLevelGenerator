@@ -89,6 +89,14 @@ public class SongController : MonoBehaviour
         } 
     }
 
+    public void ReprocessSong()
+    {
+        audioSource.Pause();
+        ProcessFullSpectrum();
+        visualiser.GenerateVisualiserFromSamples(spectralFluxAnalyzer.frequencyBands, audioSource.clip.length);
+        audioSource.Play();
+    }
+
     public void RestartSong()
     {
         audioSource.Stop();

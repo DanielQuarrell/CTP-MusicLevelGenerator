@@ -26,10 +26,13 @@ public class PlotPoint : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        if(drawLine)
+        if(this.gameObject != null || this.connectingPlotTransform != null)
         {
-            Gizmos.color = Color.green;
-            Gizmos.DrawLine(transform.position, connectingPlotTransform.position);
+            if (drawLine)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawLine(transform.position, connectingPlotTransform.position);
+            }
         }
     }
 }
