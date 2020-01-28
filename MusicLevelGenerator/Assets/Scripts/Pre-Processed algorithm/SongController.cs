@@ -92,8 +92,13 @@ public class SongController : MonoBehaviour
     public void ReprocessSong()
     {
         audioSource.Pause();
+
+        spectralFluxAnalyzer = new SpectralFluxAnalyzer(spectrumSampleSize, sampleRate, thresholdWindowSize, frequencyBandBoundaries);
+        audioSource.clip.GetData(multiChannelSamples, 0);
         ProcessFullSpectrum();
+
         visualiser.GenerateVisualiserFromSamples(spectralFluxAnalyzer.frequencyBands, audioSource.clip.length);
+
         audioSource.Play();
     }
 

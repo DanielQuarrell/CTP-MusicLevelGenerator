@@ -31,6 +31,13 @@ public class FrequencyBand
     [HideInInspector]
     public int spectralFluxIndex = 0;
 
+    public void Reset()
+    {
+        spectralFluxSamples.Clear();
+        spectralFluxSamples = new List<SpectralFluxData>();
+        spectralFluxIndex = 0;
+    }
+
     public float GetFluxThreshold(int thresholdWindowSize)
     {
         //Number of samples that create the window from the current time position

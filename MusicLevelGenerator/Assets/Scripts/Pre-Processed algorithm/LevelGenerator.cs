@@ -26,8 +26,8 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] float spacingBetweenSamples = 0.25f;
     [SerializeField] float playerOffset = 0f;
 
-     Transform playerTransform;
-     GameObject currentTime;
+    [SerializeField] Transform playerTransform;
+    [SerializeField] GameObject currentTime;
 
     [SerializeField] Rigidbody2D player;
     [SerializeField] FollowPlayer currentTimeMarker;
