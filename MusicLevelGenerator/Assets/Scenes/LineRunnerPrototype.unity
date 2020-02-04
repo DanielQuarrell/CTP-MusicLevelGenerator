@@ -390,13 +390,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelFeatures:
   - bandIndex: 1
-    type: 0
-  - bandIndex: 2
-    type: 0
+    type: 3
   level: {fileID: 244131965}
   spikePrefab: {fileID: 2639078501785804545, guid: d87e1d38491bb4943a950af1a8f46ea9,
     type: 3}
-  duckBlockPrefab: {fileID: 0}
+  duckBlockPrefab: {fileID: 2639078501785804545, guid: eae0f46a855f8bd4b8343bde7905edb3,
+    type: 3}
   spacingBetweenSamples: 0.25
   playerOffset: -1
   playerTransform: {fileID: 1790047387}

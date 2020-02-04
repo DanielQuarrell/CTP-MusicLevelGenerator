@@ -56,6 +56,7 @@ public class LevelGenerator : MonoBehaviour
                     break;
                 case LevelFeature.features.DuckBlock:
                     CreateDuckBlocks(frequencyBands[levelFeature.bandIndex]);
+                    levelLength = (frequencyBands[levelFeature.bandIndex].spectralFluxSamples.Count * spacingBetweenSamples);
                     break;
                 case LevelFeature.features.DestructableWalls:
                     break;
