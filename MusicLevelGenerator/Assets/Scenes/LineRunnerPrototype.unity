@@ -391,9 +391,12 @@ MonoBehaviour:
   levelFeatures:
   - bandIndex: 1
     type: 0
+  - bandIndex: 2
+    type: 0
+  level: {fileID: 244131965}
   spikePrefab: {fileID: 2639078501785804545, guid: d87e1d38491bb4943a950af1a8f46ea9,
     type: 3}
-  level: {fileID: 244131965}
+  duckBlockPrefab: {fileID: 0}
   spacingBetweenSamples: 0.25
   playerOffset: -1
   playerTransform: {fileID: 1790047387}
@@ -563,21 +566,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 7746148627626434079, guid: 47389e6c70df93b43bcb7d13add663e2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7746148627626434079, guid: 47389e6c70df93b43bcb7d13add663e2,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7746148627626434079, guid: 47389e6c70df93b43bcb7d13add663e2,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 7746148627626434077, guid: 47389e6c70df93b43bcb7d13add663e2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -632,61 +620,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7746148627626434066, guid: 47389e6c70df93b43bcb7d13add663e2,
-        type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7746148627626434066, guid: 47389e6c70df93b43bcb7d13add663e2,
-        type: 3}
-      propertyPath: m_GravityScale
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7746148627626434066, guid: 47389e6c70df93b43bcb7d13add663e2,
-        type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7746148627626434066, guid: 47389e6c70df93b43bcb7d13add663e2,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7746148627626434066, guid: 47389e6c70df93b43bcb7d13add663e2,
-        type: 3}
-      propertyPath: m_Simulated
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7746148627626434066, guid: 47389e6c70df93b43bcb7d13add663e2,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: 853502e9a0489b5488cca7948adc391b, type: 2}
-    - target: {fileID: 7746148627626434066, guid: 47389e6c70df93b43bcb7d13add663e2,
-        type: 3}
-      propertyPath: m_AngularDrag
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7746148627626434066, guid: 47389e6c70df93b43bcb7d13add663e2,
-        type: 3}
-      propertyPath: m_Interpolate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7746148627626434066, guid: 47389e6c70df93b43bcb7d13add663e2,
-        type: 3}
-      propertyPath: m_SleepingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7746148627626434067, guid: 47389e6c70df93b43bcb7d13add663e2,
-        type: 3}
-      propertyPath: jumpForce
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 9207260743577245131, guid: 47389e6c70df93b43bcb7d13add663e2,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47389e6c70df93b43bcb7d13add663e2, type: 3}

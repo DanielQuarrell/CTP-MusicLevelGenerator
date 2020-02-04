@@ -9,7 +9,8 @@ public class LevelFeature
     {
         Spikes,
         DestructableWalls,
-        LevelHeight
+        LevelHeight,
+        DuckBlock
     }
 
     public int bandIndex;
@@ -18,14 +19,19 @@ public class LevelFeature
 
 public class LevelGenerator : MonoBehaviour
 {
+    [Header("Level Features")]
     [SerializeField] LevelFeature[] levelFeatures;
 
-    [SerializeField] GameObject spikePrefab;
+    [Header("Prefabs")]
     [SerializeField] Transform level;
+    [SerializeField] GameObject spikePrefab;
+    [SerializeField] GameObject duckBlockPrefab;
 
+    [Header("Level options")]
     [SerializeField] float spacingBetweenSamples = 0.25f;
     [SerializeField] float playerOffset = 0f;
 
+    [Header("Player objects")]
     [SerializeField] Transform playerTransform;
     [SerializeField] GameObject currentTime;
 
@@ -47,6 +53,9 @@ public class LevelGenerator : MonoBehaviour
                 case LevelFeature.features.Spikes:
                     CreateLevelSpikes(frequencyBands[levelFeature.bandIndex]);
                     levelLength = (frequencyBands[levelFeature.bandIndex].spectralFluxSamples.Count * spacingBetweenSamples);
+                    break;
+                case LevelFeature.features.DuckBlock:
+                    CreateDuckBlocks(frequencyBands[levelFeature.bandIndex]);
                     break;
                 case LevelFeature.features.DestructableWalls:
                     break;
@@ -88,6 +97,26 @@ public class LevelGenerator : MonoBehaviour
         }
 
         //TestLevelGeneration(_spectralFluxSamples.Count);
+    }
+
+    public void CreateDuckBlocks(FrequencyBand band)
+    {
+        int iterationsSinceLast = 0;
+
+        for (int i = 0; i < band.spectralFluxSamples.Count; i++)
+        {
+            SpectralFluxData sample = band.spectralFluxSamples[i];
+
+            if (sample.isPeak && iterationsSinceLast >= 8)
+            {
+                Instantiate(duckBlockPrefab, new Vector2(i * spacingBetweenSamples, level.position.y), Quaternion.identity, level);
+                iterationsSinceLast = 0;
+            }
+            else
+            {
+                iterationsSinceLast++;
+            }
+        }
     }
 
     private void FixedUpdate()
