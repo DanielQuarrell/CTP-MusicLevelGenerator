@@ -71,6 +71,7 @@ public class SongController : MonoBehaviour
         else
         {
             levelGenerator.GenerateLevelFromSamples(spectralFluxAnalyzer.frequencyBands, audioSource.clip.length);
+            levelGenerator.ResetLevel();
         }
 
         
