@@ -906,16 +906,16 @@ MonoBehaviour:
   FrequencyBandVisualisers:
   - parent: {fileID: 121982013}
     seperator: {fileID: 1483032631}
-    heightMultiplier: 1.5
+    heightMultiplier: 1
   - parent: {fileID: 1912931991}
     seperator: {fileID: 1396246604}
     heightMultiplier: 1
   - parent: {fileID: 1262047517}
     seperator: {fileID: 1362800940}
-    heightMultiplier: 1.5
+    heightMultiplier: 1
   - parent: {fileID: 418062593}
     seperator: {fileID: 1094251043}
-    heightMultiplier: 1.5
+    heightMultiplier: 1
   currentTimeMarker: {fileID: 1468704065}
   plotPoint: {fileID: -4172696381556631360, guid: 655fa406d7c692740b553ceaad6ae075,
     type: 3}
@@ -1310,165 +1310,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 503759051}
   m_CullTransparentMesh: 0
---- !u!1 &507095576
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 507095577}
-  - component: {fileID: 507095579}
-  - component: {fileID: 507095578}
-  m_Layer: 0
-  m_Name: SongController (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &507095577
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 507095576}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -217.726, y: -3.3849638, z: 561.3749}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1648436461}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &507095578
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 507095576}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 0cb591cd6ef24944d8e1fe03bafa05ab, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &507095579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 507095576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d261979a62f3224e9bfe081277b307c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 1
-  audioSource: {fileID: 507095578}
-  levelGenerator: {fileID: 0}
-  visualiser: {fileID: 378622333}
-  spectrumSampleSize: 2048
-  thresholdWindowSize: 75
-  frequencyBandBoundaries:
-  - lowerBoundary: 5000
-    upperBoundary: 20000
-    thresholdMultiplier: 2
-    spectralFluxIndex: 0
-  - lowerBoundary: 0
-    upperBoundary: 1000
-    thresholdMultiplier: 3
-    spectralFluxIndex: 0
-  - lowerBoundary: 0
-    upperBoundary: 200
-    thresholdMultiplier: 4
-    spectralFluxIndex: 0
 --- !u!1 &517621565
 GameObject:
   m_ObjectHideFlags: 0
@@ -1853,7 +1694,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1648436461}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &699910599
 AudioSource:
@@ -1970,15 +1811,18 @@ MonoBehaviour:
   spectrumSampleSize: 2048
   thresholdWindowSize: 75
   frequencyBandBoundaries:
-  - lowerBoundary: 40
+  - name: 
+    lowerBoundary: 40
     upperBoundary: 80
     thresholdMultiplier: 2.5
     spectralFluxIndex: 0
-  - lowerBoundary: 5000
+  - name: 
+    lowerBoundary: 5000
     upperBoundary: 10000
     thresholdMultiplier: 3
     spectralFluxIndex: 0
-  - lowerBoundary: 20000
+  - name: 
+    lowerBoundary: 20000
     upperBoundary: 40000
     thresholdMultiplier: 1
     spectralFluxIndex: 0
@@ -2997,11 +2841,13 @@ MonoBehaviour:
   spectrumSampleSize: 2048
   thresholdWindowSize: 75
   frequencyBandBoundaries:
-  - lowerBoundary: 0
+  - name: 
+    lowerBoundary: 0
     upperBoundary: 5000
     thresholdMultiplier: 3
     spectralFluxIndex: 0
-  - lowerBoundary: 5000
+  - name: 
+    lowerBoundary: 5000
     upperBoundary: 20000
     thresholdMultiplier: 1.5
     spectralFluxIndex: 0
@@ -3084,6 +2930,168 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1121910742}
   m_CullTransparentMesh: 0
+--- !u!1 &1150069457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1150069458}
+  - component: {fileID: 1150069460}
+  - component: {fileID: 1150069459}
+  m_Layer: 0
+  m_Name: SongController (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1150069458
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1150069457}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -217.726, y: -3.3849638, z: 561.3749}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1648436461}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1150069459
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1150069457}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 0cb591cd6ef24944d8e1fe03bafa05ab, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1150069460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1150069457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d261979a62f3224e9bfe081277b307c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 1
+  audioSource: {fileID: 1150069459}
+  levelGenerator: {fileID: 0}
+  visualiser: {fileID: 378622333}
+  spectrumSampleSize: 2048
+  thresholdWindowSize: 75
+  frequencyBandBoundaries:
+  - name: 
+    lowerBoundary: 5000
+    upperBoundary: 20000
+    thresholdMultiplier: 2
+    spectralFluxIndex: 0
+  - name: 
+    lowerBoundary: 0
+    upperBoundary: 1000
+    thresholdMultiplier: 3
+    spectralFluxIndex: 0
+  - name: 
+    lowerBoundary: 0
+    upperBoundary: 200
+    thresholdMultiplier: 4
+    spectralFluxIndex: 0
 --- !u!1 &1157717075
 GameObject:
   m_ObjectHideFlags: 0
@@ -4516,8 +4524,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1111278106}
-  - {fileID: 507095577}
   - {fileID: 699910598}
+  - {fileID: 1150069458}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5222,7 +5230,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 0cb591cd6ef24944d8e1fe03bafa05ab, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 630da15a24083e44d889dfa0a5bcabff, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -5327,17 +5335,20 @@ MonoBehaviour:
   spectrumSampleSize: 2048
   thresholdWindowSize: 75
   frequencyBandBoundaries:
-  - lowerBoundary: 5000
-    upperBoundary: 20000
+  - name: 
+    lowerBoundary: 400
+    upperBoundary: 500
     thresholdMultiplier: 2
     spectralFluxIndex: 0
-  - lowerBoundary: 0
-    upperBoundary: 1000
+  - name: 
+    lowerBoundary: 0
+    upperBoundary: 100
     thresholdMultiplier: 3
     spectralFluxIndex: 0
-  - lowerBoundary: 0
-    upperBoundary: 200
-    thresholdMultiplier: 4
+  - name: 
+    lowerBoundary: 0
+    upperBoundary: 1000
+    thresholdMultiplier: 2
     spectralFluxIndex: 0
 --- !u!4 &2035056490
 Transform:

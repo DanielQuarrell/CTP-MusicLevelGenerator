@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEditor;
 using DSPLib;
 
 public class SongController : MonoBehaviour 
@@ -67,15 +68,13 @@ public class SongController : MonoBehaviour
         if(debug)
         {
             visualiser.GenerateVisualiserFromSamples(spectralFluxAnalyzer.frequencyBands, audioSource.clip.length);
+            audioSource.Play();
         }
         else
         {
             levelGenerator.GenerateLevelFromSamples(spectralFluxAnalyzer.frequencyBands, audioSource.clip.length);
-            levelGenerator.ResetLevel();
+            StartCoroutine(StartSong());
         }
-
-        
-        audioSource.Play();
     }
 
 	void Update() 
@@ -178,5 +177,12 @@ public class SongController : MonoBehaviour
         }
 
         Debug.Log("Spectrum Analysis done");
-     }
+    }
+
+    IEnumerator StartSong()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        RestartSong();
+    }
 }

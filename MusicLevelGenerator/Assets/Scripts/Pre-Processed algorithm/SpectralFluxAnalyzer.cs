@@ -16,6 +16,8 @@ public class SpectralFluxData
 [System.Serializable]
 public class FrequencyBand
 {
+    public string name;
+
     //Defined Frequencies in the band
     public int lowerBoundary = 0;
     public int upperBoundary = 0;

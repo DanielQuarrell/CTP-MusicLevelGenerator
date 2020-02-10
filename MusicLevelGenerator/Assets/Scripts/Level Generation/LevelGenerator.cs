@@ -94,12 +94,6 @@ public class LevelGenerator : MonoBehaviour
         //Old marker
         //Vector2 currentTimePosition = new Vector2(-playerOffset, currentTime.transform.localPosition.y);
         //currentTime.transform.localPosition = currentTimePosition;
-
-        //New marker
-        currentTimeMarker.offset = new Vector2(-playerOffset, currentTimeMarker.transform.localPosition.y);
-
-        playerVelocityX = levelLength / songTime;
-        player.velocity = new Vector2(playerVelocityX, player.velocity.y);
     }
 
     private void CreateLevelObjects(GameObject levelObjectPrefab, FrequencyBand band, LevelFeature feature)
@@ -218,6 +212,12 @@ public class LevelGenerator : MonoBehaviour
     {
         onFirstUpdate = true;
         player.position = new Vector2(0, 0);
+
+        //New marker
+        currentTimeMarker.offset = new Vector2(-playerOffset, currentTimeMarker.transform.localPosition.y);
+
+        playerVelocityX = levelLength / songTime;
+        player.velocity = new Vector2(playerVelocityX, player.velocity.y);
     }
 
 
