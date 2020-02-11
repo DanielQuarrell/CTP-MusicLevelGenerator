@@ -5342,7 +5342,7 @@ MonoBehaviour:
     spectralFluxIndex: 0
   - name: 
     lowerBoundary: 0
-    upperBoundary: 100
+    upperBoundary: 150
     thresholdMultiplier: 3
     spectralFluxIndex: 0
   - name: 

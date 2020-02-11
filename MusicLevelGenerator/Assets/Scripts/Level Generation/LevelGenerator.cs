@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,9 +17,15 @@ public class LevelFeature
         Lighting
     }
 
+    [Header("Usage")]
     public int bandIndex;
-    public bool placeAdjacent;
+    public int priority;
+
+    [Header("Feature")]
     public features type;
+
+    [Header("Spacing")]
+    public bool placeAdjacent;
     public int offset;
     public int preSpace;
     public int postSpace;
@@ -66,6 +73,8 @@ public class LevelGenerator : MonoBehaviour
     {
         levelObjects = new LevelObject[frequencyBands[0].spectralFluxSamples.Count];
         levelLength = (frequencyBands[0].spectralFluxSamples.Count * spacingBetweenSamples);
+
+        Array.Sort(levelFeatures, delegate (LevelFeature feature1, LevelFeature feature2) { return feature1.priority.CompareTo(feature2.priority); });
 
         foreach (LevelFeature levelFeature in levelFeatures)
         {

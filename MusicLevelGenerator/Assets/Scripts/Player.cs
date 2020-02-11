@@ -15,6 +15,9 @@ public class Player : MonoBehaviour
     bool jumpButtonPressed;
     bool duckButtonPressed;
 
+    float duckTimer = 0f;
+    float duckTime = 1f;
+
     void Start()
     {
         body = this.GetComponent<Rigidbody2D>();
@@ -24,6 +27,24 @@ public class Player : MonoBehaviour
     {
         jumpButtonPressed = Input.GetKey(KeyCode.Space);
         duckButtonPressed = Input.GetKey(KeyCode.S);
+
+        UpdateTimers();
+    }
+
+    void UpdateTimers()
+    {
+        if (ducking)
+        {
+            if (duckTimer < duckTime)
+            {
+                duckTimer += Time.deltaTime;
+                if (duckTimer >= duckTime)
+                {
+                    //Unduck
+                    this.transform.DOScaleY(1f, 0.05f);
+                }
+            }
+        }
     }
 
     // Update is called once per frame
@@ -59,6 +80,7 @@ public class Player : MonoBehaviour
         {
             this.transform.DOScaleY(0.5f, 0.05f);
 
+            duckTimer = 0;
             ducking = true;
         }
     }
@@ -69,6 +91,7 @@ public class Player : MonoBehaviour
         {
             this.transform.DOScaleY(1f, 0.05f);
 
+            duckTimer = 0;
             ducking = false;
         }
     }

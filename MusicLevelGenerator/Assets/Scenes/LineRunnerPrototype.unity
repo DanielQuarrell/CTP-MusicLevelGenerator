@@ -465,20 +465,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelFeatures:
   - bandIndex: 1
-    placeAdjacent: 0
+    priority: 1
     type: 0
-    offset: 0
-    preSpace: 8
-    postSpace: 8
-  - bandIndex: 2
-    placeAdjacent: 1
-    type: 3
-    offset: 0
-    preSpace: 8
-    postSpace: 8
-  - bandIndex: 2
     placeAdjacent: 0
+    offset: 0
+    preSpace: 8
+    postSpace: 8
+  - bandIndex: 2
+    priority: 2
+    type: 3
+    placeAdjacent: 1
+    offset: 0
+    preSpace: 8
+    postSpace: 8
+  - bandIndex: 1
+    priority: 2
     type: 4
+    placeAdjacent: 0
     offset: 0
     preSpace: 0
     postSpace: 0
@@ -1046,7 +1049,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1796378418}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -1250,15 +1253,18 @@ MonoBehaviour:
   spectrumSampleSize: 2048
   thresholdWindowSize: 75
   frequencyBandBoundaries:
-  - lowerBoundary: 5000
+  - name: 
+    lowerBoundary: 5000
     upperBoundary: 20000
     thresholdMultiplier: 2
     spectralFluxIndex: 0
-  - lowerBoundary: 0
+  - name: 
+    lowerBoundary: 0
     upperBoundary: 1000
     thresholdMultiplier: 3
     spectralFluxIndex: 0
-  - lowerBoundary: 0
+  - name: 
+    lowerBoundary: 0
     upperBoundary: 200
     thresholdMultiplier: 4
     spectralFluxIndex: 0
