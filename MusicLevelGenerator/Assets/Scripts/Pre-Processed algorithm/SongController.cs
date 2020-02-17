@@ -6,6 +6,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEditor;
 using DSPLib;
+using System.IO;
 
 public class SongController : MonoBehaviour 
 {
@@ -16,6 +17,8 @@ public class SongController : MonoBehaviour
 	[SerializeField] AudioSource audioSource;
     [SerializeField] LevelGenerator levelGenerator;
     [SerializeField] Visualiser visualiser;
+
+    [SerializeField] TextAsset songJsonFile;
     
     [Header("Onset Algorithm Modifiers")]
     public int spectrumSampleSize = 1024;
@@ -77,7 +80,7 @@ public class SongController : MonoBehaviour
         }
     }
 
-	void Update() 
+    void Update() 
     {
         if (debug)
         {
@@ -93,6 +96,12 @@ public class SongController : MonoBehaviour
     {
         audioSource.Pause();
 
+        foreach(FrequencyBand band in frequencyBandBoundaries)
+        {
+            band.spectralFluxSamples.Clear();
+            band.spectralFluxIndex = 0;
+        }
+
         spectralFluxAnalyzer = new SpectralFluxAnalyzer(spectrumSampleSize, sampleRate, thresholdWindowSize, frequencyBandBoundaries);
         audioSource.clip.GetData(multiChannelSamples, 0);
         ProcessFullSpectrum();
@@ -102,6 +111,11 @@ public class SongController : MonoBehaviour
         audioSource.Play();
     }
 
+    public float GetSongTime()
+    {
+        return audioSource.time;
+    }
+
     public void RestartSong()
     {
         audioSource.Stop();
@@ -109,7 +123,32 @@ public class SongController : MonoBehaviour
         audioSource.Play();
     }
 
-	public int GetIndexFromTime(float curTime) 
+    void LoadSong()
+    {
+        string data = songJsonFile.text;
+        SongData worldData = JsonUtility.FromJson<SongData>(data);
+    }
+
+    public void SaveToFile()
+    {
+        SongData songData = new SongData();
+
+        songData.songName = audioSource.clip.name;
+        songData.clipLength = clipLength;
+
+        songData.spectralSampleSize = spectrumSampleSize;
+        songData.thresholdWindowSize = thresholdWindowSize;
+
+        songData.frequencyBands = new List<FrequencyBand>(frequencyBandBoundaries);
+
+        string data = string.Empty;
+        data = JsonUtility.ToJson(songData, true);
+
+        File.WriteAllText("Assets/Resources/SongDataFiles/" + songData.songName + "_Data.json", data);
+        Debug.Log("Saved world to: " + "Assets/Resources/SongDataFiles/" + songData.songName + "_Data.json");
+    }
+
+    public int GetIndexFromTime(float curTime) 
     {
 		float lengthPerSample = this.clipLength / (float)this.totalSamples;
 
@@ -160,13 +199,13 @@ public class SongController : MonoBehaviour
             Array.Copy(preProcessedSamples, i * spectrumSampleSize, sampleChunk, 0, spectrumSampleSize);
 
             //Apply an FFT Window type
-            double[] windowCoefs = DSP.Window.Coefficients(DSP.Window.Type.Hanning, (uint)spectrumSampleSize);
-            double[] scaledSpectrumChunk = DSP.Math.Multiply(sampleChunk, windowCoefs);
-            double scaleFactor = DSP.Window.ScaleFactor.Signal(windowCoefs);
+            double[] windowCoefficients = DSP.Window.Coefficients(DSP.Window.Type.Hanning, (uint)spectrumSampleSize);
+            double[] scaledSpectrumChunk = DSP.Math.Multiply(sampleChunk, windowCoefficients);
+            double scaleFactor = DSP.Window.ScaleFactor.Signal(windowCoefficients);
 
             //Perform the FFT and convert output (complex numbers) to Magnitude
             Complex[] fftSpectrum = fft.Execute(scaledSpectrumChunk);
-            double[] scaledFFTSpectrum = DSPLib.DSP.ConvertComplex.ToMagnitude(fftSpectrum);
+            double[] scaledFFTSpectrum = DSP.ConvertComplex.ToMagnitude(fftSpectrum);
             scaledFFTSpectrum = DSP.Math.Multiply(scaledFFTSpectrum, scaleFactor);
 
             //These 1024 magnitude values correspond to a single point in the audio timeline

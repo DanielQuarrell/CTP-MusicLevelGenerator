@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,13 +11,13 @@ public class VisualiserUI : MonoBehaviour
     [Header("Song Controller")]
     [SerializeField] InputField sampleSize;
     [SerializeField] InputField windowSize;
+    [SerializeField] Text time;
 
     [Header("Frequency Bands")]
     [SerializeField] Dropdown bandSelector;
     [SerializeField] InputField upperBand;
     [SerializeField] InputField lowerBand;
-    [SerializeField] Slider thresholdSlider;
-    [SerializeField] Text thresholdValue;
+    [SerializeField] InputField thresholdInput;
 
     private void Awake()
     {
@@ -35,6 +36,12 @@ public class VisualiserUI : MonoBehaviour
         }
 
         bandSelector.AddOptions(options);
+    }
+
+    private void Update()
+    {
+        TimeSpan timeSpan = TimeSpan.FromSeconds(songController.GetSongTime());
+        time.text = string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
     }
 
     public void UpdateSampleSizePressed()
@@ -61,10 +68,8 @@ public class VisualiserUI : MonoBehaviour
             lowerBand.text = songController.frequencyBandBoundaries[frequencyBandIndex].lowerBoundary.ToString();
             lowerBand.interactable = true;
 
-            thresholdSlider.value = songController.frequencyBandBoundaries[frequencyBandIndex].thresholdMultiplier;
-            thresholdSlider.interactable = true;
-
-            thresholdValue.text = songController.frequencyBandBoundaries[frequencyBandIndex].thresholdMultiplier.ToString();
+            thresholdInput.text = songController.frequencyBandBoundaries[frequencyBandIndex].thresholdMultiplier.ToString();
+            thresholdInput.interactable = true;
         }
         else
         {
@@ -74,10 +79,8 @@ public class VisualiserUI : MonoBehaviour
             lowerBand.text = string.Empty;
             lowerBand.interactable = false;
 
-            thresholdSlider.value = 0;
-            thresholdSlider.interactable = false;
-
-            thresholdValue.text = "0";
+            thresholdInput.text = string.Empty;
+            thresholdInput.interactable = false;
         }
     }
 
@@ -103,22 +106,24 @@ public class VisualiserUI : MonoBehaviour
         }
     }
 
-    public void ThresholdSliderChanged()
+    public void EditThresholdValue()
     {
-        float thresholdMultiplier = Mathf.Lerp(0, 3, thresholdSlider.value);
-        thresholdValue.text = thresholdMultiplier.ToString();
-
-        int frequencyBandIndex = bandSelector.value; 
+        int frequencyBandIndex = bandSelector.value;
 
         if (frequencyBandIndex != 0)
         {
             frequencyBandIndex--;
-            songController.frequencyBandBoundaries[frequencyBandIndex].thresholdMultiplier = thresholdMultiplier;
+            songController.frequencyBandBoundaries[frequencyBandIndex].thresholdMultiplier = float.Parse(thresholdInput.text);
         }
     }
 
     public void UpdateVisualiser()
     {
         songController.ReprocessSong();
+    }
+
+    public void SaveOnsetsToFile()
+    {
+        songController.SaveToFile();
     }
 }
