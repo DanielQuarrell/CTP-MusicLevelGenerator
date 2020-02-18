@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class VisualiserUI : MonoBehaviour
 {
-    [SerializeField] SongController songController;
+    SongController songController;
 
     [Header("Song Controller")]
     [SerializeField] InputField sampleSize;
@@ -21,6 +21,8 @@ public class VisualiserUI : MonoBehaviour
 
     private void Awake()
     {
+        songController = SongController.instance;
+
         sampleSize.text = songController.spectrumSampleSize.ToString();
         windowSize.text = songController.thresholdWindowSize.ToString();
 

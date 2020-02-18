@@ -8,7 +8,7 @@ public class ResetTrigger : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            SongController.instance.RestartSong();
+            LevelGenerator.instance.ResetLevel();
         }
     }
 }

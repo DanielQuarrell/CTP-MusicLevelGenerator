@@ -39,6 +39,11 @@ public class LevelObject
 
 public class LevelGenerator : MonoBehaviour
 {
+    static public LevelGenerator instance;
+
+    [Header("Level Song")]
+    [SerializeField] TextAsset songJsonFile;
+
     [Header("Level Features")]
     [SerializeField] LevelFeature[] levelFeatures;
     [SerializeField] Image levelBackground;
@@ -46,19 +51,20 @@ public class LevelGenerator : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] Transform level;
     [SerializeField] GameObject spikePrefab;
-    [SerializeField] float spikeOffset;
     [SerializeField] GameObject duckBlockPrefab;
-    [SerializeField] float duckOffset;
 
     [Header("Level options")]
     [SerializeField] float spacingBetweenSamples = 0.25f;
     [SerializeField] float playerOffset = 0f;
+    [SerializeField] float loadingDistance = 0f;
 
     [Header("Player objects")]
     [SerializeField] Transform playerTransform;
 
     [SerializeField] Rigidbody2D player;
     [SerializeField] FollowPlayer currentTimeMarker;
+
+    AudioSource audioSource;
 
     LevelObject[] levelObjects;
     bool[] ligthingEvents;
@@ -68,6 +74,38 @@ public class LevelGenerator : MonoBehaviour
     float playerVelocityX = 0;
 
     bool onFirstUpdate = false;
+    bool paused = false;
+    bool songStarted = false;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    private void Start()
+    {
+        LoadSongData();
+        StartCoroutine(StartSong());
+    }
+
+    void LoadSongData()
+    {
+        string data = songJsonFile.text;
+        SongData songData = JsonUtility.FromJson<SongData>(data);
+
+        GenerateLevelFromSamples(songData.frequencyBands.ToArray(), songData.clipLength);
+
+        audioSource.clip = Resources.Load<AudioClip>("Audio/" + songData.songName);
+    }
 
     public void GenerateLevelFromSamples(FrequencyBand[] frequencyBands, float _songTime)
     {
@@ -182,10 +220,40 @@ public class LevelGenerator : MonoBehaviour
 
     private void FixedUpdate()
     {
-        player.velocity = new Vector2(playerVelocityX, player.velocity.y);
+        if (songStarted)
+        {
+            UpdatePlayerVelocity();
+            UpdateSongPosition(audioSource.time);
+
+            /*
+            for (int i = 0; i < levelObjects.Length; i++)
+            {
+                if(levelObjects[i] != null)
+                {
+                    if (levelObjects[i].gameObject != null)
+                    {
+                        Vector2 distance = player.position - (Vector2)levelObjects[i].gameObject.transform.position;
+                        levelObjects[i].gameObject.SetActive(distance.magnitude < loadingDistance);
+                    }
+                }
+            }
+            */
+        }
     }
 
-    public void UpdatePlayerPosition(float currentTime)
+    private void UpdatePlayerVelocity()
+    {
+        if(!paused)
+        {
+            player.velocity = new Vector2(playerVelocityX, player.velocity.y);
+        }
+        else
+        {
+            player.velocity = Vector2.zero;
+        }
+    }
+
+    public void UpdateSongPosition(float currentTime)
     {
         float percentageThroughLevel = Mathf.InverseLerp(0, songTime, currentTime);
 
@@ -219,6 +287,8 @@ public class LevelGenerator : MonoBehaviour
 
     public void ResetLevel()
     {
+        audioSource.Stop();
+
         onFirstUpdate = true;
         player.position = new Vector2(0, 0);
 
@@ -227,8 +297,10 @@ public class LevelGenerator : MonoBehaviour
 
         playerVelocityX = levelLength / songTime;
         player.velocity = new Vector2(playerVelocityX, player.velocity.y);
-    }
 
+        audioSource.Play();
+        songStarted = true;
+    }
 
     //TestLevelGeneration(_spectralFluxSamples.Count);
     private void TestLevelGeneration(float _spectralfluxSampleCount)
@@ -242,5 +314,12 @@ public class LevelGenerator : MonoBehaviour
                 Instantiate(spikePrefab, new Vector2(i * spacingBetweenSamples, level.position.y), Quaternion.identity, level);
             }
         }
+    }
+
+    IEnumerator StartSong()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        ResetLevel();
     }
 }

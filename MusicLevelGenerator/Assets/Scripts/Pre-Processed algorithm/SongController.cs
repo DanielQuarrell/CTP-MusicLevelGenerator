@@ -15,7 +15,6 @@ public class SongController : MonoBehaviour
     [SerializeField] bool debug;
 
 	[SerializeField] AudioSource audioSource;
-    [SerializeField] LevelGenerator levelGenerator;
     [SerializeField] Visualiser visualiser;
 
     [SerializeField] TextAsset songJsonFile;
@@ -68,28 +67,13 @@ public class SongController : MonoBehaviour
         ProcessFullSpectrum();
 
         //Visuallise processed audio
-        if(debug)
-        {
-            visualiser.GenerateVisualiserFromSamples(spectralFluxAnalyzer.frequencyBands, audioSource.clip.length);
-            audioSource.Play();
-        }
-        else
-        {
-            levelGenerator.GenerateLevelFromSamples(spectralFluxAnalyzer.frequencyBands, audioSource.clip.length);
-            StartCoroutine(StartSong());
-        }
+        visualiser.GenerateVisualiserFromSamples(spectralFluxAnalyzer.frequencyBands, audioSource.clip.length);
+        audioSource.Play();
     }
 
     void Update() 
     {
-        if (debug)
-        {
-            visualiser.UpdateTimePosition(audioSource.time);
-        }
-        else
-        {
-            levelGenerator.UpdatePlayerPosition(audioSource.time);
-        } 
+        visualiser.UpdateTimePosition(audioSource.time);
     }
 
     public void ReprocessSong()
@@ -116,17 +100,10 @@ public class SongController : MonoBehaviour
         return audioSource.time;
     }
 
-    public void RestartSong()
-    {
-        audioSource.Stop();
-        levelGenerator.ResetLevel();
-        audioSource.Play();
-    }
-
-    void LoadSong()
+    void LoadSongData()
     {
         string data = songJsonFile.text;
-        SongData worldData = JsonUtility.FromJson<SongData>(data);
+        SongData songData = JsonUtility.FromJson<SongData>(data);
     }
 
     public void SaveToFile()
@@ -216,12 +193,5 @@ public class SongController : MonoBehaviour
         }
 
         Debug.Log("Spectrum Analysis done");
-    }
-
-    IEnumerator StartSong()
-    {
-        yield return new WaitForSeconds(0.1f);
-
-        RestartSong();
     }
 }
