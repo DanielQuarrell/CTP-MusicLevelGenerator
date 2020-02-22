@@ -97,7 +97,7 @@ public class LevelGenerator : MonoBehaviour
         StartCoroutine(StartSong());
     }
 
-    void LoadSongData()
+    public void LoadSongData()
     {
         string data = songJsonFile.text;
         SongData songData = JsonUtility.FromJson<SongData>(data);
