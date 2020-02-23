@@ -47,6 +47,7 @@ public class LevelGenerator : MonoBehaviour
     [Header("Level Features")]
     [SerializeField] LevelFeature[] levelFeatures;
     [SerializeField] Image levelBackground;
+    [SerializeField] Transform platform;
 
     [Header("Prefabs")]
     [SerializeField] Transform level;
@@ -91,14 +92,10 @@ public class LevelGenerator : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    private void Start()
+    public void GenerateLevel()
     {
-        LoadSongData();
-        StartCoroutine(StartSong());
-    }
+        RemoveLevel();
 
-    public void LoadSongData()
-    {
         string data = songJsonFile.text;
         SongData songData = JsonUtility.FromJson<SongData>(data);
 
@@ -107,10 +104,55 @@ public class LevelGenerator : MonoBehaviour
         audioSource.clip = Resources.Load<AudioClip>("Audio/" + songData.songName);
     }
 
+    public void RemoveLevel()
+    {
+        //Scale level to the length of the song
+        platform.localScale = new Vector3(15, 1, 1);
+
+        if (levelObjects != null)
+        {
+            foreach (LevelObject levelObject in levelObjects)
+            {
+                if(levelObject != null)
+                {
+                    if (levelObject.gameObject != null)
+                    {
+                        GameObject.DestroyImmediate(levelObject.gameObject);
+                    }
+                }
+            }
+
+            Array.Clear(levelObjects, 0, levelObjects.Length);  
+        }
+
+        foreach (Transform child in level.transform)
+        {
+            GameObject.DestroyImmediate(child.gameObject);
+        }
+    }
+
+    public void LoadLevel()
+    {
+
+    }
+
+    public void SaveLevel()
+    {
+
+    }
+
+    private void Start()
+    {
+        StartCoroutine(StartSong());
+    }
+
     public void GenerateLevelFromSamples(FrequencyBand[] frequencyBands, float _songTime)
     {
         levelObjects = new LevelObject[frequencyBands[0].spectralFluxSamples.Count];
         levelLength = (frequencyBands[0].spectralFluxSamples.Count * spacingBetweenSamples);
+
+        //Scale level to the length of the song
+        platform.localScale = new Vector3 (levelLength + 7, 1, 1);
 
         Array.Sort(levelFeatures, delegate (LevelFeature feature1, LevelFeature feature2) { return feature1.priority.CompareTo(feature2.priority); });
 
@@ -206,7 +248,7 @@ public class LevelGenerator : MonoBehaviour
                                 {
                                     if (levelObjects[i].feature != currentFeature)
                                     {
-                                        Destroy(levelObjects[i].gameObject);
+                                        DestroyImmediate(levelObjects[i].gameObject);
                                         levelObjects[i].feature = null;
                                     }
                                 }

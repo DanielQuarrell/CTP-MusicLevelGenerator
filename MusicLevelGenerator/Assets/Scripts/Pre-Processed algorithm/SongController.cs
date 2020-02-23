@@ -25,7 +25,7 @@ public class SongController : MonoBehaviour
     // Number of samples to average in our window
     public int thresholdWindowSize = 50;
 
-    public FrequencyBand[] frequencyBandBoundaries;
+    public List<FrequencyBand> frequencyBandBoundaries;
 
     SpectralFluxAnalyzer spectralFluxAnalyzer;
 
@@ -60,7 +60,7 @@ public class SongController : MonoBehaviour
 		sampleRate = audioSource.clip.frequency;
 
         //Preprocess entire audio clip
-        spectralFluxAnalyzer = new SpectralFluxAnalyzer(spectrumSampleSize, sampleRate, thresholdWindowSize, frequencyBandBoundaries);
+        spectralFluxAnalyzer = new SpectralFluxAnalyzer(spectrumSampleSize, sampleRate, thresholdWindowSize, frequencyBandBoundaries.ToArray());
 
         audioSource.clip.GetData(multiChannelSamples, 0);
 
@@ -86,7 +86,7 @@ public class SongController : MonoBehaviour
             band.spectralFluxIndex = 0;
         }
 
-        spectralFluxAnalyzer = new SpectralFluxAnalyzer(spectrumSampleSize, sampleRate, thresholdWindowSize, frequencyBandBoundaries);
+        spectralFluxAnalyzer = new SpectralFluxAnalyzer(spectrumSampleSize, sampleRate, thresholdWindowSize, frequencyBandBoundaries.ToArray());
         audioSource.clip.GetData(multiChannelSamples, 0);
         ProcessFullSpectrum();
 
@@ -100,10 +100,18 @@ public class SongController : MonoBehaviour
         return audioSource.time;
     }
 
-    void LoadSongData()
+    public void LoadSongData()
     {
         string data = songJsonFile.text;
         SongData songData = JsonUtility.FromJson<SongData>(data);
+
+        audioSource.clip = Resources.Load<AudioClip>("Audio/" + songData.songName);
+        clipLength = audioSource.clip.length;
+
+        spectrumSampleSize = songData.spectralSampleSize;
+        thresholdWindowSize = songData.thresholdWindowSize;
+
+        songData.frequencyBands = new List<FrequencyBand>(frequencyBandBoundaries);
     }
 
     public void SaveToFile()

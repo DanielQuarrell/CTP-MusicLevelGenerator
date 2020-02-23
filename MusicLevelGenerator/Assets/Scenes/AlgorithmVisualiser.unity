@@ -1240,69 +1240,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 363078509}
   m_CullTransparentMesh: 0
---- !u!1 &378622332
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 378622334}
-  - component: {fileID: 378622333}
-  m_Layer: 0
-  m_Name: Visualiser
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &378622333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 378622332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b79b59298f0c2a8438fa342cecf322ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spacingBetweenSamples: 0.25
-  bandOffsetMultiplier: 0.15
-  FrequencyBandVisualisers:
-  - parent: {fileID: 121982013}
-    seperator: {fileID: 1483032631}
-    heightMultiplier: 1
-  - parent: {fileID: 1912931991}
-    seperator: {fileID: 1396246604}
-    heightMultiplier: 1
-  - parent: {fileID: 1262047517}
-    seperator: {fileID: 1362800940}
-    heightMultiplier: 1
-  - parent: {fileID: 418062593}
-    seperator: {fileID: 1094251043}
-    heightMultiplier: 1
-  currentTimeMarker: {fileID: 1468704065}
-  plotPoint: {fileID: -4172696381556631360, guid: 655fa406d7c692740b553ceaad6ae075,
-    type: 3}
-  plotColor: {r: 0, g: 1, b: 0.060156345, a: 0}
-  peakColor: {r: 0, g: 0.7249274, b: 1, a: 1}
---- !u!4 &378622334
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 378622332}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410443172
 GameObject:
   m_ObjectHideFlags: 0
@@ -1830,7 +1767,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &639861071
 GameObject:
@@ -2174,8 +2111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 1
   audioSource: {fileID: 699910599}
-  levelGenerator: {fileID: 0}
-  visualiser: {fileID: 378622333}
+  visualiser: {fileID: 0}
   songJsonFile: {fileID: 0}
   spectrumSampleSize: 2048
   thresholdWindowSize: 75
@@ -2526,7 +2462,7 @@ Transform:
   - {fileID: 1262047517}
   - {fileID: 418062593}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &954514969
 GameObject:
@@ -3099,8 +3035,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 1
   audioSource: {fileID: 1111278107}
-  levelGenerator: {fileID: 0}
-  visualiser: {fileID: 378622333}
+  visualiser: {fileID: 0}
   songJsonFile: {fileID: 0}
   spectrumSampleSize: 2048
   thresholdWindowSize: 75
@@ -3206,6 +3141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1150069458}
   - component: {fileID: 1150069460}
+  - component: {fileID: 1150069461}
   - component: {fileID: 1150069459}
   m_Layer: 0
   m_Name: SongController
@@ -3338,8 +3274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 1
   audioSource: {fileID: 1150069459}
-  levelGenerator: {fileID: 0}
-  visualiser: {fileID: 378622333}
+  visualiser: {fileID: 1150069461}
   songJsonFile: {fileID: 0}
   spectrumSampleSize: 2048
   thresholdWindowSize: 75
@@ -3362,6 +3297,38 @@ MonoBehaviour:
     thresholdMultiplier: 4
     spectralFluxSamples: []
     spectralFluxIndex: 0
+--- !u!114 &1150069461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1150069457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b79b59298f0c2a8438fa342cecf322ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spacingBetweenSamples: 0.25
+  bandOffsetMultiplier: 0.15
+  FrequencyBandVisualisers:
+  - parent: {fileID: 121982013}
+    seperator: {fileID: 1483032631}
+    heightMultiplier: 1
+  - parent: {fileID: 1912931991}
+    seperator: {fileID: 1396246604}
+    heightMultiplier: 1
+  - parent: {fileID: 1262047517}
+    seperator: {fileID: 1362800940}
+    heightMultiplier: 1
+  - parent: {fileID: 418062593}
+    seperator: {fileID: 1094251043}
+    heightMultiplier: 1
+  currentTimeMarker: {fileID: 1468704065}
+  plotPoint: {fileID: -4172696381556631360, guid: 655fa406d7c692740b553ceaad6ae075,
+    type: 3}
+  plotColor: {r: 0, g: 1, b: 0.060156345, a: 0}
+  peakColor: {r: 0, g: 0.7249274, b: 1, a: 1}
 --- !u!1 &1157717075
 GameObject:
   m_ObjectHideFlags: 0
@@ -4489,7 +4456,7 @@ RectTransform:
   - {fileID: 1667396441}
   - {fileID: 1072859618}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4781,7 +4748,7 @@ Transform:
   - {fileID: 699910598}
   - {fileID: 2035056490}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1667396440
 GameObject:
@@ -5548,8 +5515,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 1
   audioSource: {fileID: 2035056488}
-  levelGenerator: {fileID: 0}
-  visualiser: {fileID: 378622333}
+  visualiser: {fileID: 0}
   songJsonFile: {fileID: 4900000, guid: 6b687404f0e2d9443aa97efe8fe7aa04, type: 3}
   spectrumSampleSize: 2048
   thresholdWindowSize: 75

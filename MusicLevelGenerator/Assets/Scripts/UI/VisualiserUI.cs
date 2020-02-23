@@ -32,7 +32,7 @@ public class VisualiserUI : MonoBehaviour
 
         options.Add("Select Band");
 
-        for (int i = 0; i < songController.frequencyBandBoundaries.Length; i++)
+        for (int i = 0; i < songController.frequencyBandBoundaries.Count; i++)
         {
             options.Add("Frequency Band " + (i+1));
         }

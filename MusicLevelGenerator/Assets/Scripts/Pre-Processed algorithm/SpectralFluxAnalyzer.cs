@@ -28,7 +28,7 @@ public class SpectralFluxAnalyzer
         thresholdWindowSize = _thresholdWindowSize;
 
         frequencyBands = new FrequencyBand[_frequencyBandBoundaries.Length];
-        System.Array.Copy(_frequencyBandBoundaries, frequencyBands, _frequencyBandBoundaries.Length);
+        Array.Copy(_frequencyBandBoundaries, frequencyBands, _frequencyBandBoundaries.Length);
 
         //Begin processing from halfway through first window and continue to increment by 1
         foreach (FrequencyBand band in frequencyBands)

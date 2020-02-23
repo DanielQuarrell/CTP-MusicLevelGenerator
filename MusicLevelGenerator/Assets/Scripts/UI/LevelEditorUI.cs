@@ -11,14 +11,25 @@ public class LevelEditorUI : Editor
         DrawDefaultInspector();
 
         LevelGenerator levelGenerator = (LevelGenerator)target;
+
+        if (GUILayout.Button("Generate Level"))
+        {
+            levelGenerator.GenerateLevel();
+        }
+
+        if (GUILayout.Button("Remove Level"))
+        {
+            levelGenerator.RemoveLevel();
+        }
+
         if (GUILayout.Button("Load Level"))
         {
-            levelGenerator.LoadSongData();
+            levelGenerator.LoadLevel();
         }
 
         if (GUILayout.Button("Save Level"))
         {
-            //levelGenerator.SortObjectsIntoWorld();
+            levelGenerator.SaveLevel();
         }
     }
 }
