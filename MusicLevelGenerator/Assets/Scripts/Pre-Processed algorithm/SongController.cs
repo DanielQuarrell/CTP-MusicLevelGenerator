@@ -130,7 +130,7 @@ public class SongController : MonoBehaviour
         data = JsonUtility.ToJson(songData, true);
 
         File.WriteAllText("Assets/Resources/SongDataFiles/" + songData.songName + "_Data.json", data);
-        Debug.Log("Saved world to: " + "Assets/Resources/SongDataFiles/" + songData.songName + "_Data.json");
+        Debug.Log("Saved song data to: " + "Assets/Resources/SongDataFiles/" + songData.songName + "_Data.json");
     }
 
     public int GetIndexFromTime(float curTime) 
