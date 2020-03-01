@@ -2,8 +2,4863 @@
     "songName": "Circles",
     "songIndexLength": 5048,
     "spacingBetweenSamples": 0.25,
-    "playerOffset": -1.0,
+    "playerOffset": -0.17,
     "songTime": 215.39999389648438,
     "levelLength": 1262.0,
-    "platformScale": 1269.0
+    "platformScale": 1277.0,
+    "levelObjectData": [
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 62
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 86
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 110
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 156
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 167
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 179
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 249
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 273
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 285
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 296
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 378
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 390
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 401
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 413
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 431
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 443
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 460
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 495
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 507
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 530
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 542
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 554
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 577
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 589
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 601
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 612
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 624
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 659
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 671
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 706
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 718
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 741
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 753
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 765
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 776
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 788
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 800
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 823
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 835
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 847
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 859
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 870
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 882
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 900
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 917
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 929
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 952
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 964
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 987
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 999
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1034
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1046
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1058
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1069
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1081
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1093
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1116
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1128
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1140
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1163
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1181
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1210
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1222
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1245
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1257
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1280
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1292
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1304
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1327
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1339
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1351
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1362
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1374
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1409
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1421
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1433
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1456
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1468
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1491
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1503
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1515
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1538
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1568
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1585
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1597
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1620
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1632
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1667
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1679
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1702
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1714
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1749
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1784
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1796
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1831
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1843
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1866
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1878
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1890
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1913
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1948
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1960
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1995
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2007
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2042
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2054
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2077
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2124
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2159
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2171
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2206
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2241
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2265
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2288
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2306
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2323
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2335
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2347
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2370
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2382
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2400
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2411
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2429
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2441
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2452
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2464
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2476
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2487
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2499
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2517
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2534
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2546
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2558
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2569
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2581
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2593
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2616
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2628
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2640
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2663
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2710
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2722
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2734
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2745
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2757
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2780
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2792
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2804
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2827
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2839
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2851
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2874
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2909
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2921
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2933
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2944
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2956
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2991
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3003
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3015
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3038
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3068
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3085
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3097
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3120
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3132
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3167
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3179
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3202
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3214
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3249
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3284
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3296
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3331
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3366
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3378
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3390
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3413
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3460
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3495
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3542
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3554
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3577
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3624
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3659
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3671
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3706
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3741
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3818
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3836
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3859
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3912
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3964
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4006
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4023
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4088
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4110
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4122
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4140
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4245
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4257
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4304
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4327
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4409
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4421
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4456
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4497
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4568
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4703
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4726
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4796
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4825
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4854
+        },
+        {
+            "feature": {
+                "bandIndex": 2,
+                "priority": 2,
+                "type": 3,
+                "placeAdjacent": true,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 227
+        },
+        {
+            "feature": {
+                "bandIndex": 2,
+                "priority": 2,
+                "type": 3,
+                "placeAdjacent": true,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 320
+        },
+        {
+            "feature": {
+                "bandIndex": 2,
+                "priority": 2,
+                "type": 3,
+                "placeAdjacent": true,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 327
+        },
+        {
+            "feature": {
+                "bandIndex": 2,
+                "priority": 2,
+                "type": 3,
+                "placeAdjacent": true,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 1234
+        },
+        {
+            "feature": {
+                "bandIndex": 2,
+                "priority": 2,
+                "type": 3,
+                "placeAdjacent": true,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2224
+        },
+        {
+            "feature": {
+                "bandIndex": 2,
+                "priority": 2,
+                "type": 3,
+                "placeAdjacent": true,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2277
+        },
+        {
+            "feature": {
+                "bandIndex": 2,
+                "priority": 2,
+                "type": 3,
+                "placeAdjacent": true,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2359
+        },
+        {
+            "feature": {
+                "bandIndex": 2,
+                "priority": 2,
+                "type": 3,
+                "placeAdjacent": true,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 2652
+        },
+        {
+            "feature": {
+                "bandIndex": 2,
+                "priority": 2,
+                "type": 3,
+                "placeAdjacent": true,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3589
+        },
+        {
+            "feature": {
+                "bandIndex": 2,
+                "priority": 2,
+                "type": 3,
+                "placeAdjacent": true,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3724
+        },
+        {
+            "feature": {
+                "bandIndex": 2,
+                "priority": 2,
+                "type": 3,
+                "placeAdjacent": true,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 3953
+        },
+        {
+            "feature": {
+                "bandIndex": 2,
+                "priority": 2,
+                "type": 3,
+                "placeAdjacent": true,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4046
+        },
+        {
+            "feature": {
+                "bandIndex": 2,
+                "priority": 2,
+                "type": 3,
+                "placeAdjacent": true,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4070
+        },
+        {
+            "feature": {
+                "bandIndex": 2,
+                "priority": 2,
+                "type": 3,
+                "placeAdjacent": true,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4193
+        },
+        {
+            "feature": {
+                "bandIndex": 2,
+                "priority": 2,
+                "type": 3,
+                "placeAdjacent": true,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4210
+        },
+        {
+            "feature": {
+                "bandIndex": 2,
+                "priority": 2,
+                "type": 3,
+                "placeAdjacent": true,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4222
+        },
+        {
+            "feature": {
+                "bandIndex": 2,
+                "priority": 2,
+                "type": 3,
+                "placeAdjacent": true,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4667
+        },
+        {
+            "feature": {
+                "bandIndex": 2,
+                "priority": 2,
+                "type": 3,
+                "placeAdjacent": true,
+                "offset": 0,
+                "preSpace": 8,
+                "postSpace": 8
+            },
+            "songPositionIndex": 4679
+        }
+    ],
+    "lightingEventData": [
+        {
+            "songPositionIndex": 62,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 86,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 110,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 156,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 167,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 179,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 249,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 273,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 285,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 296,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 378,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 390,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 401,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 413,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 431,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 443,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 448,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 460,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 495,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 507,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 530,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 542,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 554,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 577,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 589,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 601,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 612,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 619,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 624,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 659,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 671,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 706,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 718,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 724,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 741,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 753,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 765,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 776,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 788,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 800,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 806,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 823,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 835,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 847,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 859,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 870,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 882,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 900,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 905,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 917,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 929,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 952,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 964,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 987,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 994,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 999,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1034,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1046,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1058,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1069,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1081,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1087,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1093,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1099,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1116,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1128,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1140,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1163,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1181,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1210,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1222,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1245,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1257,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1280,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1292,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1304,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1327,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1339,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1351,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1362,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1374,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1409,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1421,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1433,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1456,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1462,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1468,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1474,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1491,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1503,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1515,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1538,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1568,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1585,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1597,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1620,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1632,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1667,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1679,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1702,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1714,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1749,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1784,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1796,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1831,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1843,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1866,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1878,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1890,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1913,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1948,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1960,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 1995,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2007,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2042,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2054,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2077,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2124,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2159,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2171,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2206,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2241,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2265,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2288,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2306,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2323,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2335,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2347,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2370,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2382,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2400,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2405,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2411,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2417,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2429,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2441,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2452,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2464,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2476,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2487,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2499,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2517,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2534,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2546,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2558,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2569,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2581,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2587,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2593,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2599,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2616,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2628,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2640,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2663,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2710,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2722,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2734,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2745,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2757,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2780,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2792,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2804,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2827,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2839,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2851,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2874,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2909,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2921,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2933,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2944,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2956,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2991,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 2997,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3003,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3015,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3038,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3068,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3085,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3097,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3120,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3132,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3167,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3179,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3202,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3214,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3249,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3284,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3296,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3331,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3366,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3378,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3390,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3413,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3460,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3495,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3542,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3554,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3577,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3624,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3659,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3671,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3706,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3741,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3818,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3836,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3859,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3912,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3914,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 3964,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4006,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4023,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4088,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4110,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4116,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4122,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4128,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4140,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4245,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4257,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4304,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4327,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4409,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4421,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4456,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4497,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4568,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4703,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4726,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4796,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4825,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        },
+        {
+            "songPositionIndex": 4854,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+            }
+        }
+    ]
 }

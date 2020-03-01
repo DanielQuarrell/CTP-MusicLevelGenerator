@@ -40,6 +40,7 @@ public class LevelFeature
     public int postSpace;
 }
 
+[System.Serializable]
 public class LevelObjectData
 {
     public LevelFeature feature;
@@ -52,6 +53,7 @@ public class LevelObjectData
     }
 }
 
+[System.Serializable]
 public class LightingEventData
 {
     public int songPositionIndex;
@@ -84,7 +86,6 @@ public class LevelData
 
     public List<LevelObjectData> levelObjectData;
     public List<LightingEventData> lightingEventData;
-
 }
 
 public class LevelGenerator : MonoBehaviour
@@ -115,19 +116,20 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] Transform playerTransform;
 
     [SerializeField] Rigidbody2D player;
-    [SerializeField] FollowPlayer currentTimeMarker;
+    [SerializeField] FollowPlayer currentTimeMarker;    
 
     //Variables to keep loaded in editor
-    [HideInInspector] public float songTime = 0;
-    [HideInInspector] public float levelLength = 0;
-    [HideInInspector] public int songIndexLength = 0;
+    [HideInInspector] public float songTime = 0;        //Length of song in seconds
+    [HideInInspector] public float levelLength = 0;     //Length of level in units
+    [HideInInspector] public int songIndexLength = 0;   //Number of recorded samples in the song
 
-    [HideInInspector] public List<LevelObject> levelObjects;
-    [HideInInspector] public List<LightingEventData> lightingEvents;
+    [HideInInspector] public List<LevelObject> levelObjects;            
+    [HideInInspector] public List<LightingEventData> lightingEvents;    
 
-    LevelData loadedLevel;
+    LevelData loadedLevel;  //Loaded level from file
 
-    float playerVelocityX = 0;
+    float playerVelocityX = 0;      //Current player velocity 
+    float playerOffsetDistance;     //Distance offset
 
     bool onFirstUpdate = false;
     bool paused = false;
@@ -167,7 +169,7 @@ public class LevelGenerator : MonoBehaviour
     public void RemoveLevel()
     {
         //Scale level to the length of the song
-        platform.localScale = new Vector3(15, 1, 1);
+        platform.localScale = new Vector3(22, 1, 1);
 
         if (levelObjects != null)
         {
@@ -197,6 +199,8 @@ public class LevelGenerator : MonoBehaviour
         {
             RemoveLevel();
 
+            levelObjects = new List<LevelObject>();
+
             string data = levelJsonFile.text;
             LevelData levelData = JsonUtility.FromJson<LevelData>(data);
 
@@ -214,7 +218,7 @@ public class LevelGenerator : MonoBehaviour
             {
                 LevelObject levelObject = new LevelObject();
 
-                GameObject levelObjectPrefab = new GameObject();
+                GameObject levelObjectPrefab = null;
                 switch (levelData.levelObjectData[i].feature.type)
                 {
                     case LevelFeature.features.Spikes:
@@ -227,12 +231,17 @@ public class LevelGenerator : MonoBehaviour
                         break;
                 }
 
-                levelObject.gameObject = Instantiate(levelObjectPrefab, new Vector2(levelData.levelObjectData[i].songPositionIndex * levelData.spacingBetweenSamples + levelData.levelObjectData[i].feature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
-                levelObject.feature = levelData.levelObjectData[i].feature;
-                levelObjects.Add(levelObject);
+                if(levelObject != null)
+                {
+                    levelObject.gameObject = Instantiate(levelObjectPrefab, new Vector2(levelData.levelObjectData[i].songPositionIndex * levelData.spacingBetweenSamples + levelData.levelObjectData[i].feature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
+                    levelObject.feature = levelData.levelObjectData[i].feature;
+                    levelObjects.Add(levelObject);
+                }
             }
 
             levelData.lightingEventData = new List<LightingEventData>(lightingEvents);
+
+            loadedLevel = levelData;
         }
     }
 
@@ -266,11 +275,6 @@ public class LevelGenerator : MonoBehaviour
         Debug.Log("Saved level data to: " + "Assets/Resources/LevelDataFiles/" + levelData.songName + "_Level.json");
     }
 
-    private void Start()
-    {
-        StartCoroutine(StartSong());
-    }
-
     public void GenerateLevelFromSamples(FrequencyBand[] frequencyBands, float _songTime)
     {
         levelObjects = new List<LevelObject>();
@@ -278,7 +282,7 @@ public class LevelGenerator : MonoBehaviour
         levelLength = (songIndexLength * spacingBetweenSamples);
 
             //Scale level to the length of the song
-        platform.localScale = new Vector3 (levelLength + 7, 1, 1);
+        platform.localScale = new Vector3 (levelLength + 15, 1, 1);
 
         Array.Sort(levelFeatures, delegate (LevelFeature feature1, LevelFeature feature2) { return feature1.priority.CompareTo(feature2.priority); });
 
@@ -376,7 +380,7 @@ public class LevelGenerator : MonoBehaviour
                     for (int i = levelObject.songPositionIndex - currentFeature.preSpace; i < levelObject.songPositionIndex + currentFeature.postSpace; i++)
                     {
                         LevelObject objectToCheck = LevelObjectAtPosition(i);
-
+                         
                         if (objectToCheck != null)
                         {
                             if (objectToCheck.feature != currentFeature)
@@ -396,6 +400,21 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        LoadLevel();
+
+        StartCoroutine(StartSong());
+    }
+
+    private void CalculatePlayerOffset()
+    {
+        float distancePerSecond = levelLength / songTime;
+        playerOffsetDistance = playerOffset * distancePerSecond;  
+
+        player.position = new Vector2(playerOffsetDistance, player.transform.position.y);
+    }
+
     private void FixedUpdate()
     {
         if (songStarted)
@@ -404,6 +423,8 @@ public class LevelGenerator : MonoBehaviour
             UpdateSongPosition(audioSource.time);
 
             /*
+             * Enable / disable objects on whether or not they are in view
+             * 
             for (int i = 0; i < levelObjects.Length; i++)
             {
                 if(levelObjects[i] != null)
@@ -436,7 +457,7 @@ public class LevelGenerator : MonoBehaviour
         float percentageThroughLevel = Mathf.InverseLerp(0, songTime, currentTime);
 
         //Can be changed to move the player through the level
-        float playerXPosition = Mathf.Lerp(0.0f, levelLength, percentageThroughLevel) + playerOffset;
+        float playerXPosition = Mathf.Lerp(0.0f, levelLength, percentageThroughLevel) + playerOffsetDistance;
 
         playerTransform.position = new Vector2(playerXPosition, 0);
 
@@ -455,7 +476,7 @@ public class LevelGenerator : MonoBehaviour
 
         if(onFirstUpdate && currentTime != 0)
         {
-            player.MovePosition(new Vector2(playerXPosition + 0.175f, 0));
+            //player.MovePosition(new Vector2(playerXPosition + 0.175f, 0));
             onFirstUpdate = false;
         }
     }
@@ -470,10 +491,11 @@ public class LevelGenerator : MonoBehaviour
         audioSource.Stop();
 
         onFirstUpdate = true;
-        player.position = new Vector2(0, 0);
+
+        CalculatePlayerOffset();
 
         //New marker
-        currentTimeMarker.offset = new Vector2(-playerOffset, currentTimeMarker.transform.localPosition.y);
+        currentTimeMarker.offset = new Vector2(-playerOffsetDistance, currentTimeMarker.transform.localPosition.y);
 
         playerVelocityX = levelLength / songTime;
         player.velocity = new Vector2(playerVelocityX, player.velocity.y);

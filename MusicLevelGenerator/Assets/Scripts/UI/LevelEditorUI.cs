@@ -17,14 +17,14 @@ public class LevelEditorUI : Editor
             levelGenerator.GenerateLevel();
         }
 
-        if (GUILayout.Button("Remove Level"))
-        {
-            levelGenerator.RemoveLevel();
-        }
-
         if (GUILayout.Button("Load Level"))
         {
             levelGenerator.LoadLevel();
+        }
+
+        if (GUILayout.Button("Remove Level"))
+        {
+            levelGenerator.RemoveLevel();
         }
 
         if (GUILayout.Button("Save Level"))

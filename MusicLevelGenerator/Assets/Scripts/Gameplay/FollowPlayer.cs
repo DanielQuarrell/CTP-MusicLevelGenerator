@@ -11,7 +11,7 @@ public class FollowPlayer : MonoBehaviour
     [SerializeField]
     bool setOffsetOnStart = false;
 
-    private void Start()
+    private void Awake()
     {
         if(setOffsetOnStart)
         {
