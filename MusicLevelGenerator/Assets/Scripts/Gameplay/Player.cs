@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] float jumpForce = 5;
 
-    Rigidbody2D body;
+    public Rigidbody2D rigidbody;
 
     bool grounded = true;
     bool ducking = false;
@@ -18,9 +18,9 @@ public class Player : MonoBehaviour
     float duckTimer = 0f;
     float duckTime = 1f;
 
-    void Start()
+    void Awake()
     {
-        body = this.GetComponent<Rigidbody2D>();
+        rigidbody = this.GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -29,6 +29,11 @@ public class Player : MonoBehaviour
         duckButtonPressed = Input.GetKey(KeyCode.S);
 
         UpdateTimers();
+    }
+
+    public float GetJumpAcceleration()
+    {
+        return jumpForce;
     }
 
     void UpdateTimers()
@@ -69,7 +74,7 @@ public class Player : MonoBehaviour
     {
         if(grounded)
         {
-            body.velocity = Vector2.up * jumpForce;
+            rigidbody.velocity = Vector2.up * jumpForce;
             grounded = false;
         }
     }

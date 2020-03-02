@@ -14,80 +14,6 @@ public class LevelObject
     public int songPositionIndex;
 }
 
-[System.Serializable]
-public class LevelFeature
-{
-    public enum features
-    {
-        Spikes,
-        DestructableWalls,
-        LevelHeight,
-        DuckBlock,
-        Lighting
-    }
-
-    [Header("Usage")]
-    public int bandIndex;
-    public int priority;
-
-    [Header("Feature")]
-    public features type;
-
-    [Header("Spacing")]
-    public bool placeAdjacent;
-    public int offset;
-    public int preSpace;
-    public int postSpace;
-}
-
-[System.Serializable]
-public class LevelObjectData
-{
-    public LevelFeature feature;
-    public int songPositionIndex;
-
-    public LevelObjectData(LevelFeature _feature, int _index)
-    {
-        feature = _feature;
-        songPositionIndex = _index;
-    }
-}
-
-[System.Serializable]
-public class LightingEventData
-{
-    public int songPositionIndex;
-    public Color color;
-
-    public LightingEventData(int _index)
-    {
-        songPositionIndex = _index;
-    }
-
-    public LightingEventData(int _index, Color _color)
-    {
-        songPositionIndex = _index;
-        color = _color;
-    }
-}
-
-[System.Serializable]
-public class LevelData
-{
-    public string songName;
-
-    public int songIndexLength;
-    public float spacingBetweenSamples;
-    public float playerOffset;
-
-    public float songTime;
-    public float levelLength;
-    public float platformScale;
-
-    public List<LevelObjectData> levelObjectData;
-    public List<LightingEventData> lightingEventData;
-}
-
 public class LevelGenerator : MonoBehaviour
 {
     static public LevelGenerator instance;
@@ -115,7 +41,7 @@ public class LevelGenerator : MonoBehaviour
     [Header("Player objects")]
     [SerializeField] Transform playerTransform;
 
-    [SerializeField] Rigidbody2D player;
+    [SerializeField] Player player;
     [SerializeField] FollowPlayer currentTimeMarker;    
 
     //Variables to keep loaded in editor
@@ -127,6 +53,8 @@ public class LevelGenerator : MonoBehaviour
     [HideInInspector] public List<LightingEventData> lightingEvents;    
 
     LevelData loadedLevel;  //Loaded level from file
+
+    PhysicsModel physicsModel;
 
     float playerVelocityX = 0;      //Current player velocity 
     float playerOffsetDistance;     //Distance offset
@@ -412,7 +340,7 @@ public class LevelGenerator : MonoBehaviour
         float distancePerSecond = levelLength / songTime;
         playerOffsetDistance = playerOffset * distancePerSecond;  
 
-        player.position = new Vector2(playerOffsetDistance, player.transform.position.y);
+        player.rigidbody.position = new Vector2(playerOffsetDistance, player.transform.position.y);
     }
 
     private void FixedUpdate()
@@ -444,11 +372,11 @@ public class LevelGenerator : MonoBehaviour
     {
         if(!paused)
         {
-            player.velocity = new Vector2(playerVelocityX, player.velocity.y);
+            player.rigidbody.velocity = new Vector2(playerVelocityX, player.rigidbody.velocity.y);
         }
         else
         {
-            player.velocity = Vector2.zero;
+            player.rigidbody.velocity = Vector2.zero;
         }
     }
 
@@ -498,7 +426,12 @@ public class LevelGenerator : MonoBehaviour
         currentTimeMarker.offset = new Vector2(-playerOffsetDistance, currentTimeMarker.transform.localPosition.y);
 
         playerVelocityX = levelLength / songTime;
-        player.velocity = new Vector2(playerVelocityX, player.velocity.y);
+        player.rigidbody.velocity = new Vector2(playerVelocityX, player.rigidbody.velocity.y);
+
+        physicsModel.gravity = Physics2D.gravity.y * player.rigidbody.gravityScale;
+        physicsModel.velocity = player.rigidbody.velocity.x;
+        physicsModel.jumpAcceleration = player.GetJumpAcceleration();
+        physicsModel.CalculatePhysicsModel();
 
         audioSource.Play();
 
