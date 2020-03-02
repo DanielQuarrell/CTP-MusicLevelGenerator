@@ -23,9 +23,32 @@ public class LevelFeature
 
     [Header("Spacing")]
     public bool placeAdjacent;
-    public int offset;
-    public int preSpace;
-    public int postSpace;
+
+    //In units
+    public float offset;
+    public float preSpace;
+    public float postSpace;
+
+    public void AdjustForJumpDistance(float jumpDistance)
+    {
+        if (preSpace < jumpDistance / 2)
+        {
+            preSpace = jumpDistance / 2;
+        }
+        if (postSpace < jumpDistance / 2)
+        {
+            postSpace = jumpDistance / 2;
+        }
+    }
+
+    public void CalculateSpaceIndexes(float spacingPerIndex)
+    {
+        preSpaceIndex = (int)(preSpace / spacingPerIndex);
+        postSpaceIndex = (int)(preSpace / spacingPerIndex);
+    }
+
+    [HideInInspector] public int preSpaceIndex;
+    [HideInInspector] public int postSpaceIndex;
 }
 
 [System.Serializable]
@@ -71,6 +94,8 @@ public class LevelData
     public float songTime;
     public float levelLength;
     public float platformScale;
+
+    public PhysicsModel physicsModel;
 
     public List<LevelObjectData> levelObjectData;
     public List<LightingEventData> lightingEventData;

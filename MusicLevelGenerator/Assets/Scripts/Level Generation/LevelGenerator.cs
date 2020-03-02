@@ -56,7 +56,6 @@ public class LevelGenerator : MonoBehaviour
 
     PhysicsModel physicsModel;
 
-    float playerVelocityX = 0;      //Current player velocity 
     float playerOffsetDistance;     //Distance offset
 
     bool onFirstUpdate = false;
@@ -142,6 +141,8 @@ public class LevelGenerator : MonoBehaviour
             levelLength = levelData.levelLength;
             platform.localScale = new Vector3(levelData.platformScale, 1, 1);
 
+            physicsModel = levelData.physicsModel;
+
             for (int i = 0; i < levelData.levelObjectData.Count; i++)
             {
                 LevelObject levelObject = new LevelObject();
@@ -187,6 +188,8 @@ public class LevelGenerator : MonoBehaviour
         levelData.levelLength = levelLength;
         levelData.platformScale = platform.localScale.x;
 
+        levelData.physicsModel = physicsModel;
+
         levelData.levelObjectData = new List<LevelObjectData>();
 
         for (int i = 0; i < levelObjects.Count; i++)
@@ -209,34 +212,43 @@ public class LevelGenerator : MonoBehaviour
         songIndexLength = frequencyBands[0].spectralFluxSamples.Count;
         levelLength = (songIndexLength * spacingBetweenSamples);
 
-            //Scale level to the length of the song
+        songTime = _songTime;
+
+        //Scale level to the length of the song
         platform.localScale = new Vector3 (levelLength + 15, 1, 1);
 
+        physicsModel = new PhysicsModel();
+
+        //Set physics model
+        physicsModel.gravity = Mathf.Abs(Physics2D.gravity.y * player.rigidbody.gravityScale);
+        physicsModel.velocity = levelLength / songTime;
+        physicsModel.jumpAcceleration = player.GetJumpAcceleration();
+        physicsModel.CalculatePhysicsModel();
+
+        //Sort level based on priority
         Array.Sort(levelFeatures, delegate (LevelFeature feature1, LevelFeature feature2) { return feature1.priority.CompareTo(feature2.priority); });
 
-        foreach (LevelFeature levelFeature in levelFeatures)
+        for (int i = 0; i < levelFeatures.Length; i++)
         {
-            switch(levelFeature.type)
+            switch (levelFeatures[i].type)
             {
                 case LevelFeature.features.Spikes:
-                    CreateLevelObjects(spikePrefab, frequencyBands[levelFeature.bandIndex], levelFeature);
+                    CreateLevelObjects(spikePrefab, frequencyBands[levelFeatures[i].bandIndex], ref levelFeatures[i]);
                     break;
                 case LevelFeature.features.DuckBlock:
-                    CreateLevelObjects(duckBlockPrefab, frequencyBands[levelFeature.bandIndex], levelFeature);
+                    CreateLevelObjects(duckBlockPrefab, frequencyBands[levelFeatures[i].bandIndex], ref levelFeatures[i]);
                     break;
                 case LevelFeature.features.DestructableWalls:
                     break;
                 case LevelFeature.features.LevelHeight:
                     break;
                 case LevelFeature.features.Lighting:
-                    CreateLightingEvents(frequencyBands[levelFeature.bandIndex]);
+                    CreateLightingEvents(frequencyBands[levelFeatures[i].bandIndex]);
                     break;
             }
         }
 
         CleanUpLevel();
-
-        songTime = _songTime;
 
         SaveLevel();
 
@@ -245,16 +257,19 @@ public class LevelGenerator : MonoBehaviour
         //currentTime.transform.localPosition = currentTimePosition;
     }
 
-    private void CreateLevelObjects(GameObject levelObjectPrefab, FrequencyBand band, LevelFeature feature)
+    private void CreateLevelObjects(GameObject levelObjectPrefab, FrequencyBand band, ref LevelFeature feature)
     {
         int iterationsSinceLast = 0;
+
+        feature.AdjustForJumpDistance(physicsModel.jumpDistance);
+        feature.CalculateSpaceIndexes(spacingBetweenSamples);
 
         for (int i = 0; i < band.spectralFluxSamples.Count; i++)
         {
             SpectralFluxData sample = band.spectralFluxSamples[i];
 
             //TODO: Change to use physics model
-            if (sample.isPeak && (iterationsSinceLast >= feature.preSpace || feature.placeAdjacent))
+            if (sample.isPeak && (iterationsSinceLast >= feature.preSpaceIndex || feature.placeAdjacent))
             {
                 LevelObject levelObject = LevelObjectAtPosition(i);
 
@@ -303,9 +318,8 @@ public class LevelGenerator : MonoBehaviour
             {
                 if (levelObject.feature == currentFeature)
                 {
-                    //TODO: Insert spacing check to convert physics model to index number
                     //Check space in front and behind the object 
-                    for (int i = levelObject.songPositionIndex - currentFeature.preSpace; i < levelObject.songPositionIndex + currentFeature.postSpace; i++)
+                    for (int i = levelObject.songPositionIndex - currentFeature.preSpaceIndex; i < levelObject.songPositionIndex + currentFeature.postSpaceIndex; i++)
                     {
                         LevelObject objectToCheck = LevelObjectAtPosition(i);
                          
@@ -321,6 +335,7 @@ public class LevelGenerator : MonoBehaviour
                 }
             }
 
+            //Remove features with lower priority that are within spacing
             foreach (LevelObject levelObject in objectsToRemove)
             {
                 levelObjects.Remove(levelObject);
@@ -333,14 +348,6 @@ public class LevelGenerator : MonoBehaviour
         LoadLevel();
 
         StartCoroutine(StartSong());
-    }
-
-    private void CalculatePlayerOffset()
-    {
-        float distancePerSecond = levelLength / songTime;
-        playerOffsetDistance = playerOffset * distancePerSecond;  
-
-        player.rigidbody.position = new Vector2(playerOffsetDistance, player.transform.position.y);
     }
 
     private void FixedUpdate()
@@ -372,7 +379,7 @@ public class LevelGenerator : MonoBehaviour
     {
         if(!paused)
         {
-            player.rigidbody.velocity = new Vector2(playerVelocityX, player.rigidbody.velocity.y);
+            player.rigidbody.velocity = new Vector2(physicsModel.velocity, player.rigidbody.velocity.y);
         }
         else
         {
@@ -425,13 +432,7 @@ public class LevelGenerator : MonoBehaviour
         //New marker
         currentTimeMarker.offset = new Vector2(-playerOffsetDistance, currentTimeMarker.transform.localPosition.y);
 
-        playerVelocityX = levelLength / songTime;
-        player.rigidbody.velocity = new Vector2(playerVelocityX, player.rigidbody.velocity.y);
-
-        physicsModel.gravity = Physics2D.gravity.y * player.rigidbody.gravityScale;
-        physicsModel.velocity = player.rigidbody.velocity.x;
-        physicsModel.jumpAcceleration = player.GetJumpAcceleration();
-        physicsModel.CalculatePhysicsModel();
+        player.rigidbody.velocity = new Vector2(physicsModel.velocity, player.rigidbody.velocity.y);
 
         audioSource.Play();
 
@@ -444,6 +445,14 @@ public class LevelGenerator : MonoBehaviour
             Debug.LogError("Level file not loaded");
             songStarted = false;
         }
+    }
+
+    private void CalculatePlayerOffset()
+    {
+        float distancePerSecond = levelLength / songTime;
+        playerOffsetDistance = playerOffset * distancePerSecond;
+
+        player.rigidbody.position = new Vector2(playerOffsetDistance, player.transform.position.y);
     }
 
     //TestLevelGeneration(_spectralFluxSamples.Count);
