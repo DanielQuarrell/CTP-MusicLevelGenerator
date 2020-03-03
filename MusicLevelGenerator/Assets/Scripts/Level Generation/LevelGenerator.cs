@@ -28,6 +28,11 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] Transform platform;
     [SerializeField] AudioSource audioSource;
 
+    [Header("Frequncy Bars")]
+    [SerializeField] GameObject barPrefab;
+    [SerializeField] RectTransform barHolder;
+    [SerializeField] List<RectTransform> bars;
+
     [Header("Prefabs")]
     [SerializeField] Transform levelTransform;
     [SerializeField] GameObject spikePrefab;
@@ -52,13 +57,17 @@ public class LevelGenerator : MonoBehaviour
     [HideInInspector] public List<LevelObject> levelObjects;            
     [HideInInspector] public List<LightingEventData> lightingEvents;    
 
+    [HideInInspector] public PhysicsModel physicsModel;
+
+    [HideInInspector] public List<SpectrumData> spectrumData;
+
+    [HideInInspector] public float numberOfBars;
+
     LevelData loadedLevel;  //Loaded level from file
 
-    PhysicsModel physicsModel;
+    float playerOffsetDistance; //Distance offset from all level objects
 
-    float playerOffsetDistance;     //Distance offset
 
-    bool onFirstUpdate = false;
     bool paused = false;
     bool songStarted = false;
 
@@ -84,6 +93,10 @@ public class LevelGenerator : MonoBehaviour
             SongData songData = JsonUtility.FromJson<SongData>(data);
 
             GenerateLevelFromSamples(songData.frequencyBands.ToArray(), songData.clipLength);
+
+            spectrumData = songData.spectrumData;
+
+            numberOfBars = songData.spectrumData[0].spectrum.Length;
 
             audioSource.clip = Resources.Load<AudioClip>("Audio/" + songData.songName);
         }
@@ -168,7 +181,10 @@ public class LevelGenerator : MonoBehaviour
                 }
             }
 
-            levelData.lightingEventData = new List<LightingEventData>(lightingEvents);
+            lightingEvents = levelData.lightingEventData;
+            spectrumData = levelData.spectrumData;
+
+            numberOfBars = levelData.spectrumData[0].spectrum.Length;
 
             loadedLevel = levelData;
         }
@@ -199,8 +215,15 @@ public class LevelGenerator : MonoBehaviour
 
         levelData.lightingEventData = new List<LightingEventData>(lightingEvents);
 
+        levelData.spectrumData = new List<SpectrumData>(spectrumData);
+
         string data = string.Empty;
         data = JsonUtility.ToJson(levelData, true);
+
+        if (File.Exists("Assets/Resources/LevelDataFiles/" + levelData.songName + "_Level.json"))
+        {
+            File.Delete("Assets/Resources/LevelDataFiles/" + levelData.songName + "_Level.json");
+        }
 
         File.WriteAllText("Assets/Resources/LevelDataFiles/" + levelData.songName + "_Level.json", data);
         Debug.Log("Saved level data to: " + "Assets/Resources/LevelDataFiles/" + levelData.songName + "_Level.json");
@@ -409,10 +432,12 @@ public class LevelGenerator : MonoBehaviour
             }
         }
 
-        if(onFirstUpdate && currentTime != 0)
+        if(spectrumData != null)
         {
-            //player.MovePosition(new Vector2(playerXPosition + 0.175f, 0));
-            onFirstUpdate = false;
+            for (int i = 0; i < bars.Count; i++)
+            {
+                bars[i].anchorMax = new Vector2(1, Mathf.Clamp(spectrumData[currentIndex].spectrum[i] * 100, 0.0f, 1.0f));
+            }
         }
     }
 
@@ -425,9 +450,9 @@ public class LevelGenerator : MonoBehaviour
     {
         audioSource.Stop();
 
-        onFirstUpdate = true;
-
         CalculatePlayerOffset();
+
+        CreateFrequencyBars();
 
         //New marker
         currentTimeMarker.offset = new Vector2(-playerOffsetDistance, currentTimeMarker.transform.localPosition.y);
@@ -455,17 +480,32 @@ public class LevelGenerator : MonoBehaviour
         player.rigidbody.position = new Vector2(playerOffsetDistance, player.transform.position.y);
     }
 
-    //TestLevelGeneration(_spectralFluxSamples.Count);
-    private void TestLevelGeneration(float _spectralfluxSampleCount)
+    private void CreateFrequencyBars()
     {
-        //3 iterations equals one triangle length at 0.25f
-
-        for (int i = 0; i < _spectralfluxSampleCount; i++)
+        if(bars != null)
         {
-            if (i % 12 == 0)
+            for (int i = 0; i < bars.Count; i++)
             {
-                Instantiate(spikePrefab, new Vector2(i * spacingBetweenSamples, levelTransform.position.y), Quaternion.identity, levelTransform);
+                Destroy(bars[i].gameObject);
             }
+
+            bars.Clear();
+        }
+
+        bars = new List<RectTransform>();
+
+        float increment =  barHolder.rect.width / (numberOfBars + 2);
+
+        for(int i = 0; i < numberOfBars; i++)
+        {
+            RectTransform bar = Instantiate(barPrefab, barHolder.transform).GetComponent<RectTransform>();
+
+            Vector2 position = bar.position;
+            position.x = increment * (i + 1);
+            position.y = 0;
+            bar.position = position;
+
+            bars.Add(bar);
         }
     }
 

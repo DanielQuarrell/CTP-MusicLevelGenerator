@@ -99,4 +99,6 @@ public class LevelData
 
     public List<LevelObjectData> levelObjectData;
     public List<LightingEventData> lightingEventData;
+
+    public List<SpectrumData> spectrumData;
 }

@@ -14,11 +14,11 @@ public class PhysicsModel
 
     public void CalculatePhysicsModel()
     {
-        //Since velocity is always 0 at jump height, use -velocity
+        //Since final velocity is always 0 at jump height, use -initial velocity
         //(vf - vi) / -g
         float timeToReachHighestPoint = -jumpAcceleration / -gravity;
 
-        //Time of whole jump
+        //Time of whole jump in seconds
         float timeInAir = timeToReachHighestPoint * 2;
 
         //jumpHeight = (vi * t) - ½(g * t²)

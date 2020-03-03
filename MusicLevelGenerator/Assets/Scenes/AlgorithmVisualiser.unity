@@ -2113,6 +2113,7 @@ MonoBehaviour:
   audioSource: {fileID: 699910599}
   visualiser: {fileID: 0}
   songJsonFile: {fileID: 0}
+  numberOfBars: 12
   spectrumSampleSize: 2048
   thresholdWindowSize: 75
   frequencyBandBoundaries:
@@ -3037,6 +3038,7 @@ MonoBehaviour:
   audioSource: {fileID: 1111278107}
   visualiser: {fileID: 0}
   songJsonFile: {fileID: 0}
+  numberOfBars: 12
   spectrumSampleSize: 2048
   thresholdWindowSize: 75
   frequencyBandBoundaries:
@@ -3276,6 +3278,7 @@ MonoBehaviour:
   audioSource: {fileID: 1150069459}
   visualiser: {fileID: 1150069461}
   songJsonFile: {fileID: 0}
+  numberOfBars: 9
   spectrumSampleSize: 2048
   thresholdWindowSize: 75
   frequencyBandBoundaries:
@@ -5517,6 +5520,7 @@ MonoBehaviour:
   audioSource: {fileID: 2035056488}
   visualiser: {fileID: 0}
   songJsonFile: {fileID: 4900000, guid: 6b687404f0e2d9443aa97efe8fe7aa04, type: 3}
+  numberOfBars: 12
   spectrumSampleSize: 2048
   thresholdWindowSize: 75
   frequencyBandBoundaries:

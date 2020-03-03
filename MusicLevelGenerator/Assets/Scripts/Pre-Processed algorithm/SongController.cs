@@ -18,6 +18,9 @@ public class SongController : MonoBehaviour
     [SerializeField] Visualiser visualiser;
 
     [SerializeField] TextAsset songJsonFile;
+
+    [Header("Visual Modifiers")]
+    public int numberOfBars = 12;
     
     [Header("Onset Algorithm Modifiers")]
     public int spectrumSampleSize = 1024;
@@ -49,7 +52,7 @@ public class SongController : MonoBehaviour
 
     private void Start() 
     {
-		// Need all audio samples.  If in stereo, samples will return with left and right channels interweaved
+		// Need all audio samples. If in stereo, samples will return with left and right channels interweaved
 		// [L,R,L,R,L,R]
 		multiChannelSamples = new float[audioSource.clip.samples * audioSource.clip.channels];
 		numOfChannels = audioSource.clip.channels;
@@ -60,7 +63,7 @@ public class SongController : MonoBehaviour
 		sampleRate = audioSource.clip.frequency;
 
         //Preprocess entire audio clip
-        spectralFluxAnalyzer = new SpectralFluxAnalyzer(spectrumSampleSize, sampleRate, thresholdWindowSize, frequencyBandBoundaries.ToArray());
+        spectralFluxAnalyzer = new SpectralFluxAnalyzer(spectrumSampleSize, sampleRate, thresholdWindowSize, frequencyBandBoundaries.ToArray(), numberOfBars);
 
         audioSource.clip.GetData(multiChannelSamples, 0);
 
@@ -86,7 +89,7 @@ public class SongController : MonoBehaviour
             band.spectralFluxIndex = 0;
         }
 
-        spectralFluxAnalyzer = new SpectralFluxAnalyzer(spectrumSampleSize, sampleRate, thresholdWindowSize, frequencyBandBoundaries.ToArray());
+        spectralFluxAnalyzer = new SpectralFluxAnalyzer(spectrumSampleSize, sampleRate, thresholdWindowSize, frequencyBandBoundaries.ToArray(), numberOfBars);
         audioSource.clip.GetData(multiChannelSamples, 0);
         ProcessFullSpectrum();
 
@@ -124,7 +127,8 @@ public class SongController : MonoBehaviour
         songData.spectralSampleSize = spectrumSampleSize;
         songData.thresholdWindowSize = thresholdWindowSize;
 
-        songData.frequencyBands = new List<FrequencyBand>(frequencyBandBoundaries);
+        songData.frequencyBands = new List<FrequencyBand>(spectralFluxAnalyzer.frequencyBands);
+        songData.spectrumData = new List<SpectrumData>(spectralFluxAnalyzer.spectrumData);
 
         string data = string.Empty;
         data = JsonUtility.ToJson(songData, true);
@@ -132,18 +136,6 @@ public class SongController : MonoBehaviour
         File.WriteAllText("Assets/Resources/SongDataFiles/" + songData.songName + "_Data.json", data);
         Debug.Log("Saved song data to: " + "Assets/Resources/SongDataFiles/" + songData.songName + "_Data.json");
     }
-
-    public int GetIndexFromTime(float curTime) 
-    {
-		float lengthPerSample = this.clipLength / (float)this.totalSamples;
-
-		return Mathf.FloorToInt (curTime / lengthPerSample);
-	}
-
-	public float GetTimeFromIndex(int index) 
-    {
-		return ((1f / (float)this.sampleRate) * index);
-	}
 
     private void ProcessFullSpectrum()
     {
@@ -153,6 +145,8 @@ public class SongController : MonoBehaviour
         int numProcessed = 0;
         float combinedChannelAverage = 0f;
 
+        //Combine channels if there is more than one, e.g. Stereo, 
+        //Add to pre-processed array to be passed through the fft
         for (int i = 0; i < multiChannelSamples.Length; i++)
         {
             combinedChannelAverage += multiChannelSamples[i];
@@ -196,10 +190,15 @@ public class SongController : MonoBehaviour
             //These 1024 magnitude values correspond to a single point in the audio timeline
             float curSongTime = GetTimeFromIndex(i) * spectrumSampleSize;
 
-            //Send our magnitude data off to our Spectral Flux Analyzer to be analyzed for peaks
+            //Send magnitude data off to the Spectral Flux Analyzer to be analyzed for peaks
             spectralFluxAnalyzer.AnalyzeSpectrum(Array.ConvertAll(scaledFFTSpectrum, x => (float)x), curSongTime);
         }
 
         Debug.Log("Spectrum Analysis done");
+    }
+
+    private float GetTimeFromIndex(int index)
+    {
+        return ((1f / (float)this.sampleRate) * index);
     }
 }

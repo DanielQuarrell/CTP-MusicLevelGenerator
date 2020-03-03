@@ -3,6 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
+public class SpectrumData
+{
+    public float[] spectrum;
+
+    public SpectrumData(float [] _spectrum)
+    {
+        spectrum = _spectrum;
+    }
+}
+
+[System.Serializable]
 public class SpectralFluxData
 {
     public float time;
@@ -53,7 +64,7 @@ public class FrequencyBand
             sum += spectralFluxSamples[i].spectralFlux;
         }
 
-        // Return the average multiplied by our sensitivity multiplier
+        // Return the average multiplied by a sensitivity multiplier
         float avg = sum / (windowEndIndex - windowStartIndex);
         return avg * thresholdMultiplier;
     }
@@ -75,5 +86,6 @@ public class SongData
     public int thresholdWindowSize;
 
     public List<FrequencyBand> frequencyBands;
+    public List<SpectrumData> spectrumData; 
 }
 

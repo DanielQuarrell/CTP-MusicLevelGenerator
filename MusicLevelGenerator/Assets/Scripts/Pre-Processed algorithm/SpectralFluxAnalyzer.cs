@@ -6,11 +6,15 @@ using UnityEngine;
 public class SpectralFluxAnalyzer 
 {
     public FrequencyBand[] frequencyBands;
+    public List<SpectrumData> spectrumData;
 
+    //Number of samples per fft in the song
     int numberOfSamples = 1024;
 
-    // Number of samples to average in our window
+    //Number of samples to average in the window
     int thresholdWindowSize = 50;
+
+    int numberOfBars;
 
     float frequencyPerIndex = 0;
     float FFTmaxFrequency = 0;
@@ -18,7 +22,7 @@ public class SpectralFluxAnalyzer
     float[] currentSpectrum;
 	float[] previousSpectrum;
 
-    public SpectralFluxAnalyzer(int _sampleSize, float _maxFrequency, int _thresholdWindowSize, FrequencyBand[] _frequencyBandBoundaries)
+    public SpectralFluxAnalyzer(int _sampleSize, float _maxFrequency, int _thresholdWindowSize, FrequencyBand[] _frequencyBandBoundaries, int _numberOfBars)
     {
         numberOfSamples = (_sampleSize / 2) + 1;
         FFTmaxFrequency = _maxFrequency / 2;
@@ -38,20 +42,55 @@ public class SpectralFluxAnalyzer
 
         currentSpectrum = new float[numberOfSamples];
         previousSpectrum = new float[numberOfSamples];
-    }
 
-	public void SetCurrentSpectrum(float[] spectrum) 
-    {
-        currentSpectrum.CopyTo(previousSpectrum, 0);
-		spectrum.CopyTo(currentSpectrum, 0);
-	}
+        spectrumData = new List<SpectrumData>();
+
+        numberOfBars = _numberOfBars;
+    }
 		
 	public void AnalyzeSpectrum(float[] spectrum, float time) 
     {
-		// Set spectrum
-		SetCurrentSpectrum(spectrum);
+        //Set new spectrum and save previous 
+        SetCurrentSpectrum(spectrum);
+        spectrumData.Add(new SpectrumData(ComputeAverages(spectrum)));
         AnalyseFrequencyBands(time);
 	}
+
+    public void SetCurrentSpectrum(float[] newSpectrum) 
+    {
+        currentSpectrum.CopyTo(previousSpectrum, 0);
+		newSpectrum.CopyTo(currentSpectrum, 0);
+    }
+
+    public float[] ComputeAverages(float[] spectrum)
+    {
+        int spectrumSize = spectrum.Length;
+        int incrementAmount = spectrumSize / numberOfBars;
+
+        int lowBoundary = 0;
+        int highBoundary = incrementAmount;
+
+        float[] averages = new float[numberOfBars];
+
+        for (int i = 0; i < numberOfBars; i++)
+        {
+            float avg = 0;
+
+            for (int j = lowBoundary; j <= highBoundary; j++)
+            {
+                avg += spectrum[j];
+            }
+
+            avg /= (highBoundary - lowBoundary + 1);
+            averages[i] = avg;
+
+            lowBoundary += incrementAmount;
+            highBoundary += incrementAmount;
+        }
+
+        return averages;
+    }
+
 
     private void AnalyseFrequencyBands(float time)
     {
@@ -94,7 +133,7 @@ public class SpectralFluxAnalyzer
         for (int i = 0; i < numberOfSamples; i++)
         {
             //Seperate the spectral flux into frequency band
-            //Current frequency of index < percentage the max frequency provided by the FFT
+            //Current frequency of index < percentage of the max frequency provided by the FFT
 
             float indexFrequency = i * frequencyPerIndex;
 
