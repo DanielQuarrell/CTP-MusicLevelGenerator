@@ -86,6 +86,8 @@ public class SongData
     public int thresholdWindowSize;
 
     public List<FrequencyBand> frequencyBands;
-    public List<SpectrumData> spectrumData; 
+    public List<SpectrumData> spectrumData;
+
+    public float highestVolume;
 }
 

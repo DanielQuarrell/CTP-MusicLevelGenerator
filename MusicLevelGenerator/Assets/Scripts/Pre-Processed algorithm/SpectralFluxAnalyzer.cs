@@ -22,6 +22,8 @@ public class SpectralFluxAnalyzer
     float[] currentSpectrum;
 	float[] previousSpectrum;
 
+    float highestVolume;
+
     public SpectralFluxAnalyzer(int _sampleSize, float _maxFrequency, int _thresholdWindowSize, FrequencyBand[] _frequencyBandBoundaries, int _numberOfBars)
     {
         numberOfSamples = (_sampleSize / 2) + 1;
@@ -80,6 +82,8 @@ public class SpectralFluxAnalyzer
             {
                 avg += spectrum[j];
             }
+
+            if (highestVolume < avg) highestVolume = avg; 
 
             avg /= (highBoundary - lowBoundary + 1);
             averages[i] = avg;

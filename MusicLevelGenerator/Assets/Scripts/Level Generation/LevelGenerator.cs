@@ -31,7 +31,6 @@ public class LevelGenerator : MonoBehaviour
     [Header("Frequncy Bars")]
     [SerializeField] GameObject barPrefab;
     [SerializeField] RectTransform barHolder;
-    [SerializeField] List<RectTransform> bars;
 
     [Header("Prefabs")]
     [SerializeField] Transform levelTransform;
@@ -44,9 +43,8 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] float loadingTime = 0f;
 
     [Header("Player objects")]
-    [SerializeField] Transform playerTransform;
-
     [SerializeField] Player player;
+    [SerializeField] Transform playerTransform;
     [SerializeField] FollowPlayer currentTimeMarker;    
 
     //Variables to keep loaded in editor
@@ -65,9 +63,11 @@ public class LevelGenerator : MonoBehaviour
 
     LevelData loadedLevel;  //Loaded level from file
 
+    List<FrequencyBar> bars; //Bars to visually display FFT
+
     float playerOffsetDistance; //Distance offset from all level objects
 
-
+    float currentTime;
     bool paused = false;
     bool songStarted = false;
 
@@ -377,8 +377,10 @@ public class LevelGenerator : MonoBehaviour
     {
         if (songStarted)
         {
-            UpdatePlayerVelocity();
             UpdateSongPosition(audioSource.time);
+
+            currentTime += Time.deltaTime;
+            UpdatePlayerVelocity();
 
             /*
              * Enable / disable objects on whether or not they are in view
@@ -402,23 +404,16 @@ public class LevelGenerator : MonoBehaviour
     {
         if(!paused)
         {
-            player.rigidbody.velocity = new Vector2(physicsModel.velocity, player.rigidbody.velocity.y);
+            float playerPosition = Mathf.Lerp(0.0f, levelLength, Mathf.Clamp(currentTime / songTime, 0f, 1f)) + playerOffsetDistance;
+            playerTransform.position = new Vector2(playerPosition, 0);
         }
         else
         {
-            player.rigidbody.velocity = Vector2.zero;
         }
     }
 
     public void UpdateSongPosition(float currentTime)
     {
-        float percentageThroughLevel = Mathf.InverseLerp(0, songTime, currentTime);
-
-        //Can be changed to move the player through the level
-        float playerXPosition = Mathf.Lerp(0.0f, levelLength, percentageThroughLevel) + playerOffsetDistance;
-
-        playerTransform.position = new Vector2(playerXPosition, 0);
-
         int currentIndex = (int)(songIndexLength * (currentTime / songTime));
 
         if (lightingEvents != null)
@@ -436,7 +431,17 @@ public class LevelGenerator : MonoBehaviour
         {
             for (int i = 0; i < bars.Count; i++)
             {
-                bars[i].anchorMax = new Vector2(1, Mathf.Clamp(spectrumData[currentIndex].spectrum[i] * 100, 0.0f, 1.0f));
+                Vector2 fillAmount = Vector2.one;
+                fillAmount.y = Mathf.Clamp(spectrumData[currentIndex].spectrum[i] * 100, 0.0f, 1.0f);
+                if(fillAmount.y < bars[i].fill.anchorMax.y)
+                {
+                    fillAmount.y = bars[i].fill.anchorMax.y - Time.deltaTime;
+                    bars[i].fill.anchorMax = fillAmount;
+                }
+                else
+                {
+                    bars[i].fill.DOAnchorMax(fillAmount, duration: 0);
+                }
             }
         }
     }
@@ -457,7 +462,8 @@ public class LevelGenerator : MonoBehaviour
         //New marker
         currentTimeMarker.offset = new Vector2(-playerOffsetDistance, currentTimeMarker.transform.localPosition.y);
 
-        player.rigidbody.velocity = new Vector2(physicsModel.velocity, player.rigidbody.velocity.y);
+        //Reset song time and player position
+        currentTime = 0;
 
         audioSource.Play();
 
@@ -477,7 +483,7 @@ public class LevelGenerator : MonoBehaviour
         float distancePerSecond = levelLength / songTime;
         playerOffsetDistance = playerOffset * distancePerSecond;
 
-        player.rigidbody.position = new Vector2(playerOffsetDistance, player.transform.position.y);
+        playerTransform.position = new Vector2(playerOffsetDistance, playerTransform.position.y);
     }
 
     private void CreateFrequencyBars()
@@ -486,24 +492,25 @@ public class LevelGenerator : MonoBehaviour
         {
             for (int i = 0; i < bars.Count; i++)
             {
+                bars[i].fill.DOKill();
                 Destroy(bars[i].gameObject);
             }
 
             bars.Clear();
         }
 
-        bars = new List<RectTransform>();
+        bars = new List<FrequencyBar>();
 
         float increment =  barHolder.rect.width / (numberOfBars + 2);
 
         for(int i = 0; i < numberOfBars; i++)
         {
-            RectTransform bar = Instantiate(barPrefab, barHolder.transform).GetComponent<RectTransform>();
+            FrequencyBar bar = Instantiate(barPrefab, barHolder.transform).GetComponent<FrequencyBar>();
 
-            Vector2 position = bar.position;
-            position.x = increment * (i + 1);
+            Vector3 position = bar.rectTransform.localPosition;
+            position.x = increment *(i + 1);
             position.y = 0;
-            bar.position = position;
+            bar.rectTransform.localPosition = position;
 
             bars.Add(bar);
         }
