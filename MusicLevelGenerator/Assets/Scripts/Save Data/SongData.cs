@@ -87,7 +87,5 @@ public class SongData
 
     public List<FrequencyBand> frequencyBands;
     public List<SpectrumData> spectrumData;
-
-    public float highestVolume;
 }
 

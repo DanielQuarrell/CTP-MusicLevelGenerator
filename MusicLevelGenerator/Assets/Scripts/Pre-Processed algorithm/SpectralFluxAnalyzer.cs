@@ -14,15 +14,16 @@ public class SpectralFluxAnalyzer
     //Number of samples to average in the window
     int thresholdWindowSize = 50;
 
+    //Number of frequency bars in the level scene
     int numberOfBars;
 
+    //The frequency amount each index in the array represents
     float frequencyPerIndex = 0;
     float FFTmaxFrequency = 0;
 
     float[] currentSpectrum;
 	float[] previousSpectrum;
 
-    float highestVolume;
 
     public SpectralFluxAnalyzer(int _sampleSize, float _maxFrequency, int _thresholdWindowSize, FrequencyBand[] _frequencyBandBoundaries, int _numberOfBars)
     {
@@ -82,8 +83,6 @@ public class SpectralFluxAnalyzer
             {
                 avg += spectrum[j];
             }
-
-            if (highestVolume < avg) highestVolume = avg; 
 
             avg /= (highBoundary - lowBoundary + 1);
             averages[i] = avg;

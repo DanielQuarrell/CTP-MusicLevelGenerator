@@ -58,7 +58,6 @@ public class LevelGenerator : MonoBehaviour
     [HideInInspector] public PhysicsModel physicsModel;
 
     [HideInInspector] public List<SpectrumData> spectrumData;
-
     [HideInInspector] public float numberOfBars;
 
     LevelData loadedLevel;  //Loaded level from file
@@ -95,7 +94,6 @@ public class LevelGenerator : MonoBehaviour
             GenerateLevelFromSamples(songData.frequencyBands.ToArray(), songData.clipLength);
 
             spectrumData = songData.spectrumData;
-
             numberOfBars = songData.spectrumData[0].spectrum.Length;
 
             audioSource.clip = Resources.Load<AudioClip>("Audio/" + songData.songName);
@@ -127,10 +125,14 @@ public class LevelGenerator : MonoBehaviour
             levelObjects.Clear();
         }
 
-        foreach (Transform child in levelTransform.transform)
+        while (levelTransform.childCount != 0)
         {
-            GameObject.DestroyImmediate(child.gameObject);
+            foreach (Transform child in levelTransform.transform)
+            {
+                GameObject.DestroyImmediate(child.gameObject);
+            }
         }
+
     }
 
     public void LoadLevel()
@@ -182,8 +184,8 @@ public class LevelGenerator : MonoBehaviour
             }
 
             lightingEvents = levelData.lightingEventData;
-            spectrumData = levelData.spectrumData;
 
+            spectrumData = levelData.spectrumData;
             numberOfBars = levelData.spectrumData[0].spectrum.Length;
 
             loadedLevel = levelData;
@@ -291,7 +293,6 @@ public class LevelGenerator : MonoBehaviour
         {
             SpectralFluxData sample = band.spectralFluxSamples[i];
 
-            //TODO: Change to use physics model
             if (sample.isPeak && (iterationsSinceLast >= feature.preSpaceIndex || feature.placeAdjacent))
             {
                 LevelObject levelObject = LevelObjectAtPosition(i);
@@ -378,25 +379,7 @@ public class LevelGenerator : MonoBehaviour
         if (songStarted)
         {
             UpdateSongPosition(audioSource.time);
-
-            currentTime += Time.deltaTime;
             UpdatePlayerVelocity();
-
-            /*
-             * Enable / disable objects on whether or not they are in view
-             * 
-            for (int i = 0; i < levelObjects.Length; i++)
-            {
-                if(levelObjects[i] != null)
-                {
-                    if (levelObjects[i].gameObject != null)
-                    {
-                        Vector2 distance = player.position - (Vector2)levelObjects[i].gameObject.transform.position;
-                        levelObjects[i].gameObject.SetActive(distance.magnitude < loadingDistance);
-                    }
-                }
-            }
-            */
         }
     }
 
@@ -404,6 +387,7 @@ public class LevelGenerator : MonoBehaviour
     {
         if(!paused)
         {
+            currentTime += Time.fixedDeltaTime;
             float playerPosition = Mathf.Lerp(0.0f, levelLength, Mathf.Clamp(currentTime / songTime, 0f, 1f)) + playerOffsetDistance;
             playerTransform.position = new Vector2(playerPosition, 0);
         }
@@ -432,7 +416,7 @@ public class LevelGenerator : MonoBehaviour
             for (int i = 0; i < bars.Count; i++)
             {
                 Vector2 fillAmount = Vector2.one;
-                fillAmount.y = Mathf.Clamp(spectrumData[currentIndex].spectrum[i] * 100, 0.0f, 1.0f);
+                fillAmount.y = Mathf.Clamp(spectrumData[currentIndex].spectrum[i] * 80, 0.0f, 1.0f);
                 if(fillAmount.y < bars[i].fill.anchorMax.y)
                 {
                     fillAmount.y = bars[i].fill.anchorMax.y - Time.deltaTime;
