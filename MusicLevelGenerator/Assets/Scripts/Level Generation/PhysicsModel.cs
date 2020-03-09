@@ -24,6 +24,7 @@ public class PhysicsModel
         //jumpHeight = (vi * t) - ½(g * t²)
         jumpHeight = (jumpAcceleration * timeToReachHighestPoint) - 0.5f * (gravity * Mathf.Pow(timeToReachHighestPoint, 2));
 
+        //distance = time * units per second
         jumpDistance = timeInAir * velocity;
     }
 }

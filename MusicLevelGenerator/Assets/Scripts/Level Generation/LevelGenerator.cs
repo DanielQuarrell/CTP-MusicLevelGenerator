@@ -22,6 +22,12 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] TextAsset songJsonFile;
     [SerializeField] TextAsset levelJsonFile;
 
+    [Header("BPM")]
+    [SerializeField] int bpm;
+    [SerializeField] Transform markerHolder;
+    [SerializeField] GameObject bpmMarkerPrefab;
+    [SerializeField] float markerOffset;
+
     [Header("Level Features")]
     [SerializeField] LevelFeature[] levelFeatures;
     [SerializeField] Image levelBackground;
@@ -91,12 +97,14 @@ public class LevelGenerator : MonoBehaviour
             string data = songJsonFile.text;
             SongData songData = JsonUtility.FromJson<SongData>(data);
 
-            GenerateLevelFromSamples(songData.frequencyBands.ToArray(), songData.clipLength);
-
+            audioSource.clip = Resources.Load<AudioClip>("Audio/" + songData.songName);
+            
             spectrumData = songData.spectrumData;
             numberOfBars = songData.spectrumData[0].spectrum.Length;
 
-            audioSource.clip = Resources.Load<AudioClip>("Audio/" + songData.songName);
+            GenerateLevelFromSamples(songData.frequencyBands.ToArray(), songData.clipLength);
+            CreateBpmMarkers();
+
         }
         else
         {
@@ -515,5 +523,25 @@ public class LevelGenerator : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         ResetLevel();
+    }
+
+    private void CreateBpmMarkers()
+    {
+        while (markerHolder.childCount != 0)
+        {
+            foreach (Transform child in markerHolder.transform)
+            {
+                GameObject.DestroyImmediate(child.gameObject);
+            }
+        }
+
+        float bps = bpm / 60;
+        float beatsInSong = bps * songTime;
+        float distancePerMark = levelLength / beatsInSong;
+
+        for (int i = 0; i < beatsInSong; i++)
+        {
+            Instantiate(bpmMarkerPrefab, new Vector3(distancePerMark * i + markerOffset, -3, 0), Quaternion.identity, markerHolder);
+        }
     }
 }
