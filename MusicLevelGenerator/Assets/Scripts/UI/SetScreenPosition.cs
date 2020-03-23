@@ -7,14 +7,18 @@ public class SetScreenPosition : MonoBehaviour
     [SerializeField] Canvas canvas;
     [SerializeField] Transform target;
 
+    bool initialised = false;
+
     private void Start()
     {
         RectTransform rectTransform = this.GetComponent<RectTransform>();
-        Vector3 position = this.GetComponent<RectTransform>().position;
+        Vector2 position = this.GetComponent<RectTransform>().anchoredPosition;
         Vector2 screenPoint = Camera.main.WorldToScreenPoint(target.position);
 
-        position.y *= canvas.pixelRect.height / (float)Camera.main.pixelHeight;
+        position.y = screenPoint.y;
 
-        rectTransform.position = position;
+        rectTransform.anchoredPosition = position;
+
+        initialised = true;
     }
 }

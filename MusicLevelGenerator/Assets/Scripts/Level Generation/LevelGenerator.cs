@@ -18,6 +18,15 @@ public class LevelGenerator : MonoBehaviour
 {
     static public LevelGenerator instance;
 
+    [Header("Editor")]
+    [SerializeField] FollowObject followCamera;
+    [SerializeField] Button saveButton;
+    [SerializeField] Button testButton;
+    [SerializeField] Slider levelSlider;
+
+    int startIndex = 0;
+    bool editor = true;
+
     [Header("Level Song")]
     [SerializeField] TextAsset songJsonFile;
     [SerializeField] TextAsset levelJsonFile;
@@ -51,7 +60,7 @@ public class LevelGenerator : MonoBehaviour
     [Header("Player objects")]
     [SerializeField] Player player;
     [SerializeField] Transform playerTransform;
-    [SerializeField] FollowPlayer currentTimeMarker;    
+    [SerializeField] FollowObject currentTimeMarker;    
 
     //Variables to keep loaded in editor
     [HideInInspector] public float songTime = 0;        //Length of song in seconds
@@ -67,7 +76,6 @@ public class LevelGenerator : MonoBehaviour
     [HideInInspector] public float numberOfBars;
 
     LevelData loadedLevel;  //Loaded level from file
-
     List<FrequencyBar> bars; //Bars to visually display FFT
 
     float playerOffsetDistance; //Distance offset from all level objects
@@ -88,6 +96,18 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        LoadLevel();
+
+        saveButton.onClick.AddListener(SaveLevel);
+        testButton.onClick.AddListener(ToggleEditor);
+
+        EnableEditor();
+    }
+
+    // Level/Song loading ----------------------------
+
     public void GenerateLevel()
     {
         if(songJsonFile != null)
@@ -104,11 +124,142 @@ public class LevelGenerator : MonoBehaviour
 
             GenerateLevelFromSamples(songData.frequencyBands.ToArray(), songData.clipLength);
             CreateBpmMarkers();
-
         }
         else
         {
             Debug.LogError("Song file needs to be added to generate a level");
+        }
+    }
+
+    public void GenerateLevelFromSamples(FrequencyBand[] frequencyBands, float _songTime)
+    {
+        levelObjects = new List<LevelObject>();
+        songIndexLength = frequencyBands[0].spectralFluxSamples.Count;
+        levelLength = (songIndexLength * spacingBetweenSamples);
+
+        songTime = _songTime;
+
+        //Scale level to the length of the song
+        platform.localScale = new Vector3(levelLength + 15, 1, 1);
+
+        physicsModel = new PhysicsModel();
+
+        //Set physics model
+        physicsModel.gravity = Mathf.Abs(Physics2D.gravity.y * player.rigidbody.gravityScale);
+        physicsModel.velocity = levelLength / songTime;
+        physicsModel.jumpAcceleration = player.GetJumpAcceleration();
+        physicsModel.CalculatePhysicsModel();
+
+        //Sort level based on priority
+        Array.Sort(levelFeatures, delegate (LevelFeature feature1, LevelFeature feature2) { return feature1.priority.CompareTo(feature2.priority); });
+
+        for (int i = 0; i < levelFeatures.Length; i++)
+        {
+            switch (levelFeatures[i].type)
+            {
+                case LevelFeature.features.Spikes:
+                    CreateLevelObjects(spikePrefab, frequencyBands[levelFeatures[i].bandIndex], ref levelFeatures[i]);
+                    break;
+                case LevelFeature.features.DuckBlock:
+                    CreateLevelObjects(duckBlockPrefab, frequencyBands[levelFeatures[i].bandIndex], ref levelFeatures[i]);
+                    break;
+                case LevelFeature.features.DestructableWalls:
+                    break;
+                case LevelFeature.features.LevelHeight:
+                    break;
+                case LevelFeature.features.Lighting:
+                    CreateLightingEvents(frequencyBands[levelFeatures[i].bandIndex]);
+                    break;
+            }
+        }
+
+        CleanUpLevel();
+
+        SaveLevel();
+    }
+
+    private void CreateLevelObjects(GameObject levelObjectPrefab, FrequencyBand band, ref LevelFeature feature)
+    {
+        int iterationsSinceLast = 0;
+
+        feature.AdjustForJumpDistance(physicsModel.jumpDistance);
+        feature.CalculateSpaceIndexes(spacingBetweenSamples);
+
+        for (int i = 0; i < band.spectralFluxSamples.Count; i++)
+        {
+            SpectralFluxData sample = band.spectralFluxSamples[i];
+
+            if (sample.isPeak && (iterationsSinceLast >= feature.preSpaceIndex || feature.placeAdjacent))
+            {
+                LevelObject levelObject = LevelObjectAtPosition(i);
+
+                if (levelObject == null)
+                {
+                    levelObject = new LevelObject();
+                    levelObject.gameObject = Instantiate(levelObjectPrefab, new Vector2(i * spacingBetweenSamples + feature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
+                    levelObject.feature = feature;
+                    levelObject.songPositionIndex = i;
+
+                    levelObjects.Add(levelObject);
+                }
+
+                iterationsSinceLast = 0;
+            }
+            else
+            {
+                iterationsSinceLast++;
+            }
+        }
+    }
+
+    private void CreateLightingEvents(FrequencyBand band)
+    {
+        lightingEvents = new List<LightingEventData>();
+
+        for (int i = 0; i < band.spectralFluxSamples.Count; i++)
+        {
+            SpectralFluxData sample = band.spectralFluxSamples[i];
+
+            if (sample.isPeak)
+            {
+                lightingEvents.Add(new LightingEventData(i));
+            }
+        }
+    }
+
+    private void CleanUpLevel()
+    {
+        //Check level features in order of priority
+        foreach (LevelFeature currentFeature in levelFeatures)
+        {
+            List<LevelObject> objectsToRemove = new List<LevelObject>();
+
+            foreach (LevelObject levelObject in levelObjects)
+            {
+                if (levelObject.feature == currentFeature)
+                {
+                    //Check space in front and behind the object 
+                    for (int i = levelObject.songPositionIndex - currentFeature.preSpaceIndex; i < levelObject.songPositionIndex + currentFeature.postSpaceIndex; i++)
+                    {
+                        LevelObject objectToCheck = LevelObjectAtPosition(i);
+
+                        if (objectToCheck != null)
+                        {
+                            if (objectToCheck.feature != currentFeature)
+                            {
+                                DestroyImmediate(objectToCheck.gameObject);
+                                objectsToRemove.Add(objectToCheck);
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Remove features with lower priority that are within spacing
+            foreach (LevelObject levelObject in objectsToRemove)
+            {
+                levelObjects.Remove(levelObject);
+            }
         }
     }
 
@@ -140,7 +291,6 @@ public class LevelGenerator : MonoBehaviour
                 GameObject.DestroyImmediate(child.gameObject);
             }
         }
-
     }
 
     public void LoadLevel()
@@ -239,152 +389,11 @@ public class LevelGenerator : MonoBehaviour
         Debug.Log("Saved level data to: " + "Assets/Resources/LevelDataFiles/" + levelData.songName + "_Level.json");
     }
 
-    public void GenerateLevelFromSamples(FrequencyBand[] frequencyBands, float _songTime)
-    {
-        levelObjects = new List<LevelObject>();
-        songIndexLength = frequencyBands[0].spectralFluxSamples.Count;
-        levelLength = (songIndexLength * spacingBetweenSamples);
-
-        songTime = _songTime;
-
-        //Scale level to the length of the song
-        platform.localScale = new Vector3 (levelLength + 15, 1, 1);
-
-        physicsModel = new PhysicsModel();
-
-        //Set physics model
-        physicsModel.gravity = Mathf.Abs(Physics2D.gravity.y * player.rigidbody.gravityScale);
-        physicsModel.velocity = levelLength / songTime;
-        physicsModel.jumpAcceleration = player.GetJumpAcceleration();
-        physicsModel.CalculatePhysicsModel();
-
-        //Sort level based on priority
-        Array.Sort(levelFeatures, delegate (LevelFeature feature1, LevelFeature feature2) { return feature1.priority.CompareTo(feature2.priority); });
-
-        for (int i = 0; i < levelFeatures.Length; i++)
-        {
-            switch (levelFeatures[i].type)
-            {
-                case LevelFeature.features.Spikes:
-                    CreateLevelObjects(spikePrefab, frequencyBands[levelFeatures[i].bandIndex], ref levelFeatures[i]);
-                    break;
-                case LevelFeature.features.DuckBlock:
-                    CreateLevelObjects(duckBlockPrefab, frequencyBands[levelFeatures[i].bandIndex], ref levelFeatures[i]);
-                    break;
-                case LevelFeature.features.DestructableWalls:
-                    break;
-                case LevelFeature.features.LevelHeight:
-                    break;
-                case LevelFeature.features.Lighting:
-                    CreateLightingEvents(frequencyBands[levelFeatures[i].bandIndex]);
-                    break;
-            }
-        }
-
-        CleanUpLevel();
-
-        SaveLevel();
-
-        //Old marker
-        //Vector2 currentTimePosition = new Vector2(-playerOffset, currentTime.transform.localPosition.y);
-        //currentTime.transform.localPosition = currentTimePosition;
-    }
-
-    private void CreateLevelObjects(GameObject levelObjectPrefab, FrequencyBand band, ref LevelFeature feature)
-    {
-        int iterationsSinceLast = 0;
-
-        feature.AdjustForJumpDistance(physicsModel.jumpDistance);
-        feature.CalculateSpaceIndexes(spacingBetweenSamples);
-
-        for (int i = 0; i < band.spectralFluxSamples.Count; i++)
-        {
-            SpectralFluxData sample = band.spectralFluxSamples[i];
-
-            if (sample.isPeak && (iterationsSinceLast >= feature.preSpaceIndex || feature.placeAdjacent))
-            {
-                LevelObject levelObject = LevelObjectAtPosition(i);
-
-                if (levelObject == null)
-                {
-                    levelObject = new LevelObject();
-                    levelObject.gameObject = Instantiate(levelObjectPrefab, new Vector2(i * spacingBetweenSamples + feature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
-                    levelObject.feature = feature;
-                    levelObject.songPositionIndex = i;
-
-                    levelObjects.Add(levelObject);
-                }
-
-                iterationsSinceLast = 0;
-            }
-            else
-            {
-                iterationsSinceLast++;
-            }
-        }
-    }
-
-    private void CreateLightingEvents(FrequencyBand band)
-    {
-        lightingEvents = new List<LightingEventData>();
-
-        for (int i = 0; i < band.spectralFluxSamples.Count; i++)
-        {
-            SpectralFluxData sample = band.spectralFluxSamples[i];
-
-            if (sample.isPeak)
-            {
-                lightingEvents.Add(new LightingEventData(i));
-            }
-        }
-    }
-
-    private void CleanUpLevel()
-    {
-        //Check level features in order of priority
-        foreach (LevelFeature currentFeature in levelFeatures)
-        {
-            List<LevelObject> objectsToRemove = new List<LevelObject>();
-
-            foreach (LevelObject levelObject in levelObjects)
-            {
-                if (levelObject.feature == currentFeature)
-                {
-                    //Check space in front and behind the object 
-                    for (int i = levelObject.songPositionIndex - currentFeature.preSpaceIndex; i < levelObject.songPositionIndex + currentFeature.postSpaceIndex; i++)
-                    {
-                        LevelObject objectToCheck = LevelObjectAtPosition(i);
-                         
-                        if (objectToCheck != null)
-                        {
-                            if (objectToCheck.feature != currentFeature)
-                            {
-                                DestroyImmediate(objectToCheck.gameObject);
-                                objectsToRemove.Add(objectToCheck);
-                            }
-                        }
-                    }
-                }
-            }
-
-            //Remove features with lower priority that are within spacing
-            foreach (LevelObject levelObject in objectsToRemove)
-            {
-                levelObjects.Remove(levelObject);
-            }
-        }
-    }
-
-    private void Start()
-    {
-        LoadLevel();
-
-        StartCoroutine(StartSong());
-    }
+    //Gameplay----------------------------
 
     private void FixedUpdate()
     {
-        if (songStarted)
+        if (songStarted && !editor)
         {
             UpdateSongPosition(audioSource.time);
             UpdatePlayerVelocity();
@@ -393,15 +402,10 @@ public class LevelGenerator : MonoBehaviour
 
     private void UpdatePlayerVelocity()
     {
-        if(!paused)
-        {
-            currentTime += Time.fixedDeltaTime;
-            float playerPosition = Mathf.Lerp(0.0f, levelLength, Mathf.Clamp(currentTime / songTime, 0f, 1f)) + playerOffsetDistance;
-            playerTransform.position = new Vector2(playerPosition, 0);
-        }
-        else
-        {
-        }
+        currentTime += Time.fixedDeltaTime;
+        levelSlider.value = Mathf.Clamp(currentTime / songTime, 0f, 1f);
+        float playerPosition = Mathf.Lerp(0.0f, levelLength, Mathf.Clamp(currentTime / songTime, 0f, 1f)) + playerOffsetDistance;
+        playerTransform.position = new Vector2(playerPosition, 0);
     }
 
     public void UpdateSongPosition(float currentTime)
@@ -438,24 +442,27 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    void FadeBack()
+    private void FadeBack()
     {
         levelBackground.DOFade(0f, 1f);
     }
 
-    public void ResetLevel()
+    public void StartLevelAtPosition(int timeIndex)
     {
         audioSource.Stop();
 
-        CalculatePlayerOffset();
+        CalculatePlayerOffset(timeIndex);
+
+        //Set marker position
+        currentTimeMarker.offset = new Vector2(-playerOffsetDistance + (timeIndex * spacingBetweenSamples), 
+                                                currentTimeMarker.transform.localPosition.y);
+        currentTimeMarker.SetTransformWithOffset(playerTransform);
 
         CreateFrequencyBars();
 
-        //New marker
-        currentTimeMarker.offset = new Vector2(-playerOffsetDistance, currentTimeMarker.transform.localPosition.y);
-
         //Reset song time and player position
-        currentTime = 0;
+        currentTime = songTime * (timeIndex / songIndexLength);
+        audioSource.time = currentTime;
 
         audioSource.Play();
 
@@ -470,12 +477,17 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    private void CalculatePlayerOffset()
+    private void StopLevel()
+    {
+        audioSource.Stop();
+    }
+
+    private void CalculatePlayerOffset(int timeIndex)
     {
         float distancePerSecond = levelLength / songTime;
         playerOffsetDistance = playerOffset * distancePerSecond;
 
-        playerTransform.position = new Vector2(playerOffsetDistance, playerTransform.position.y);
+        playerTransform.position = new Vector2(playerOffsetDistance + (timeIndex * spacingBetweenSamples), playerTransform.position.y);
     }
 
     private void CreateFrequencyBars()
@@ -518,13 +530,6 @@ public class LevelGenerator : MonoBehaviour
         return lightingEvents.FirstOrDefault(lightEvent => lightEvent.songPositionIndex == index);
     }
 
-    IEnumerator StartSong()
-    {
-        yield return new WaitForSeconds(0.1f);
-
-        ResetLevel();
-    }
-
     private void CreateBpmMarkers()
     {
         while (markerHolder.childCount != 0)
@@ -543,5 +548,94 @@ public class LevelGenerator : MonoBehaviour
         {
             Instantiate(bpmMarkerPrefab, new Vector3(distancePerMark * i + markerOffset, -3, 0), Quaternion.identity, markerHolder);
         }
+    }
+
+    //Level Editor ----------------------------------
+
+    private void ToggleEditor()
+    {
+        if(!editor)
+        {
+            EnableEditor();
+            StopLevel();
+        }
+        else
+        {
+            DisableEditor();
+            ResetLevel();
+        }
+    }
+
+    private void EnableEditor()
+    {
+        editor = true;
+
+        levelSlider.interactable = true;
+        saveButton.interactable = true;
+        currentTimeMarker.active = false;
+        testButton.GetComponentInChildren<Text>().text = "Test Level";
+        followCamera.SetTransformWithoutOffset(currentTimeMarker.transform);
+    }
+
+    private void DisableEditor()
+    {
+        editor = false;
+
+        levelSlider.interactable = false;
+        saveButton.interactable = false;
+        currentTimeMarker.active = false;
+        testButton.GetComponentInChildren<Text>().text = "Back to Editor";
+        followCamera.SetTransformWithoutOffset(playerTransform);
+    }
+
+    public void ResetLevel()
+    {
+        StartLevelAtPosition(startIndex);
+    }
+
+    private void Update()
+    {
+        if(editor)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                startIndex--;
+                startIndex = Mathf.Clamp(startIndex, 0, songIndexLength);
+                levelSlider.value = (float)startIndex / (float)songIndexLength;
+                MoveTimeMarker();
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                startIndex++;
+                startIndex = Mathf.Clamp(startIndex, 0, songIndexLength);
+                levelSlider.value = (float)startIndex / (float)songIndexLength;
+                MoveTimeMarker();
+            }
+        }
+    }
+
+    public void OnSliderMove()
+    {
+        if(editor)
+        {
+            startIndex = Mathf.FloorToInt(Mathf.Lerp(0, songIndexLength, levelSlider.value));
+            MoveTimeMarker();
+        }
+    }
+
+    private void MoveTimeMarker()
+    {
+        LevelObject levelObject = LevelObjectAtPosition(startIndex);
+        if (levelObject != null)
+        {
+            levelObject.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.green;
+        }
+
+        float levelPosition = (float)startIndex;
+        levelPosition *= spacingBetweenSamples;
+
+        Vector3 timeMarkerPosition = currentTimeMarker.transform.position;
+        timeMarkerPosition.x = levelPosition;
+        currentTimeMarker.transform.position = timeMarkerPosition;
     }
 }

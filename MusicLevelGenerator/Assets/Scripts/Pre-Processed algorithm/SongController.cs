@@ -145,13 +145,13 @@ public class SongController : MonoBehaviour
         int numProcessed = 0;
         float combinedChannelAverage = 0f;
 
-        //Combine channels if there is more than one, e.g. Stereo, 
+        //Combine channels if the audio is stereo
         //Add to pre-processed array to be passed through the fft
         for (int i = 0; i < multiChannelSamples.Length; i++)
         {
             combinedChannelAverage += multiChannelSamples[i];
 
-            // Each time we have processed all channels samples for a point in time, we will store the average of the channels combined
+            //Store the average of the channels combined for a single time index
             if ((i + 1) % this.numOfChannels == 0)
             {
                 preProcessedSamples[numProcessed] = combinedChannelAverage / numOfChannels;
@@ -160,17 +160,12 @@ public class SongController : MonoBehaviour
             }
         }
 
-        Debug.Log("Combine Channels done");
-        Debug.Log(preProcessedSamples.Length);
-        //-----------------------------------------------------------------
-
         //Execute an FFT to return the spectrum data over the time domain
         int totalIterations = preProcessedSamples.Length / spectrumSampleSize;
 
         FFT fft = new FFT();
         fft.Initialize((UInt32)spectrumSampleSize);
 
-        Debug.Log("Processing " + totalIterations + " time domain samples for FFT");
         double[] sampleChunk = new double[spectrumSampleSize];
         for (int i = 0; i < totalIterations; i++)
         {
