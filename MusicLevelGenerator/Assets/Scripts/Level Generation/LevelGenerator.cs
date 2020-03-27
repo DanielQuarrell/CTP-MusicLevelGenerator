@@ -412,6 +412,12 @@ public class LevelGenerator : MonoBehaviour
     {
         int currentIndex = (int)(songIndexLength * (currentTime / songTime));
 
+        if(currentIndex >= songIndexLength)
+        {
+            ToggleEditor();
+            return;
+        }
+
         if (lightingEvents != null)
         {
             LightingEventData lightingEvent = LightingEventAtPosition(currentIndex);
@@ -454,6 +460,7 @@ public class LevelGenerator : MonoBehaviour
         CalculatePlayerOffset(timeIndex);
 
         //Set marker position
+        MoveTimeMarker(timeIndex);
         currentTimeMarker.offset = new Vector2(-playerOffsetDistance + (timeIndex * spacingBetweenSamples), 
                                                 currentTimeMarker.transform.localPosition.y);
         currentTimeMarker.SetTransformWithOffset(playerTransform);
@@ -461,7 +468,7 @@ public class LevelGenerator : MonoBehaviour
         CreateFrequencyBars();
 
         //Reset song time and player position
-        currentTime = songTime * (timeIndex / songIndexLength);
+        currentTime = songTime * ((float)timeIndex / (float)songIndexLength);
         audioSource.time = currentTime;
 
         audioSource.Play();
@@ -562,7 +569,7 @@ public class LevelGenerator : MonoBehaviour
         else
         {
             DisableEditor();
-            ResetLevel();
+            StartLevelAtPosition(startIndex);
         }
     }
 
@@ -573,8 +580,20 @@ public class LevelGenerator : MonoBehaviour
         levelSlider.interactable = true;
         saveButton.interactable = true;
         currentTimeMarker.active = false;
+        MoveTimeMarker(startIndex);
         testButton.GetComponentInChildren<Text>().text = "Test Level";
         followCamera.SetTransformWithoutOffset(currentTimeMarker.transform);
+
+        if(bars != null)
+        {
+            for (int i = 0; i < bars.Count; i++)
+            {
+                bars[i].fill.DOKill();
+                Vector2 fillAmount = Vector2.one;
+                fillAmount.y = 0;
+                bars[i].fill.anchorMax = fillAmount;
+            }
+        }
     }
 
     private void DisableEditor()
@@ -583,7 +602,7 @@ public class LevelGenerator : MonoBehaviour
 
         levelSlider.interactable = false;
         saveButton.interactable = false;
-        currentTimeMarker.active = false;
+        currentTimeMarker.active = true;
         testButton.GetComponentInChildren<Text>().text = "Back to Editor";
         followCamera.SetTransformWithoutOffset(playerTransform);
     }
@@ -602,14 +621,14 @@ public class LevelGenerator : MonoBehaviour
                 startIndex--;
                 startIndex = Mathf.Clamp(startIndex, 0, songIndexLength);
                 levelSlider.value = (float)startIndex / (float)songIndexLength;
-                MoveTimeMarker();
+                MoveTimeMarker(startIndex);
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 startIndex++;
                 startIndex = Mathf.Clamp(startIndex, 0, songIndexLength);
                 levelSlider.value = (float)startIndex / (float)songIndexLength;
-                MoveTimeMarker();
+                MoveTimeMarker(startIndex);
             }
         }
     }
@@ -619,13 +638,13 @@ public class LevelGenerator : MonoBehaviour
         if(editor)
         {
             startIndex = Mathf.FloorToInt(Mathf.Lerp(0, songIndexLength, levelSlider.value));
-            MoveTimeMarker();
+            MoveTimeMarker(startIndex);
         }
     }
 
-    private void MoveTimeMarker()
+    private void MoveTimeMarker(int timeIndex)
     {
-        LevelObject levelObject = LevelObjectAtPosition(startIndex);
+        LevelObject levelObject = LevelObjectAtPosition(timeIndex);
         if (levelObject != null)
         {
             levelObject.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.green;
