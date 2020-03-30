@@ -26,20 +26,6 @@
                 "preSpaceIndex": 8,
                 "postSpaceIndex": 8
             },
-            "songPositionIndex": 62
-        },
-        {
-            "feature": {
-                "bandIndex": 1,
-                "priority": 1,
-                "type": 0,
-                "placeAdjacent": false,
-                "offset": 0.0,
-                "preSpace": 2.0,
-                "postSpace": 2.0,
-                "preSpaceIndex": 8,
-                "postSpaceIndex": 8
-            },
             "songPositionIndex": 86
         },
         {
@@ -3247,6 +3233,76 @@
                 "postSpaceIndex": 8
             },
             "songPositionIndex": 4679
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0.0,
+                "preSpace": 2.0,
+                "postSpace": 2.0,
+                "preSpaceIndex": 8,
+                "postSpaceIndex": 8
+            },
+            "songPositionIndex": 70
+        },
+        {
+            "feature": {
+                "bandIndex": 2,
+                "priority": 2,
+                "type": 3,
+                "placeAdjacent": true,
+                "offset": 0.0,
+                "preSpace": 2.0,
+                "postSpace": 2.0,
+                "preSpaceIndex": 8,
+                "postSpaceIndex": 8
+            },
+            "songPositionIndex": 33
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0.0,
+                "preSpace": 2.0,
+                "postSpace": 2.0,
+                "preSpaceIndex": 8,
+                "postSpaceIndex": 8
+            },
+            "songPositionIndex": 36
+        },
+        {
+            "feature": {
+                "bandIndex": 2,
+                "priority": 2,
+                "type": 3,
+                "placeAdjacent": true,
+                "offset": 0.0,
+                "preSpace": 2.0,
+                "postSpace": 2.0,
+                "preSpaceIndex": 8,
+                "postSpaceIndex": 8
+            },
+            "songPositionIndex": 39
+        },
+        {
+            "feature": {
+                "bandIndex": 1,
+                "priority": 1,
+                "type": 0,
+                "placeAdjacent": false,
+                "offset": 0.0,
+                "preSpace": 2.0,
+                "postSpace": 2.0,
+                "preSpaceIndex": 8,
+                "postSpaceIndex": 8
+            },
+            "songPositionIndex": 42
         }
     ],
     "lightingEventData": [

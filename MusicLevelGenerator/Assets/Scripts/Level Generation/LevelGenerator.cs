@@ -21,11 +21,20 @@ public class LevelGenerator : MonoBehaviour
     [Header("Editor")]
     [SerializeField] FollowObject followCamera;
     [SerializeField] Button saveButton;
+    [SerializeField] Button cleanButton;
     [SerializeField] Button testButton;
+    [SerializeField] Button loadButton;
+    [SerializeField] Button generateButton;
+    [SerializeField] Button removeLevelButton;
+
     [SerializeField] Slider levelSlider;
+    [SerializeField] Button spikeButton;
+    [SerializeField] Button slideButton;
+    [SerializeField] Button removeButton;
 
     int startIndex = 0;
     bool editor = true;
+    float keyHoldTime = 0;
 
     [Header("Level Song")]
     [SerializeField] TextAsset songJsonFile;
@@ -50,7 +59,7 @@ public class LevelGenerator : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] Transform levelTransform;
     [SerializeField] GameObject spikePrefab;
-    [SerializeField] GameObject duckBlockPrefab;
+    [SerializeField] GameObject slideBlockPrefab;
 
     [Header("Level options")]
     [SerializeField] float spacingBetweenSamples = 0.25f;
@@ -81,7 +90,6 @@ public class LevelGenerator : MonoBehaviour
     float playerOffsetDistance; //Distance offset from all level objects
 
     float currentTime;
-    bool paused = false;
     bool songStarted = false;
 
     private void Awake()
@@ -101,7 +109,15 @@ public class LevelGenerator : MonoBehaviour
         LoadLevel();
 
         saveButton.onClick.AddListener(SaveLevel);
+        loadButton.onClick.AddListener(LoadLevel);
         testButton.onClick.AddListener(ToggleEditor);
+        cleanButton.onClick.AddListener(CleanUpLevel);
+        generateButton.onClick.AddListener(GenerateLevel);
+        removeLevelButton.onClick.AddListener(RemoveLevel);
+
+        spikeButton.onClick.AddListener(CreateSpike);
+        slideButton.onClick.AddListener(CreateSlideBlock);
+        removeButton.onClick.AddListener(RemoveObject);
 
         EnableEditor();
     }
@@ -160,8 +176,8 @@ public class LevelGenerator : MonoBehaviour
                 case LevelFeature.features.Spikes:
                     CreateLevelObjects(spikePrefab, frequencyBands[levelFeatures[i].bandIndex], ref levelFeatures[i]);
                     break;
-                case LevelFeature.features.DuckBlock:
-                    CreateLevelObjects(duckBlockPrefab, frequencyBands[levelFeatures[i].bandIndex], ref levelFeatures[i]);
+                case LevelFeature.features.SlideBlock:
+                    CreateLevelObjects(slideBlockPrefab, frequencyBands[levelFeatures[i].bandIndex], ref levelFeatures[i]);
                     break;
                 case LevelFeature.features.DestructableWalls:
                     break;
@@ -174,8 +190,6 @@ public class LevelGenerator : MonoBehaviour
         }
 
         CleanUpLevel();
-
-        SaveLevel();
     }
 
     private void CreateLevelObjects(GameObject levelObjectPrefab, FrequencyBand band, ref LevelFeature feature)
@@ -326,8 +340,8 @@ public class LevelGenerator : MonoBehaviour
                     case LevelFeature.features.Spikes:
                         levelObjectPrefab = spikePrefab;
                         break;
-                    case LevelFeature.features.DuckBlock:
-                        levelObjectPrefab = duckBlockPrefab;
+                    case LevelFeature.features.SlideBlock:
+                        levelObjectPrefab = slideBlockPrefab;
                         break;
                     case LevelFeature.features.DestructableWalls:
                         break;
@@ -337,6 +351,7 @@ public class LevelGenerator : MonoBehaviour
                 {
                     levelObject.gameObject = Instantiate(levelObjectPrefab, new Vector2(levelData.levelObjectData[i].songPositionIndex * levelData.spacingBetweenSamples + levelData.levelObjectData[i].feature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
                     levelObject.feature = levelData.levelObjectData[i].feature;
+                    levelObject.songPositionIndex = levelData.levelObjectData[i].songPositionIndex;
                     levelObjects.Add(levelObject);
                 }
             }
@@ -385,8 +400,14 @@ public class LevelGenerator : MonoBehaviour
             File.Delete("Assets/Resources/LevelDataFiles/" + levelData.songName + "_Level.json");
         }
 
+        UnityEditor.AssetDatabase.Refresh();
+
         File.WriteAllText("Assets/Resources/LevelDataFiles/" + levelData.songName + "_Level.json", data);
         Debug.Log("Saved level data to: " + "Assets/Resources/LevelDataFiles/" + levelData.songName + "_Level.json");
+
+        UnityEditor.AssetDatabase.Refresh();
+
+        levelJsonFile = Resources.Load<TextAsset>("LevelDataFiles/" + levelData.songName + "_Level");
     }
 
     //Gameplay----------------------------
@@ -494,7 +515,11 @@ public class LevelGenerator : MonoBehaviour
         float distancePerSecond = levelLength / songTime;
         playerOffsetDistance = playerOffset * distancePerSecond;
 
-        playerTransform.position = new Vector2(playerOffsetDistance + (timeIndex * spacingBetweenSamples), playerTransform.position.y);
+        Vector2 playerPos = player.transform.position;
+        playerPos.y = -2.5f;
+        player.transform.position = playerPos;
+
+        playerTransform.position = new Vector2(playerOffsetDistance + (timeIndex * spacingBetweenSamples), 0);
     }
 
     private void CreateFrequencyBars()
@@ -577,8 +602,15 @@ public class LevelGenerator : MonoBehaviour
     {
         editor = true;
 
+        levelSlider.value = (float)startIndex / (float)songIndexLength;
         levelSlider.interactable = true;
         saveButton.interactable = true;
+        cleanButton.interactable = true;
+
+        spikeButton.interactable = true;
+        slideButton.interactable = true;
+        removeButton.interactable = true;
+
         currentTimeMarker.active = false;
         MoveTimeMarker(startIndex);
         testButton.GetComponentInChildren<Text>().text = "Test Level";
@@ -602,6 +634,12 @@ public class LevelGenerator : MonoBehaviour
 
         levelSlider.interactable = false;
         saveButton.interactable = false;
+        cleanButton.interactable = false;
+
+        spikeButton.interactable = false;
+        slideButton.interactable = false;
+        removeButton.interactable = false;
+
         currentTimeMarker.active = true;
         testButton.GetComponentInChildren<Text>().text = "Back to Editor";
         followCamera.SetTransformWithoutOffset(playerTransform);
@@ -616,19 +654,56 @@ public class LevelGenerator : MonoBehaviour
     {
         if(editor)
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
             {
+                DeselectObject(startIndex);
                 startIndex--;
                 startIndex = Mathf.Clamp(startIndex, 0, songIndexLength);
+                SelectObject(startIndex);
                 levelSlider.value = (float)startIndex / (float)songIndexLength;
                 MoveTimeMarker(startIndex);
+
+                keyHoldTime = 0;
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
             {
+                DeselectObject(startIndex);
                 startIndex++;
                 startIndex = Mathf.Clamp(startIndex, 0, songIndexLength);
+                SelectObject(startIndex);
                 levelSlider.value = (float)startIndex / (float)songIndexLength;
                 MoveTimeMarker(startIndex);
+
+                keyHoldTime = 0;
+            }
+
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+            {
+                keyHoldTime += Time.deltaTime;
+
+                if (keyHoldTime > 0.5f)
+                {
+                    DeselectObject(startIndex);
+                    startIndex--;
+                    startIndex = Mathf.Clamp(startIndex, 0, songIndexLength);
+                    SelectObject(startIndex);
+                    levelSlider.value = (float)startIndex / (float)songIndexLength;
+                    MoveTimeMarker(startIndex);
+                }
+            }
+            else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+            {
+                keyHoldTime += Time.deltaTime;
+
+                if(keyHoldTime > 0.5f)
+                {
+                    DeselectObject(startIndex);
+                    startIndex++;
+                    startIndex = Mathf.Clamp(startIndex, 0, songIndexLength);
+                    SelectObject(startIndex);
+                    levelSlider.value = (float)startIndex / (float)songIndexLength;
+                    MoveTimeMarker(startIndex);
+                }
             }
         }
     }
@@ -637,24 +712,94 @@ public class LevelGenerator : MonoBehaviour
     {
         if(editor)
         {
+            DeselectObject(startIndex);
             startIndex = Mathf.FloorToInt(Mathf.Lerp(0, songIndexLength, levelSlider.value));
+            SelectObject(startIndex);
             MoveTimeMarker(startIndex);
         }
     }
 
-    private void MoveTimeMarker(int timeIndex)
+    private void SelectObject(int timeIndex)
     {
         LevelObject levelObject = LevelObjectAtPosition(timeIndex);
         if (levelObject != null)
         {
             levelObject.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.green;
         }
+    }
 
-        float levelPosition = (float)startIndex;
+    private void DeselectObject(int timeIndex)
+    {
+        LevelObject levelObject = LevelObjectAtPosition(timeIndex);
+        if (levelObject != null)
+        {
+            levelObject.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.cyan;
+        }
+    }
+
+    private void MoveTimeMarker(int timeIndex)
+    {
+        float levelPosition = (float)timeIndex;
         levelPosition *= spacingBetweenSamples;
 
         Vector3 timeMarkerPosition = currentTimeMarker.transform.position;
         timeMarkerPosition.x = levelPosition;
         currentTimeMarker.transform.position = timeMarkerPosition;
+    }
+
+    private void CreateSpike()
+    {
+        LevelObject levelObject = LevelObjectAtPosition(startIndex);
+        LevelFeature levelFeature = GetLevelFeature(LevelFeature.features.Spikes);
+
+        if (levelObject == null)
+        {
+            levelObject = new LevelObject();
+            levelObject.gameObject = Instantiate(spikePrefab, new Vector2(startIndex * spacingBetweenSamples + levelFeature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
+            levelObject.feature = levelFeature;
+            levelObject.songPositionIndex = startIndex;
+
+            levelObjects.Add(levelObject);
+        }
+    }
+
+    private void CreateSlideBlock()
+    {
+        LevelObject levelObject = LevelObjectAtPosition(startIndex);
+        LevelFeature levelFeature = GetLevelFeature(LevelFeature.features.SlideBlock);
+
+        if (levelObject == null)
+        {
+            levelObject = new LevelObject();
+            levelObject.gameObject = Instantiate(slideBlockPrefab, new Vector2(startIndex * spacingBetweenSamples + levelFeature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
+            levelObject.feature = levelFeature;
+            levelObject.songPositionIndex = startIndex;
+
+            levelObjects.Add(levelObject);
+        }
+    }
+
+    private void RemoveObject()
+    {
+        LevelObject levelObject = LevelObjectAtPosition(startIndex);
+
+        if (levelObject != null)
+        {
+            levelObjects.Remove(levelObject);
+            Destroy(levelObject.gameObject);
+        }
+    }
+
+    LevelFeature GetLevelFeature(LevelFeature.features featureType)
+    {
+        for (int i = 0; i < levelFeatures.Length; i++)
+        {
+            if(levelFeatures[i].type == featureType)
+            { 
+                return levelFeatures[i];
+            }
+        }
+
+        return null;
     }
 }

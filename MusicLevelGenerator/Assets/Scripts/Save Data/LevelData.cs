@@ -10,7 +10,7 @@ public class LevelFeature
         Spikes,
         DestructableWalls,
         LevelHeight,
-        DuckBlock,
+        SlideBlock,
         Lighting
     }
 
