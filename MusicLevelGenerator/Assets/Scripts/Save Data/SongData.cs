@@ -20,7 +20,6 @@ public class SpectralFluxData
     public float spectralFlux;
     public float threshold;
     public float prunedSpectralFlux;
-    public float peakPercentage;
     public bool isPeak;
 }
 
@@ -64,11 +63,12 @@ public class FrequencyBand
             sum += spectralFluxSamples[i].spectralFlux;
         }
 
-        // Return the average multiplied by a sensitivity multiplier
-        float avg = sum / (windowEndIndex - windowStartIndex);
-        return avg * thresholdMultiplier;
+        //Return the average multiplied by the threshold multiplier
+        float average = sum / (windowEndIndex - windowStartIndex);
+        return average * thresholdMultiplier;
     }
 
+    //Remove spectrum data that falls below the threshold
     public float GetPrunedSpectralFlux()
     {
         return Mathf.Max(0f, spectralFluxSamples[spectralFluxIndex].spectralFlux - spectralFluxSamples[spectralFluxIndex].threshold);

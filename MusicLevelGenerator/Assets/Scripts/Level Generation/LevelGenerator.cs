@@ -32,6 +32,8 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] Button slideButton;
     [SerializeField] Button removeButton;
 
+    [SerializeField] Dropdown bandSelector;
+
     int startIndex = 0;
     bool editor = true;
     float keyHoldTime = 0;
@@ -45,6 +47,10 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] Transform markerHolder;
     [SerializeField] GameObject bpmMarkerPrefab;
     [SerializeField] float markerOffset;
+
+    [Header("Frequency Bar guildlines")]
+    [SerializeField] Transform onsetHolder;
+    [SerializeField] GameObject onsetMarkerPrefab;
 
     [Header("Level Features")]
     [SerializeField] LevelFeature[] levelFeatures;
@@ -118,6 +124,8 @@ public class LevelGenerator : MonoBehaviour
         spikeButton.onClick.AddListener(CreateSpike);
         slideButton.onClick.AddListener(CreateSlideBlock);
         removeButton.onClick.AddListener(RemoveObject);
+
+        bandSelector.onValueChanged.AddListener(delegate { FrequencyBandDropdownChanged(); });
 
         EnableEditor();
     }
@@ -243,6 +251,8 @@ public class LevelGenerator : MonoBehaviour
 
     private void CleanUpLevel()
     {
+        saveButton.interactable = true;
+
         //Check level features in order of priority
         foreach (LevelFeature currentFeature in levelFeatures)
         {
@@ -579,7 +589,7 @@ public class LevelGenerator : MonoBehaviour
 
         for (int i = 0; i < beatsInSong; i++)
         {
-            Instantiate(bpmMarkerPrefab, new Vector3(distancePerMark * i + markerOffset, -3, 0), Quaternion.identity, markerHolder);
+            Instantiate(bpmMarkerPrefab, new Vector3(distancePerMark * i + markerOffset, levelTransform.position.y, 0), Quaternion.identity, markerHolder);
         }
     }
 
@@ -607,6 +617,9 @@ public class LevelGenerator : MonoBehaviour
         levelSlider.interactable = true;
         saveButton.interactable = true;
         cleanButton.interactable = true;
+        loadButton.interactable = true;
+        generateButton.interactable = true;
+        removeLevelButton.interactable = true;
 
         spikeButton.interactable = true;
         slideButton.interactable = true;
@@ -636,6 +649,9 @@ public class LevelGenerator : MonoBehaviour
         levelSlider.interactable = false;
         saveButton.interactable = false;
         cleanButton.interactable = false;
+        loadButton.interactable = false;
+        generateButton.interactable = false;
+        removeLevelButton.interactable = false;
 
         spikeButton.interactable = false;
         slideButton.interactable = false;
@@ -750,6 +766,8 @@ public class LevelGenerator : MonoBehaviour
 
     private void CreateSpike()
     {
+        saveButton.interactable = false;
+
         LevelObject levelObject = LevelObjectAtPosition(startIndex);
         LevelFeature levelFeature = GetLevelFeature(LevelFeature.features.Spikes);
 
@@ -766,6 +784,8 @@ public class LevelGenerator : MonoBehaviour
 
     private void CreateSlideBlock()
     {
+        saveButton.interactable = false;
+
         LevelObject levelObject = LevelObjectAtPosition(startIndex);
         LevelFeature levelFeature = GetLevelFeature(LevelFeature.features.SlideBlock);
 
@@ -802,5 +822,41 @@ public class LevelGenerator : MonoBehaviour
         }
 
         return null;
+    }
+
+    private void FrequencyBandDropdownChanged()
+    {
+        int frequencyBandIndex = bandSelector.value;
+
+        //Remove existing markers
+        while (onsetHolder.childCount != 0)
+        {
+            foreach (Transform child in onsetHolder.transform)
+            {
+                GameObject.DestroyImmediate(child.gameObject);
+            }
+        }
+
+        //If band is selected, create indicators for that band
+        if (frequencyBandIndex != 0)
+        {
+            frequencyBandIndex--;
+
+            string data = songJsonFile.text;
+            SongData songData = JsonUtility.FromJson<SongData>(data);
+
+            CreateOnsetIndicators(songData.frequencyBands[frequencyBandIndex]);
+        }
+    }
+
+    private void CreateOnsetIndicators(FrequencyBand band)
+    {
+        for (int i = 0; i < band.spectralFluxSamples.Count; i++)
+        {
+            if (band.spectralFluxSamples[i].isPeak)
+            {
+                Instantiate(onsetMarkerPrefab, new Vector2(i * spacingBetweenSamples, levelTransform.position.y), Quaternion.identity, onsetHolder);
+            }
+        }
     }
 }

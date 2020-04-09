@@ -59,12 +59,14 @@ public class SpectralFluxAnalyzer
         AnalyseFrequencyBands(time);
 	}
 
+    //Sets the spectrum to be analysed and previous for comparison
     public void SetCurrentSpectrum(float[] newSpectrum) 
     {
         currentSpectrum.CopyTo(previousSpectrum, 0);
 		newSpectrum.CopyTo(currentSpectrum, 0);
     }
 
+    //Calculate Spectrum data averages for frequency bars
     public float[] ComputeAverages(float[] spectrum)
     {
         int spectrumSize = spectrum.Length;
@@ -77,15 +79,15 @@ public class SpectralFluxAnalyzer
 
         for (int i = 0; i < numberOfBars; i++)
         {
-            float avg = 0;
+            float average = 0;
 
             for (int j = lowBoundary; j <= highBoundary; j++)
             {
-                avg += spectrum[j];
+                average += spectrum[j];
             }
 
-            avg /= (highBoundary - lowBoundary + 1);
-            averages[i] = avg;
+            average /= (highBoundary - lowBoundary + 1);
+            averages[i] = average;
 
             lowBoundary += incrementAmount;
             highBoundary += incrementAmount;

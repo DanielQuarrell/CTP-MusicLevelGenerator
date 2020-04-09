@@ -26020,6 +26020,7 @@ MonoBehaviour:
   spikeButton: {fileID: 897421976}
   slideButton: {fileID: 604691914}
   removeButton: {fileID: 488412985}
+  bandSelector: {fileID: 523879878}
   songJsonFile: {fileID: 4900000, guid: 1054999d3ae5b1e4c99d16fe1400713f, type: 3}
   levelJsonFile: {fileID: 4900000, guid: 7be3aad4fa2892740a123206e1943837, type: 3}
   bpm: 120
@@ -26027,6 +26028,9 @@ MonoBehaviour:
   bpmMarkerPrefab: {fileID: 8270290910230563601, guid: 9bca5708bb461be4bb374cb0f85ff827,
     type: 3}
   markerOffset: 0.75
+  onsetHolder: {fileID: 1953782170}
+  onsetMarkerPrefab: {fileID: 8270290910230563601, guid: cce196f23d1c8ca4c9fef116e045b1e8,
+    type: 3}
   levelFeatures:
   - bandIndex: 1
     priority: 1
@@ -131228,6 +131232,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1953782169
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1953782170}
+  m_Layer: 0
+  m_Name: Onset holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1953782170
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953782169}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1954708590
 GameObject:
   m_ObjectHideFlags: 0
