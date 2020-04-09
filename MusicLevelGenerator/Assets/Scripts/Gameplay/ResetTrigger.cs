@@ -8,7 +8,8 @@ public class ResetTrigger : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            LevelGenerator.instance.ResetLevel();
+            LevelGenerator.instance?.ResetLevel();
+            LevelGameplay.instance?.ResetLevel();
         }
     }
 }

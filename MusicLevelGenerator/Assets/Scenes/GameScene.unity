@@ -568,7 +568,7 @@ MonoBehaviour:
   audioSource: {fileID: 332787631}
   barPrefab: {fileID: 1706059487943591735, guid: 7575ff7d110cdf642b1112e6f2afa126,
     type: 3}
-  barHolder: {fileID: 1061384518}
+  barHolder: {fileID: 727255029}
   levelTransform: {fileID: 1399458393}
   spikePrefab: {fileID: 2639078501785804545, guid: d87e1d38491bb4943a950af1a8f46ea9,
     type: 3}

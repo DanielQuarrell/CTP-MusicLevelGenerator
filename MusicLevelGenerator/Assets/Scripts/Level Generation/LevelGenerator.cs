@@ -456,9 +456,10 @@ public class LevelGenerator : MonoBehaviour
             {
                 Vector2 fillAmount = Vector2.one;
                 fillAmount.y = Mathf.Clamp(spectrumData[currentIndex].spectrum[i] * 80, 0.0f, 1.0f);
+
                 if(fillAmount.y < bars[i].fill.anchorMax.y)
                 {
-                    fillAmount.y = bars[i].fill.anchorMax.y - Time.deltaTime;
+                    fillAmount.y = Mathf.Clamp(bars[i].fill.anchorMax.y - Time.deltaTime, 0.0f, 1.0f);
                     bars[i].fill.anchorMax = fillAmount;
                 }
                 else
