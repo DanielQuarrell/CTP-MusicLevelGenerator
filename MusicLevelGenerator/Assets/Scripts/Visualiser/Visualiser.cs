@@ -54,7 +54,7 @@ public class Visualiser : MonoBehaviour
                 SpectralFluxData sample = band.spectralFluxSamples[i];
                 PlotPoint spectralPoint = Instantiate(plotPoint, new Vector2(i * spacingBetweenSamples, sample.spectralFlux * FrequencyBandVisualisers[b].heightMultiplier), Quaternion.identity, FrequencyBandVisualisers[b].parent);
 
-                spectralPoint.spriteRenderer.color = sample.isPeak ? peakColor : plotColor;
+                spectralPoint.spriteRenderer.color = sample.isOnset ? peakColor : plotColor;
 
                 if(previousPlotTransform != null)
                 {

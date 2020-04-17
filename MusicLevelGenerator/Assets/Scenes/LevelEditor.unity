@@ -26021,7 +26021,7 @@ MonoBehaviour:
   slideButton: {fileID: 604691914}
   removeButton: {fileID: 488412985}
   bandSelector: {fileID: 523879878}
-  songJsonFile: {fileID: 4900000, guid: 1054999d3ae5b1e4c99d16fe1400713f, type: 3}
+  songJsonFile: {fileID: 0}
   levelJsonFile: {fileID: 4900000, guid: 7be3aad4fa2892740a123206e1943837, type: 3}
   bpm: 120
   markerHolder: {fileID: 1159475271}

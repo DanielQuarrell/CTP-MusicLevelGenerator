@@ -2,17 +2,13 @@
 using System.Numerics;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
-using UnityEditor;
 using DSPLib;
 using System.IO;
 
 public class SongController : MonoBehaviour 
 {
     static public SongController instance;
-
-    [SerializeField] bool debug;
 
 	[SerializeField] AudioSource audioSource;
     [SerializeField] Visualiser visualiser;
@@ -23,19 +19,24 @@ public class SongController : MonoBehaviour
     public int numberOfBars = 12;
     
     [Header("Onset Algorithm Modifiers")]
+    //Number of samples to average in the moving window
     public int spectrumSampleSize = 1024;
 
-    // Number of samples to average in our window
+    //Number of samples to average in the threshold window
     public int thresholdWindowSize = 50;
 
     public List<FrequencyBand> frequencyBandBoundaries;
 
-    SpectralFluxAnalyzer spectralFluxAnalyzer;
+    SpectrumAnalyzer analyzer;
 
-    int numOfChannels;
+    //Number of channels in the clip (Mono = 1, Stereo = 2)
+    int numberOfChannels;
+    //Number of samples in the clip
 	int totalSamples;
+    //Samples per second
 	int sampleRate;
-	float clipLength;
+    //Length of song in seconds
+	float songTime;
 	float[] multiChannelSamples;
 
     private void Awake()
@@ -52,25 +53,25 @@ public class SongController : MonoBehaviour
 
     private void Start() 
     {
-		// Need all audio samples. If in stereo, samples will return with left and right channels interweaved
-		// [L,R,L,R,L,R]
+		//Get audio samples from all channels
 		multiChannelSamples = new float[audioSource.clip.samples * audioSource.clip.channels];
-		numOfChannels = audioSource.clip.channels;
+		numberOfChannels = audioSource.clip.channels;
 		totalSamples = audioSource.clip.samples;
-		clipLength = audioSource.clip.length;
+		songTime = audioSource.clip.length;
 
 		//Store the clip's sampling rate
 		sampleRate = audioSource.clip.frequency;
 
         //Preprocess entire audio clip
-        spectralFluxAnalyzer = new SpectralFluxAnalyzer(spectrumSampleSize, sampleRate, thresholdWindowSize, frequencyBandBoundaries.ToArray(), numberOfBars);
+        analyzer = new SpectrumAnalyzer(spectrumSampleSize, sampleRate, thresholdWindowSize, frequencyBandBoundaries.ToArray(), numberOfBars);
 
+        //Retrieve sample data from clip
         audioSource.clip.GetData(multiChannelSamples, 0);
 
         ProcessFullSpectrum();
 
         //Visuallise processed audio
-        visualiser.GenerateVisualiserFromSamples(spectralFluxAnalyzer.frequencyBands, audioSource.clip.length);
+        visualiser.GenerateVisualiserFromSamples(analyzer.frequencyBands, audioSource.clip.length);
         audioSource.Play();
     }
 
@@ -85,15 +86,14 @@ public class SongController : MonoBehaviour
 
         foreach(FrequencyBand band in frequencyBandBoundaries)
         {
-            band.spectralFluxSamples.Clear();
-            band.spectralFluxIndex = 0;
+            band.Reset();
         }
 
-        spectralFluxAnalyzer = new SpectralFluxAnalyzer(spectrumSampleSize, sampleRate, thresholdWindowSize, frequencyBandBoundaries.ToArray(), numberOfBars);
+        analyzer = new SpectrumAnalyzer(spectrumSampleSize, sampleRate, thresholdWindowSize, frequencyBandBoundaries.ToArray(), numberOfBars);
         audioSource.clip.GetData(multiChannelSamples, 0);
         ProcessFullSpectrum();
 
-        visualiser.GenerateVisualiserFromSamples(spectralFluxAnalyzer.frequencyBands, audioSource.clip.length);
+        visualiser.GenerateVisualiserFromSamples(analyzer.frequencyBands, audioSource.clip.length);
 
         audioSource.Play();
     }
@@ -109,7 +109,7 @@ public class SongController : MonoBehaviour
         SongData songData = JsonUtility.FromJson<SongData>(data);
 
         audioSource.clip = Resources.Load<AudioClip>("Audio/" + songData.songName);
-        clipLength = audioSource.clip.length;
+        songTime = audioSource.clip.length;
 
         spectrumSampleSize = songData.spectralSampleSize;
         thresholdWindowSize = songData.thresholdWindowSize;
@@ -122,19 +122,25 @@ public class SongController : MonoBehaviour
         SongData songData = new SongData();
 
         songData.songName = audioSource.clip.name;
-        songData.clipLength = clipLength;
+        songData.songTime = songTime;
 
         songData.spectralSampleSize = spectrumSampleSize;
         songData.thresholdWindowSize = thresholdWindowSize;
 
-        songData.frequencyBands = new List<FrequencyBand>(spectralFluxAnalyzer.frequencyBands);
-        songData.spectrumData = new List<SpectrumData>(spectralFluxAnalyzer.spectrumData);
+        songData.frequencyBands = new List<FrequencyBand>(analyzer.frequencyBands);
+        songData.spectrumData = new List<SpectrumData>(analyzer.spectrumData);
 
         string data = string.Empty;
         data = JsonUtility.ToJson(songData, true);
 
+        UnityEditor.AssetDatabase.Refresh();
+
         File.WriteAllText("Assets/Resources/SongDataFiles/" + songData.songName + "_Data.json", data);
         Debug.Log("Saved song data to: " + "Assets/Resources/SongDataFiles/" + songData.songName + "_Data.json");
+
+        UnityEditor.AssetDatabase.Refresh();
+
+        songJsonFile = Resources.Load<TextAsset>("SongDataFiles/" + songData.songName + "_Data.json");
     }
 
     private void ProcessFullSpectrum()
@@ -152,9 +158,9 @@ public class SongController : MonoBehaviour
             combinedChannelAverage += multiChannelSamples[i];
 
             //Store the average of the channels combined for a single time index
-            if ((i + 1) % this.numOfChannels == 0)
+            if ((i + 1) % this.numberOfChannels == 0)
             {
-                preProcessedSamples[numProcessed] = combinedChannelAverage / numOfChannels;
+                preProcessedSamples[numProcessed] = combinedChannelAverage / numberOfChannels;
                 numProcessed++;
                 combinedChannelAverage = 0f;
             }
@@ -163,30 +169,34 @@ public class SongController : MonoBehaviour
         //Execute an FFT to return the spectrum data over the time domain
         int totalIterations = preProcessedSamples.Length / spectrumSampleSize;
 
+        //Instantiate and initialise a new FFT
         FFT fft = new FFT();
-        fft.Initialize((UInt32)spectrumSampleSize);
+        fft.Initialize((uint)spectrumSampleSize);
 
         double[] sampleChunk = new double[spectrumSampleSize];
         for (int i = 0; i < totalIterations; i++)
         {
-            //Grab the current 1024 chunk of audio sample data
+            //Get the current chunk of audio sample data
             Array.Copy(preProcessedSamples, i * spectrumSampleSize, sampleChunk, 0, spectrumSampleSize);
 
-            //Apply an FFT Window type
+            //Apply an FFT Window type to the input data and calculate a scale factor
             double[] windowCoefficients = DSP.Window.Coefficients(DSP.Window.Type.Hanning, (uint)spectrumSampleSize);
             double[] scaledSpectrumChunk = DSP.Math.Multiply(sampleChunk, windowCoefficients);
             double scaleFactor = DSP.Window.ScaleFactor.Signal(windowCoefficients);
 
-            //Perform the FFT and convert output (complex numbers) to Magnitude
+            //Execute the FFT and get the scaled spectrum back
             Complex[] fftSpectrum = fft.Execute(scaledSpectrumChunk);
+            //Convert the complex spectrum into a usable format of doubles
             double[] scaledFFTSpectrum = DSP.ConvertComplex.ToMagnitude(fftSpectrum);
+            //Apply the window scale to the spectrum
             scaledFFTSpectrum = DSP.Math.Multiply(scaledFFTSpectrum, scaleFactor);
 
-            //These 1024 magnitude values correspond to a single point in the audio timeline
-            float curSongTime = GetTimeFromIndex(i) * spectrumSampleSize;
 
-            //Send magnitude data off to the Spectral Flux Analyzer to be analyzed for peaks
-            spectralFluxAnalyzer.AnalyzeSpectrum(Array.ConvertAll(scaledFFTSpectrum, x => (float)x), curSongTime);
+            //The magnitude values correspond to a single point in time
+            float currentSongTime = GetTimeFromIndex(i) * spectrumSampleSize;
+
+            //Send magnitude spectrum data to Spectral Flux Analyzer to be analyzed for peaks
+            analyzer.AnalyzeSpectrum(Array.ConvertAll(scaledFFTSpectrum, x => (float)x), currentSongTime);
         }
 
         Debug.Log("Spectrum Analysis done");

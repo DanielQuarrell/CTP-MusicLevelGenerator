@@ -16,11 +16,11 @@ public class SpectrumData
 [System.Serializable]
 public class SpectralFluxData
 {
-    public float time;
     public float spectralFlux;
     public float threshold;
-    public float prunedSpectralFlux;
-    public bool isPeak;
+    public float thresholdedSpectralFlux;
+    public float time;
+    public bool isOnset;
 }
 
 [System.Serializable]
@@ -37,6 +37,7 @@ public class FrequencyBand
     public float thresholdMultiplier = 1;
 
     //List of the spectral flux in the frequency band
+    [HideInInspector]
     public List<SpectralFluxData> spectralFluxSamples = new List<SpectralFluxData>();
 
     //The current index to process
@@ -46,7 +47,6 @@ public class FrequencyBand
     public void Reset()
     {
         spectralFluxSamples.Clear();
-        spectralFluxSamples = new List<SpectralFluxData>();
         spectralFluxIndex = 0;
     }
 
@@ -56,7 +56,7 @@ public class FrequencyBand
         int windowStartIndex = Mathf.Max(0, spectralFluxIndex - thresholdWindowSize / 2);
         int windowEndIndex = Mathf.Min(spectralFluxSamples.Count - 1, spectralFluxIndex + thresholdWindowSize / 2);
 
-        //Add up our spectral flux over the window
+        //Sum the spectral flux over the window
         float sum = 0f;
         for (int i = windowStartIndex; i < windowEndIndex; i++)
         {
@@ -80,7 +80,7 @@ public class SongData
 {
     public string songName;
 
-    public float clipLength;
+    public float songTime;
 
     public int spectralSampleSize;
     public int thresholdWindowSize;

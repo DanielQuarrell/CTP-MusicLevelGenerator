@@ -9,7 +9,7 @@ using System.IO;
 
 public class LevelObject
 {
-    public GameObject gameObject;
+    public GameObject prefab;
     public LevelFeature feature;
     public int songPositionIndex;
 }
@@ -126,6 +126,7 @@ public class LevelGenerator : MonoBehaviour
         removeButton.onClick.AddListener(RemoveObject);
 
         bandSelector.onValueChanged.AddListener(delegate { FrequencyBandDropdownChanged(); });
+        LoadOptions();
 
         EnableEditor();
     }
@@ -146,7 +147,7 @@ public class LevelGenerator : MonoBehaviour
             spectrumData = songData.spectrumData;
             numberOfBars = songData.spectrumData[0].spectrum.Length;
 
-            GenerateLevelFromSamples(songData.frequencyBands.ToArray(), songData.clipLength);
+            GenerateLevelFromSamples(songData.frequencyBands.ToArray(), songData.songTime);
             CreateBpmMarkers();
         }
         else
@@ -211,14 +212,14 @@ public class LevelGenerator : MonoBehaviour
         {
             SpectralFluxData sample = band.spectralFluxSamples[i];
 
-            if (sample.isPeak && (iterationsSinceLast >= feature.preSpaceIndex || feature.placeAdjacent))
+            if (sample.isOnset && (iterationsSinceLast >= feature.preSpaceIndex || feature.placeAdjacent))
             {
                 LevelObject levelObject = LevelObjectAtPosition(i);
 
                 if (levelObject == null)
                 {
                     levelObject = new LevelObject();
-                    levelObject.gameObject = Instantiate(levelObjectPrefab, new Vector2(i * spacingBetweenSamples + feature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
+                    levelObject.prefab = Instantiate(levelObjectPrefab, new Vector2(i * spacingBetweenSamples + feature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
                     levelObject.feature = feature;
                     levelObject.songPositionIndex = i;
 
@@ -242,7 +243,7 @@ public class LevelGenerator : MonoBehaviour
         {
             SpectralFluxData sample = band.spectralFluxSamples[i];
 
-            if (sample.isPeak)
+            if (sample.isOnset)
             {
                 lightingEvents.Add(new LightingEventData(i));
             }
@@ -271,7 +272,7 @@ public class LevelGenerator : MonoBehaviour
                         {
                             if (objectToCheck.feature != currentFeature)
                             {
-                                DestroyImmediate(objectToCheck.gameObject);
+                                DestroyImmediate(objectToCheck.prefab);
                                 objectsToRemove.Add(objectToCheck);
                             }
                         }
@@ -298,9 +299,9 @@ public class LevelGenerator : MonoBehaviour
             {
                 if(levelObject != null)
                 {
-                    if (levelObject.gameObject != null)
+                    if (levelObject.prefab != null)
                     {
-                        GameObject.DestroyImmediate(levelObject.gameObject);
+                        GameObject.DestroyImmediate(levelObject.prefab);
                     }
                 }
             }
@@ -359,7 +360,7 @@ public class LevelGenerator : MonoBehaviour
 
                 if(levelObject != null)
                 {
-                    levelObject.gameObject = Instantiate(levelObjectPrefab, new Vector2(levelData.levelObjectData[i].songPositionIndex * levelData.spacingBetweenSamples + levelData.levelObjectData[i].feature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
+                    levelObject.prefab = Instantiate(levelObjectPrefab, new Vector2(levelData.levelObjectData[i].songPositionIndex * levelData.spacingBetweenSamples + levelData.levelObjectData[i].feature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
                     levelObject.feature = levelData.levelObjectData[i].feature;
                     levelObject.songPositionIndex = levelData.levelObjectData[i].songPositionIndex;
                     levelObjects.Add(levelObject);
@@ -662,6 +663,23 @@ public class LevelGenerator : MonoBehaviour
         followCamera.SetTransformWithoutOffset(playerTransform);
     }
 
+    private void LoadOptions()
+    {
+        string data = songJsonFile.text;
+        SongData songData = JsonUtility.FromJson<SongData>(data);
+
+        bandSelector.ClearOptions();
+        List<string> options = new List<string>();
+        options.Add("Select Band");
+
+        for (int i = 0; i < songData.frequencyBands.Count; i++)
+        {
+            options.Add("Frequency Band " + (i + 1));
+        }
+
+        bandSelector.AddOptions(options);
+    }
+
     public void ResetLevel()
     {
         StartLevelAtPosition(startIndex);
@@ -741,7 +759,7 @@ public class LevelGenerator : MonoBehaviour
         LevelObject levelObject = LevelObjectAtPosition(timeIndex);
         if (levelObject != null)
         {
-            levelObject.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.green;
+            levelObject.prefab.GetComponentInChildren<SpriteRenderer>().color = Color.green;
         }
     }
 
@@ -750,7 +768,7 @@ public class LevelGenerator : MonoBehaviour
         LevelObject levelObject = LevelObjectAtPosition(timeIndex);
         if (levelObject != null)
         {
-            levelObject.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.cyan;
+            levelObject.prefab.GetComponentInChildren<SpriteRenderer>().color = Color.cyan;
         }
     }
 
@@ -774,7 +792,7 @@ public class LevelGenerator : MonoBehaviour
         if (levelObject == null)
         {
             levelObject = new LevelObject();
-            levelObject.gameObject = Instantiate(spikePrefab, new Vector2(startIndex * spacingBetweenSamples + levelFeature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
+            levelObject.prefab = Instantiate(spikePrefab, new Vector2(startIndex * spacingBetweenSamples + levelFeature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
             levelObject.feature = levelFeature;
             levelObject.songPositionIndex = startIndex;
 
@@ -792,7 +810,7 @@ public class LevelGenerator : MonoBehaviour
         if (levelObject == null)
         {
             levelObject = new LevelObject();
-            levelObject.gameObject = Instantiate(slideBlockPrefab, new Vector2(startIndex * spacingBetweenSamples + levelFeature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
+            levelObject.prefab = Instantiate(slideBlockPrefab, new Vector2(startIndex * spacingBetweenSamples + levelFeature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
             levelObject.feature = levelFeature;
             levelObject.songPositionIndex = startIndex;
 
@@ -807,7 +825,7 @@ public class LevelGenerator : MonoBehaviour
         if (levelObject != null)
         {
             levelObjects.Remove(levelObject);
-            Destroy(levelObject.gameObject);
+            Destroy(levelObject.prefab);
         }
     }
 
@@ -853,7 +871,7 @@ public class LevelGenerator : MonoBehaviour
     {
         for (int i = 0; i < band.spectralFluxSamples.Count; i++)
         {
-            if (band.spectralFluxSamples[i].isPeak)
+            if (band.spectralFluxSamples[i].isOnset)
             {
                 Instantiate(onsetMarkerPrefab, new Vector2(i * spacingBetweenSamples, levelTransform.position.y), Quaternion.identity, onsetHolder);
             }

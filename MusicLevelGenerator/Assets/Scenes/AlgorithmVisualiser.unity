@@ -2109,7 +2109,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d261979a62f3224e9bfe081277b307c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 1
   audioSource: {fileID: 699910599}
   visualiser: {fileID: 0}
   songJsonFile: {fileID: 0}
@@ -3034,7 +3033,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d261979a62f3224e9bfe081277b307c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 1
   audioSource: {fileID: 1111278107}
   visualiser: {fileID: 0}
   songJsonFile: {fileID: 0}
@@ -3176,7 +3174,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 0a151b1a1c222bd44ae475a74e32338c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 0cb591cd6ef24944d8e1fe03bafa05ab, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -3274,27 +3272,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d261979a62f3224e9bfe081277b307c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 1
   audioSource: {fileID: 1150069459}
   visualiser: {fileID: 1150069461}
-  songJsonFile: {fileID: 0}
+  songJsonFile: {fileID: 4900000, guid: 1054999d3ae5b1e4c99d16fe1400713f, type: 3}
   numberOfBars: 9
   spectrumSampleSize: 2048
   thresholdWindowSize: 75
   frequencyBandBoundaries:
-  - name: 
+  - name: Band 1
     lowerBoundary: 5000
     upperBoundary: 20000
     thresholdMultiplier: 2
     spectralFluxSamples: []
     spectralFluxIndex: 0
-  - name: 
+  - name: Band 2
     lowerBoundary: 0
     upperBoundary: 1000
     thresholdMultiplier: 3
     spectralFluxSamples: []
     spectralFluxIndex: 0
-  - name: 
+  - name: Band 3
     lowerBoundary: 0
     upperBoundary: 200
     thresholdMultiplier: 4
@@ -3750,6 +3747,7 @@ GameObject:
   - component: {fileID: 1358389827}
   - component: {fileID: 1358389829}
   - component: {fileID: 1358389828}
+  - component: {fileID: 1358389830}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -3821,6 +3819,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1358389826}
   m_CullTransparentMesh: 0
+--- !u!223 &1358389830
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358389826}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: -149775811
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &1362800939
 GameObject:
   m_ObjectHideFlags: 0
@@ -5516,7 +5535,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d261979a62f3224e9bfe081277b307c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 1
   audioSource: {fileID: 2035056488}
   visualiser: {fileID: 0}
   songJsonFile: {fileID: 4900000, guid: 6b687404f0e2d9443aa97efe8fe7aa04, type: 3}

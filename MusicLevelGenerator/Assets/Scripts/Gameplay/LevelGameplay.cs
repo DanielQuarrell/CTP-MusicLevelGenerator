@@ -112,7 +112,7 @@ public class LevelGameplay : MonoBehaviour
 
                 if (levelObject != null)
                 {
-                    levelObject.gameObject = Instantiate(levelObjectPrefab, new Vector2(levelData.levelObjectData[i].songPositionIndex * levelData.spacingBetweenSamples + levelData.levelObjectData[i].feature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
+                    levelObject.prefab = Instantiate(levelObjectPrefab, new Vector2(levelData.levelObjectData[i].songPositionIndex * levelData.spacingBetweenSamples + levelData.levelObjectData[i].feature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
                     levelObject.feature = levelData.levelObjectData[i].feature;
                     levelObject.songPositionIndex = levelData.levelObjectData[i].songPositionIndex;
                     levelObjects.Add(levelObject);

@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: PlotPoint
+    uniqueID: 2161806423
+    locked: 0
+  - name: Visualiser
+    uniqueID: 4145191485
+    locked: 0
