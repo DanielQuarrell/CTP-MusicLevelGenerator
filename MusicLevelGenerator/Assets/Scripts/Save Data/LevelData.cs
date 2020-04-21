@@ -44,7 +44,7 @@ public class LevelFeature
     public void CalculateSpaceIndexes(float spacingPerIndex)
     {
         preSpaceIndex = (int)(preSpace / spacingPerIndex);
-        postSpaceIndex = (int)(preSpace / spacingPerIndex);
+        postSpaceIndex = (int)(postSpace / spacingPerIndex);
     }
 
     [HideInInspector] public int preSpaceIndex;

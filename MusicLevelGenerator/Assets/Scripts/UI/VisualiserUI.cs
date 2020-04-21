@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class VisualiserUI : MonoBehaviour
 {
     SongController songController;
+    [SerializeField] Visualiser visualiser;
 
     [Header("Song Controller")]
     [SerializeField] InputField sampleSize;
@@ -18,6 +19,8 @@ public class VisualiserUI : MonoBehaviour
     [SerializeField] InputField upperBand;
     [SerializeField] InputField lowerBand;
     [SerializeField] InputField thresholdInput;
+    [SerializeField] InputField heightInput;
+
 
     private void Awake()
     {
@@ -72,6 +75,9 @@ public class VisualiserUI : MonoBehaviour
 
             thresholdInput.text = songController.frequencyBandBoundaries[frequencyBandIndex].thresholdMultiplier.ToString();
             thresholdInput.interactable = true;
+
+            heightInput.text = visualiser.GetBandHeight(frequencyBandIndex).ToString();
+            heightInput.interactable = true;
         }
         else
         {
@@ -83,6 +89,9 @@ public class VisualiserUI : MonoBehaviour
 
             thresholdInput.text = string.Empty;
             thresholdInput.interactable = false;
+
+            heightInput.text = string.Empty;
+            heightInput.interactable = false;
         }
     }
 
@@ -119,6 +128,17 @@ public class VisualiserUI : MonoBehaviour
         }
     }
 
+    public void EditHeightValue()
+    {
+        int frequencyBandIndex = bandSelector.value;
+
+        if (frequencyBandIndex != 0)
+        {
+            frequencyBandIndex--;
+            visualiser.ChangeBandHeight(frequencyBandIndex, float.Parse(heightInput.text));
+        }
+    }
+
     public void UpdateVisualiser()
     {
         songController.ReprocessSong();
@@ -127,5 +147,10 @@ public class VisualiserUI : MonoBehaviour
     public void SaveOnsetsToFile()
     {
         songController.SaveToFile();
+    }
+
+    public void LoadOnsetsFromFile()
+    {
+        songController.LoadSongData();
     }
 }

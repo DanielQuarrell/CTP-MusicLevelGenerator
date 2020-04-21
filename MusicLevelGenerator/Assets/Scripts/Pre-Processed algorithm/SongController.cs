@@ -10,10 +10,8 @@ public class SongController : MonoBehaviour
 {
     static public SongController instance;
 
-	[SerializeField] AudioSource audioSource;
-    [SerializeField] Visualiser visualiser;
-
-    [SerializeField] TextAsset songJsonFile;
+    public AudioClip audioFile;
+    public TextAsset songJsonFile;
 
     [Header("Visual Modifiers")]
     public int numberOfBars = 12;
@@ -27,6 +25,8 @@ public class SongController : MonoBehaviour
 
     public List<FrequencyBand> frequencyBandBoundaries;
 
+	AudioSource audioSource;
+    Visualiser visualiser;
     SpectrumAnalyzer analyzer;
 
     //Number of channels in the clip (Mono = 1, Stereo = 2)
@@ -49,6 +49,10 @@ public class SongController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        audioSource = this.GetComponent<AudioSource>();
+        visualiser = this.GetComponent<Visualiser>();
+        audioSource.clip = audioFile;
     }
 
     private void Start() 
@@ -61,6 +65,12 @@ public class SongController : MonoBehaviour
 
 		//Store the clip's sampling rate
 		sampleRate = audioSource.clip.frequency;
+
+        //Remove existing spectral flux data
+        foreach (FrequencyBand band in frequencyBandBoundaries)
+        {
+            band.Reset();
+        }
 
         //Preprocess entire audio clip
         analyzer = new SpectrumAnalyzer(spectrumSampleSize, sampleRate, thresholdWindowSize, frequencyBandBoundaries.ToArray(), numberOfBars);
@@ -108,13 +118,13 @@ public class SongController : MonoBehaviour
         string data = songJsonFile.text;
         SongData songData = JsonUtility.FromJson<SongData>(data);
 
-        audioSource.clip = Resources.Load<AudioClip>("Audio/" + songData.songName);
-        songTime = audioSource.clip.length;
+        audioFile = Resources.Load<AudioClip>("Audio/" + songData.songName);
+        songTime = songData.songTime;
 
         spectrumSampleSize = songData.spectralSampleSize;
         thresholdWindowSize = songData.thresholdWindowSize;
 
-        songData.frequencyBands = new List<FrequencyBand>(frequencyBandBoundaries);
+        frequencyBandBoundaries = new List<FrequencyBand>(songData.frequencyBands);
     }
 
     public void SaveToFile()

@@ -94,4 +94,14 @@ public class Visualiser : MonoBehaviour
 
         currentTimeMarker.position = new Vector2(timePosition, currentTimeMarker.position.y);
     }
+
+    public void ChangeBandHeight(int index, float height)
+    {
+        FrequencyBandVisualisers[index].heightMultiplier = height;
+    }
+
+    public float GetBandHeight(int index)
+    {
+        return FrequencyBandVisualisers[index].heightMultiplier;
+    }
 }

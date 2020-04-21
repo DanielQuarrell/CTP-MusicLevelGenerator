@@ -30,7 +30,7 @@ public class SpectrumAnalyzer
         numberOfSamples = (_sampleSize / 2) + 1;
         FFTmaxFrequency = _sampleRate / 2;
 
-        frequencyPerIndex = FFTmaxFrequency / _sampleSize;
+        frequencyPerIndex = FFTmaxFrequency / (_sampleSize / 2);
 
         thresholdWindowSize = _thresholdWindowSize;
 
@@ -86,8 +86,7 @@ public class SpectrumAnalyzer
                 average += spectrum[j];
             }
 
-            average /= (highBoundary - lowBoundary + 1);
-            averages[i] = average;
+            averages[i] = average / incrementAmount;
 
             lowBoundary += incrementAmount;
             highBoundary += incrementAmount;

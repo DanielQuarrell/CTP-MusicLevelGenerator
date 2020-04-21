@@ -9,7 +9,7 @@ using System.IO;
 
 public class LevelObject
 {
-    public GameObject prefab;
+    public GameObject gameObject;
     public LevelFeature feature;
     public int songPositionIndex;
 }
@@ -219,7 +219,7 @@ public class LevelGenerator : MonoBehaviour
                 if (levelObject == null)
                 {
                     levelObject = new LevelObject();
-                    levelObject.prefab = Instantiate(levelObjectPrefab, new Vector2(i * spacingBetweenSamples + feature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
+                    levelObject.gameObject = Instantiate(levelObjectPrefab, new Vector2(i * spacingBetweenSamples + feature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
                     levelObject.feature = feature;
                     levelObject.songPositionIndex = i;
 
@@ -272,7 +272,7 @@ public class LevelGenerator : MonoBehaviour
                         {
                             if (objectToCheck.feature != currentFeature)
                             {
-                                DestroyImmediate(objectToCheck.prefab);
+                                DestroyImmediate(objectToCheck.gameObject);
                                 objectsToRemove.Add(objectToCheck);
                             }
                         }
@@ -299,9 +299,9 @@ public class LevelGenerator : MonoBehaviour
             {
                 if(levelObject != null)
                 {
-                    if (levelObject.prefab != null)
+                    if (levelObject.gameObject != null)
                     {
-                        GameObject.DestroyImmediate(levelObject.prefab);
+                        GameObject.DestroyImmediate(levelObject.gameObject);
                     }
                 }
             }
@@ -360,7 +360,7 @@ public class LevelGenerator : MonoBehaviour
 
                 if(levelObject != null)
                 {
-                    levelObject.prefab = Instantiate(levelObjectPrefab, new Vector2(levelData.levelObjectData[i].songPositionIndex * levelData.spacingBetweenSamples + levelData.levelObjectData[i].feature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
+                    levelObject.gameObject = Instantiate(levelObjectPrefab, new Vector2(levelData.levelObjectData[i].songPositionIndex * levelData.spacingBetweenSamples + levelData.levelObjectData[i].feature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
                     levelObject.feature = levelData.levelObjectData[i].feature;
                     levelObject.songPositionIndex = levelData.levelObjectData[i].songPositionIndex;
                     levelObjects.Add(levelObject);
@@ -524,8 +524,7 @@ public class LevelGenerator : MonoBehaviour
 
     private void CalculatePlayerOffset(int timeIndex)
     {
-        float distancePerSecond = levelLength / songTime;
-        playerOffsetDistance = playerOffset * distancePerSecond;
+        playerOffsetDistance = playerOffset * physicsModel.velocity;
 
         Vector2 playerPos = player.transform.position;
         playerPos.y = -2.5f;
@@ -759,7 +758,7 @@ public class LevelGenerator : MonoBehaviour
         LevelObject levelObject = LevelObjectAtPosition(timeIndex);
         if (levelObject != null)
         {
-            levelObject.prefab.GetComponentInChildren<SpriteRenderer>().color = Color.green;
+            levelObject.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.green;
         }
     }
 
@@ -768,7 +767,7 @@ public class LevelGenerator : MonoBehaviour
         LevelObject levelObject = LevelObjectAtPosition(timeIndex);
         if (levelObject != null)
         {
-            levelObject.prefab.GetComponentInChildren<SpriteRenderer>().color = Color.cyan;
+            levelObject.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.cyan;
         }
     }
 
@@ -792,7 +791,7 @@ public class LevelGenerator : MonoBehaviour
         if (levelObject == null)
         {
             levelObject = new LevelObject();
-            levelObject.prefab = Instantiate(spikePrefab, new Vector2(startIndex * spacingBetweenSamples + levelFeature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
+            levelObject.gameObject = Instantiate(spikePrefab, new Vector2(startIndex * spacingBetweenSamples + levelFeature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
             levelObject.feature = levelFeature;
             levelObject.songPositionIndex = startIndex;
 
@@ -810,7 +809,7 @@ public class LevelGenerator : MonoBehaviour
         if (levelObject == null)
         {
             levelObject = new LevelObject();
-            levelObject.prefab = Instantiate(slideBlockPrefab, new Vector2(startIndex * spacingBetweenSamples + levelFeature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
+            levelObject.gameObject = Instantiate(slideBlockPrefab, new Vector2(startIndex * spacingBetweenSamples + levelFeature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
             levelObject.feature = levelFeature;
             levelObject.songPositionIndex = startIndex;
 
@@ -825,7 +824,7 @@ public class LevelGenerator : MonoBehaviour
         if (levelObject != null)
         {
             levelObjects.Remove(levelObject);
-            Destroy(levelObject.prefab);
+            Destroy(levelObject.gameObject);
         }
     }
 

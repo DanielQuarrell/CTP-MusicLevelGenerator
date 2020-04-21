@@ -69,7 +69,7 @@ public class LevelGameplay : MonoBehaviour
     private void Start()
     {
         LoadLevel();
-        ResetLevel();
+        Invoke("ResetLevel", 0.1f);
     }
 
     // Level/Song loading ----------------------------
@@ -112,7 +112,7 @@ public class LevelGameplay : MonoBehaviour
 
                 if (levelObject != null)
                 {
-                    levelObject.prefab = Instantiate(levelObjectPrefab, new Vector2(levelData.levelObjectData[i].songPositionIndex * levelData.spacingBetweenSamples + levelData.levelObjectData[i].feature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
+                    levelObject.gameObject = Instantiate(levelObjectPrefab, new Vector2(levelData.levelObjectData[i].songPositionIndex * levelData.spacingBetweenSamples + levelData.levelObjectData[i].feature.offset, levelTransform.position.y), Quaternion.identity, levelTransform);
                     levelObject.feature = levelData.levelObjectData[i].feature;
                     levelObject.songPositionIndex = levelData.levelObjectData[i].songPositionIndex;
                     levelObjects.Add(levelObject);
