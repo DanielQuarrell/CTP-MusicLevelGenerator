@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         jumpButtonPressed = Input.GetKey(KeyCode.Space);
-        duckButtonPressed = Input.GetKey(KeyCode.S);
+        duckButtonPressed = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
 
         UpdateTimers();
     }
