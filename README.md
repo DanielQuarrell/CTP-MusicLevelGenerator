@@ -3,7 +3,7 @@
 # About
 This project is a procedural level creation assistant tool that uses audio to generate levels for a 2D platformer. The aim of the project was to analyse music using audio processing techniques such as onset detection and use the output to influence procedural level generation.
 
-![](Images/Gameplay.png)
+<img src="Images/Gameplay1.png">
  
 # Contents
 0. [Initial Set-up](#0)
@@ -13,7 +13,11 @@ This project is a procedural level creation assistant tool that uses audio to ge
 # 0.  Initial Set-up <a name="0"></a>
 Open the project in Unity from the MusicLevelGenerator folder.
 Ensure all audio files are stored in this directory:
+
 Assets/Resources/Audio
+
+<img src="Images/Gameplay1.png">
+
 # 1.  Onset Visualiser Scene<a name="1"></a>
 Before running the scene a song has to be set up for analysis.
 The main interface is through the SongController gameobject/script – in the inspector window.
