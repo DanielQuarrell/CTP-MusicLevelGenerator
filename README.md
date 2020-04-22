@@ -92,9 +92,9 @@ Drag and drop a Level JSON file from: Assets/Resources/LevelDataFiles/SongName_L
 Run the scene.
 
 ### 3.2 Gameplay
-Press Space key to Jump
-Press the ‘S’ or ‘Down Arrow’ key to slide for a limited time
-Avoid obstacles for the duration of the song to win
+* Press Space key to Jump
+* Press the ‘S’ or ‘Down Arrow’ key to slide for a limited time
+* Avoid obstacles for the duration of the song to win
  
 <img src="Images/Frequency bars.png">
 
